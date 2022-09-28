@@ -10,4 +10,5 @@
 ## semaine 39
 - [x] réunion avec Mr Martel le 28/9 
 - [x] creation du répertoire git et du journal d'avancement
+- [x] apprentissage de Reactjs
 
