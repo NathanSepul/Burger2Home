@@ -12,3 +12,7 @@
 - [x] creation du répertoire git et du journal d'avancement
 - [x] apprentissage de Reactjs
 
+## semaine 40
+- [x] premier maquette pour l'interface du client
+- [x] continuité de l'apprentissage Reactjs
+
