@@ -13,6 +13,11 @@
 - [x] apprentissage de Reactjs
 
 ## semaine 40
-- [x] premier maquette pour l'interface du client
+- [x] premiere essaie de la page d'accueil en react
 - [x] continuité de l'apprentissage Reactjs
 
+## semaine 41
+- [x] suite de la premiere version
+
+## semaine 42
+- [x] reunion avec mr Martel le 23/10
