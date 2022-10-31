@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@700&display=swap');
+
+.Banniere{
+    position:relative;
+    max-width: 1600px;
+    width: 100vw;
+    height: 21.5vw;
+    min-height: 110px;
+    max-height: 300px;
+    border-bottom: solid 1px red;
+    /* pour faire passer la baniere deriere la navigation */
+    z-index: 0; 
+}
+
+
+
+.first_slide, .seconde_slide, .third_slide{
+    max-width: 1600px;
+    width: 100vw;
+    height: 21.5vw;
+    min-height: 110px;
+    max-height: 300px;
+}
+
+#legende{
+    background-color: transparent;
+}
+
+.carousel.carousel-slider .control-arrow:hover {
+    background:transparent;
+}
+
+.carousel .control-dots{
+    max-width: 1600px;
+    transform:translateX(43%);
+}
+
+/*------------------------------------------------
+                1er Slide
+------------------------------------------------*/
+
+.first_slide{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    background-image: url("../../picture/ban1.jpg");
+    background-size: cover;
+}
+
+.first_slide div {
+    text-align: left;
+    max-width: 200px;
+    width: 20vw;
+    transform: translateX(30px);
+}
+
+.first_slide div p{
+    width: 145px;
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    margin: auto;
+}
+
+.first_slide .banToConcept .buttonConcept{    
+    max-width: 200px;
+    width: 20vw;
+    max-height: 50px;
+    height: 5vw;
+
+    background-color: #D68910;
+    border-radius: 40px;
+
+    transform: translateY(-1.5vh);
+}
+
+.first_slide .banToConcept a{
+    text-decoration: none;
+    font-size: 1.9em;
+    color: black;
+    display: block;
+}
+
+/*------------------------------------------------
+                2ieme Slide
+------------------------------------------------*/
+.second_slide{
+    height: 21.5vw;
+    min-height: 110px;
+    max-height: 300px;
+    background-size: cover;
+    background-image: url("../../picture/ban2.png");
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+
+}
+
+#slide2_line1{
+    display: flex;
+}
+
+#slide2_line1 p{
+    margin: auto;
+    font-size: 1.5vw;
+    color: #DEDEDE;
+}
+
+#slide2_line2{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+   
+}
+
+.line1{
+    height: 40%;
+    border-top: solid 2px #DEDEDE;
+}
+
+.line2{
+    height: 40%;
+    display: grid;
+    grid-template-columns: 1fr 30px 1fr
+}
+
+.lineRight{
+    border-top: dotted 2px #DEDEDE;
+    transform: translateY(45%);
+}
+
+.lineCenter{
+    color:#DEDEDE;
+    text-align: center;
+}
+
+.lineleft{
+    border-top: dotted 2px #DEDEDE;
+    transform: translateY(45%);
+}
+
+#slide2_line3{
+    display: flex;
+}
+
+#slide2_line3 p{
+    font-size: 4vw;
+    margin: auto;
+    color: #DEDEDE;
+}
+
+#slide2_line4{
+    display: flex;
+    flex-direction: column;
+}
+
+.line3{
+    height: 40%;
+    display: grid;
+    grid-template-columns: 1fr 30px 1fr
+}
+
+.line4{
+    height: 40%;
+    border-bottom: solid 2px #DEDEDE;
+}
+
+#slide2_line5{
+    display: flex;
+}
+
+#slide2_line5 p{
+    margin: auto;
+    font-size: 1.9vw;
+    color: #DEDEDE;
+}
+
+
+/*------------------------------------------------
+                3ieme Slide
+------------------------------------------------*/
+
+.third_slide{
+    all:initial;
+    max-width: 1600px;
+    width: 100vw;
+    height: 21.5vw;
+    min-height: 110px;
+    max-height: 300px;
+    
+    background: rgba(214, 137, 16);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.slide3Left{
+    all:initial;
+    max-width: 1041px;
+    width: 65vw;
+    grid-column: 1 / 2;
+}
+.slide3Left #left1 {
+    all:initial;
+    grid-template-columns: repeat(2, 0fr);
+    display: flex;
+    align-items: center;
+   
+}
+
+.slide3Left #left1 #logoCarousel{
+    all:initial;
+    width: 8vw;
+    max-height: 128px;
+    max-width: 128px;
+}
+
+.slide3Left #left1 #txtCarousel1{
+    all:initial;
+    max-height: 10vw;
+    font-size: min(1.5vw, 18px);
+    font-family: 'Tomorrow', sans-serif;
+}
+
+.slide3Left #left2 div{
+   background-color: #fff;
+   border-radius: 10px;
+   margin-left: 17vw;
+   width: 30vw;
+   max-width: 440px;
+   padding-top: 8px;
+   padding-bottom: 8px;
+   transform: translateY(-10px);
+}
+.slide3Left #left2 div p{
+    font-family: 'Tomorrow', sans-serif;
+    font-size: min(3vw, 36px);
+    text-align: center;
+ }
+
+ .slide3Left #left3{
+    height: 5.5vw;
+    max-height: 88px;
+    display: flex;
+    align-items:center;
+    align-content:space-around;
+
+    transform: translateY(-9px);
+ }
+
+ .slide3Left #left3 #arrow{
+    all:initial;
+    max-width : auto;
+    height : 10vw;
+    max-height: 160px;
+    padding-top: 1vw;
+    padding-right: 1vw;
+    transform:translate(20vw);
+ }
+
+ .slide3Left #left3 div{
+    height: 5.5vw;
+    max-height: 88px;
+    display: flex;
+    margin-top: 3vw;
+    margin-left: 20vw;
+    border-radius: 5px;
+    background-color: black;
+    text-align: center;
+    /* transform:translateX(20vw);  */
+ }
+
+ .slide3Left #left3 div a{
+    margin: auto;
+    text-decoration: none;
+    font-size: min(2vw, 24px);
+    color: #fff;
+ }
+
+.slide3Right{
+    grid-column: 2;
+}
+
+.slide3Right #img3{
+    max-height: 300px;
+    height: 21.5vw;
+}
+
+/* ecran supd à 767px*/
+@media screen and (min-width: 1600px){
+    .slide3Left #left2 div{
+        margin-left: 272px;
+     }
+
+    .slide3Left #left3 #arrow{
+        padding-top: 16px;
+        padding-right: 16px;
+        transform:translate(320px);
+    }
+
+    .slide3Left #left3 div{
+        margin-top: 48px;
+        margin-left: 320px;
+    }
+
+    #slide2_line3 p{
+        font-size: 4rem;
+    }
+
+    #slide2_line1 p, #slide2_line5 p{
+        font-size: 1.55rem;
+    }
+
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+    .first_slide .banToConcept a{
+        font-size: 0.9rem;
+    }
+
+    .first_slide div p{
+        font-size: medium;
+        width: 120;
+    }
+
+    .lineCenter{
+        font-size: 1.3vw;
+    }
+
+   
+}
+
+

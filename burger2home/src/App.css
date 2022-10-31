@@ -1,0 +1,21 @@
+*{
+    max-width: 1600px;
+    margin: 0px;                /*marge exterieur   */
+    padding: 0px;               /*marge interieur */  
+    box-sizing: border-box;  
+    font-family: 'https://fonts.googleapis.com/css?family=Roboto',sans-serif;
+}
+
+body{
+    max-width: 1600px;
+    background: linear-gradient(0deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.2)), url("./picture/backgroundHeader.jpg");
+
+}
+
+/* ecran supd à 767px*/
+@media screen and (min-width: 1600px){
+    #app{
+         transform: translateX(calc((100vw - 1600px)/2));
+    }
+
+ }

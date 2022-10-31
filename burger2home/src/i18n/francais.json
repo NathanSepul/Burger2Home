@@ -1,0 +1,64 @@
+{
+    "navigation": {
+        "compte":"Mon Compte",
+        "accueil":"Accueil",
+        "concept":"Notre Concept",
+        "carte":"La Carte",
+        "marketing" :"Marketing",
+        "stock":"Stocks",
+        "droit":"Droits",
+        "burger":"Burgers"
+    },
+
+    "footer":{
+        "p":"Notre entreprise a pour valeur de proposer des burgers maison avec des produits locaux  à des prix juste"
+    },
+
+    "accueil": {
+        
+        "carousel":{
+            "txtSlide1":"Rien que du BON !",
+            "buttonSlide1":"En savoir plus",
+            "txtPromo1":"20% SUR TOUS NOS BURGERS DE POULET",
+            "headerSlide3":"Ouvert pour vous servir !",
+            "heure":"Heures de livraison : 10h-14h et 17h-23h"
+        },
+        "area1": {
+            "titre": "Notre Concept",
+            "p1":"Burger2Home c’est un savoureux mélange d’authenticité et de générosité, préparé avec de délicieux ingrédients belges.",
+            "p2":"Notre fierté ? Vous proposer des produits locaux à un prix juste !",
+            "button":"En savoir plus"
+        },
+
+        "area2": {
+            "titre":"Les Stars du moment",
+            "txt1":"Le Formidable",
+            "txt2":"L'I.T",
+            "txt3":"Le Fondant"
+        },
+
+        "area3": {
+            "titre":"En Pratique",
+            "txt1":"Préparé minute",
+            "txt2":"Frais du jour",
+            "txt3":"Fais à la main"
+        }
+    },
+
+    "concept":{
+        "titre":"Notre Concept",
+        "gauche":{
+            "p1":"Burger2Home c’est un savoureux mélange d’authenticité et de générosité, préparé avec de délicieux ingrédients belges.",
+            "p2":"Chaque matin nos pommes de terres hesbignonnes sont épluchées et coupées dans nos ateliers. Vient ensuite notre steak hâché dont les morceaux sont sélectionnés par notre boucher.",
+            "p3":"La star du jour sera accompagnée de ses sauces maisons, dont on taira le secret, et de sa suite de légumes frais, taillés et préparés quotidiennement pour mettre en valeur son goût naturel."
+        },
+        "droit":{
+            "p1":"Burger2Home c’est aussi l’envie de promouvoir l’artisanat local et national chez vous. C’est pour cela que tout nos produit provienne de petit producteur.",
+            "p2":"Pour nos légumes : Les jardins de la Vecquée,",
+            "p3":"Nos buns : l’Epis d’or,",
+            "p4":"Notre haché : Boucherie Baugnet."
+        }
+    }
+
+   
+}

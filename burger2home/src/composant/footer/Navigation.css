@@ -1,0 +1,32 @@
+.NavigationFooter{   
+    height: 120px;
+    display: grid;
+} 
+
+.linksFooter{
+    display: grid;
+    grid-row-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+
+    align-self: center;
+    text-align: center;
+    list-style-type: none;
+}
+
+.linksFooter a{ 
+    text-decoration: none;
+    color: black;   
+    font-size: 0.9em; 
+}
+
+#navFooter4,#navFooter5,#navFooter6,#navFooter7{
+    display: none;
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+
+    .linksFooter a{ 
+        font-size: 0.7em; 
+    }
+}

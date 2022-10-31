@@ -1,0 +1,61 @@
+footer {
+    width: 100vw;
+    height: 120px;
+
+    display: grid;
+    grid-template-columns: repeat(3);
+    grid-gap: 5px;
+    grid-auto-rows: minmax(100px,auto);
+    grid-template-areas: "a b c";
+
+    box-sizing: content-box;
+    border-top: 1px solid black;
+   
+    background-color: transparent;
+    /* background: linear-gradient(0deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.2)), url("../../picture/backgroundHeader.jpg"); */
+}
+
+
+#txtFooter{
+    width: 200px;
+
+    grid-area: a;
+  
+    margin-top: auto;
+    margin-bottom: auto; 
+}
+
+#txtFooter p{
+    padding: 10px;
+    text-align: justify;
+    font-size: 1em; 
+}
+
+#Footer{
+    width : min(calc(100vw - 125px - 210px),calc(1600px - 125px - 210px));
+    height: 120px;
+
+    grid-area: b;   
+}
+
+#gridLogoFooter{
+    width: 120px ;
+    height: 120px;
+    grid-area: c; 
+}
+
+#logofooter{
+    width: 120px ;
+    height: 120px;
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+    #txtFooter p{
+        font-size: 0.7em; 
+    }
+
+    #txtFooter{
+        width: 130px; 
+    }
+}

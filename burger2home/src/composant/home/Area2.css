@@ -1,0 +1,46 @@
+.Area{
+    max-height: 470px;
+    height:  calc(20vw + 150px);
+    text-align: center;
+}
+
+.Area h2{
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.Area article {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
+.Area div{
+    width : 20vw;
+    height : 20vw;
+
+    max-height: 320px;
+    max-width: 320px;
+}
+
+.Area img{
+    object-fit: cover;
+    width: 20vw;
+    height: 20vw;
+
+    max-height: 320px;
+    max-width: 320px;
+
+    margin-bottom: 20px;
+}
+
+#lesStars{
+    background-color: #DEDEDE;
+}
+
+#enPratique{
+    background-color: #DEDEDE;
+}
+
+

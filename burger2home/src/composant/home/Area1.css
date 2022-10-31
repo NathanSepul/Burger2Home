@@ -1,0 +1,45 @@
+.conceptAccueil{
+    height: 300px;
+    background-color: white;
+    padding: auto;
+    border-bottom: solid 1px black;
+    border-top: solid 1px black;
+
+}
+
+.conceptAccueil h2{
+    height: 68px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.conceptAccueil article{
+    height: calc(300px - 68px);
+    padding-top: 30px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-between;
+}
+
+.conceptAccueil article p{
+    margin: auto;
+    font-size: 1em;
+    text-align: center;
+}
+
+.toConcept{    
+    width: 200px;
+    height: 50px;
+    background-color: #D68910;
+    border-radius: 40px;
+}
+
+.toConcept a{
+    text-decoration: none;
+    font-size: 1.5em;
+    color: black;
+    display: block;
+}

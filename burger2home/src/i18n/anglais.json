@@ -1,0 +1,65 @@
+
+{
+    "navigation": {
+        "compte":"My Account",
+        "accueil":"Home",
+        "concept":"Our Concept",
+        "carte":"Menu",
+        "marketing" :"Marketing",
+        "stock":"Stocks",
+        "droit":"Right",
+        "burger":"Burgers"
+    },
+
+    "footer":{
+        "p":"Our company's value is to offer home-made burgers with local products at fair prices"
+    },
+
+    "accueil": {
+        "carousel":{
+            "txtSlide1":"Nothing but GOOD !",
+            "buttonSlide1":"Read more",
+            "txtPromo1": "20% ON ALL OUR CHICKEN BURGERS",
+            "headerSlide3":"Open to serve you !",
+            "heure":"Delivery hours: 10am-2pm and 5pm-11pm"
+        },
+
+        "area1": {
+            "titre": "Our Concept",
+            "p1":"Burger2Home is a tasty mix of authenticity and generosity, prepared with delicious Belgian ingredients.",
+            "p2":"Our pride? To offer you local products at a fair price!",
+            "button":"Read more"
+        },
+
+        "area2": {
+            "titre":"The stars of the moment",
+            "txt1":"The Formidable",
+            "txt2":"L'I.T",
+            "txt3":"The Fondant"
+        },
+
+        "area3": {
+            "titre":"In Pratice",
+            "txt1":"Prepared in minutes",
+            "txt2":"fresh daily",
+            "txt3":"Handmade"
+        }
+    },
+
+
+    "concept":{
+        "titre":"Our Concept",
+        "gauche":{
+            "p1":"Burger2Home is a tasty mix of authenticity and generosity, prepared with delicious Belgian ingredients.",
+            "p2":"Every morning our Hesbignonne potatoes are peeled and cut in our workshop. Then comes our minced steak, the pieces of which are selected by our butcher.",
+            "p3":"The star of the day will be accompanied by homemade sauces, the secret of which we won't reveal, and a suite of fresh vegetables, cut and prepared daily to enhance its natural taste."
+        },
+        "droit":{
+            "p1":"Burger2Home is also the desire to promote local and national craftsmanship in your home. That's why all our products come from small producers.",
+            "p2":"For our vegetables: 'Les jardins de la Vecquée',",
+            "p3":"For our buns : l’Epis d’or,",
+            "p4":"Our minced meat: Boucherie Baugnet."
+        }
+    }
+   
+}

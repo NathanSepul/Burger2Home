@@ -1,0 +1,131 @@
+*{
+    margin: 0px;                /*marge exterieur   */
+    padding: 0px;               /*marge interieur */  
+    box-sizing: border-box;  
+    font-family: 'https://fonts.googleapis.com/css?family=Roboto',sans-serif;
+}
+
+h3 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-decoration: underline;
+    text-align: center;
+    font-size: 1.7em;
+}
+
+
+#gauche p{
+    margin: auto;
+    text-align: justify;
+}
+
+
+main{
+    background-color: #DEDEDE;
+}
+
+#droit p{
+    margin: auto;
+    text-align: justify;
+}
+
+@media screen and (min-width: 767px){
+    #conceptSection {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding-bottom: 100px;
+    }
+
+    #gauche{
+        width: 50vw;
+        max-width: 800px;
+        padding: 10px;
+        text-align: center;
+        border-right: solid 1px black;
+    }
+    
+    #droit{
+        width: 50vw;
+        max-width: 800px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    #gauche img{
+        padding-top: 10px;
+        object-fit: cover;
+        width: 30vw;
+        height: 30vw;
+
+        max-width: 480px;
+        max-height: 480px;
+    }
+    
+    #droit img{
+        object-fit: cover;
+        width: 30vw;
+        height: 30vw;
+
+        max-width: 480px;
+        max-height: 480px;
+        
+    }
+
+    #droit p{
+        width: 40vw;
+        max-width: 640px;
+    }
+
+    #gauche p{
+        max-width: 640px;
+    }
+
+}
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+
+
+    #gauche{
+        display: grid;
+        margin: auto;
+    }
+    #gauche::after{
+        content: "";
+        margin: auto;
+        padding-bottom: 40px;
+        width: 30vw;
+        border-top: solid 1px black;
+    }
+
+    #droit{
+        display: flex;
+       flex-direction: column-reverse;
+    }
+
+    #gauche img{
+        /* padding: 10px; */
+        object-fit: cover;
+        width: 60vw;
+        height: 60vw;
+        margin: auto;
+    }
+    
+    #droit img{
+        object-fit: cover;
+        width: 60vw;
+        height: 60vw;
+        margin: auto;
+        margin-bottom: 40px;
+        
+    }
+
+    #droit p{
+        width: 80vw;
+    }
+
+    #gauche p{
+        width: 80vw;
+        
+    }
+
+}

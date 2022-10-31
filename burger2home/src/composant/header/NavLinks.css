@@ -1,0 +1,75 @@
+.linksHeader{
+    list-style-type: none;
+}
+
+#navHeader4,#navHeader5,#navHeader6,#navHeader7{
+    display: none;
+}
+
+
+/* ecran supd à 767px*/
+@media screen and (min-width: 768px){
+
+    .linksHeader{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .linkHeader a:hover{
+        color: black;
+        text-decoration: underline;
+    }
+}
+
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+
+
+    .linksHeader{
+        top:100px;
+        right: 0px;
+        width: 100vw;
+        height: 200px;
+        list-style-type: none;
+        margin: auto;  
+        padding-top: 10px;
+        position:absolute;
+        background: linear-gradient(0deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.2)), url("../../picture/backgroundHeader.jpg");
+    }
+       
+    .linkHeader a{
+        display: block;
+        padding-top: 20px;
+        padding-bottom: 8px;
+    }
+
+    .linkHeader{
+        width: 100%;
+        display: block;
+        text-align: center;
+        font-size: medium;
+        
+    }
+
+    .linkHeader:hover{
+        color: black;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;   
+        /* si on veut arreter que ca bouge on retire ca  */
+        padding-bottom: 10px;    
+        padding-top: 10px; 
+    }
+
+    .linkHeader::after{
+        width: 5vw;;
+        height: 2px;
+        content: "";
+        display: block;
+        margin: 0 auto;
+
+        background-color: black;
+
+    }
+}

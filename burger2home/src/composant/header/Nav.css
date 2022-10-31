@@ -1,0 +1,123 @@
+.Nav{
+    height: 100px;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.Nav a{
+    text-decoration: none;
+    color: black;   
+    font-size: 1.2em; 
+}
+
+
+
+#selectLangue{
+    grid-column-start: 11;
+    grid-column-end: 11; 
+
+    padding-left: auto; 
+
+    text-align: right; 
+    align-self:center;
+}
+
+#selectLangue select{ 
+    width: 30px;
+    text-align: right;
+}
+
+.langue-select{
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size:large;
+    font-weight: inherit;
+}
+.langue-select:hover{
+    cursor: pointer;
+}
+
+
+/* ecran sup à 767px*/
+@media screen and (min-width: 768px){
+
+    .Nav{
+        grid-gap: 5px;   
+    }
+  
+    #navLinksTall {
+        align-self: center;
+        grid-column-start: 1;
+        grid-column-end: 10;
+
+    }
+
+    #navCompte {
+        grid-column-start: 12;
+        grid-column-end: 12;
+
+        display: grid;
+        grid-template-columns: repeat(3);
+
+        align-self: center;
+    }
+
+    .navCompteSmall {
+        display: none;
+    }
+
+    .verticalLine{
+        height: 80%;
+        border-right: 2px solid black;
+        grid-column: 2;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .monCompte{
+        width: 113px;
+        grid-column: 3;
+        text-align: right;
+        margin-right: 10px;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    .monPanier{
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 10px;
+        grid-column: 4;
+    }
+        
+
+} 
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+
+    #navLinksTall{
+        display: flex;
+    }
+
+    #navCompte {
+        display: none;
+    }
+
+    .navCompteSmall{
+        grid-column-start: 12;
+
+        display: inline;
+
+        align-self: center;
+        color: black;
+    }
+
+    #menuBurger{
+        color: black;
+    }
+    
+}
