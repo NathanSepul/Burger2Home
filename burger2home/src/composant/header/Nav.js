@@ -11,21 +11,15 @@ import { useTranslation } from 'react-i18next';
 import "./Nav.css"
 
 import SmallNav from "./SmallNav.js";
-const Nav = () => {
+const Nav = ({toggleDrawer,isOpen,setIsOpen}) => {
 
     const {t} = useTranslation();
 
-    const [toggleMenu,setToggleMenu] = useState("false");
     const [largeur, setLargeur] = useState(window.innerWidth);
 
     useEffect(()=>{
         const changeWidth = () => {
             setLargeur(window.innerWidth)
-            
-            // astuce pour qaund on grandit la fenetre on replace a false l'affichage
-            if(window.innerWidth > 767){
-                setToggleMenu(false);
-            }
         }
 
         window.addEventListener('resize',changeWidth)
@@ -65,7 +59,7 @@ const Nav = () => {
             </div>
 
             <div className="navCompteSmall">
-                <SmallNav />
+                <SmallNav toggleDrawer={toggleDrawer} isOpen={isOpen} setIsOpen={setIsOpen}/>
             </div>
         </nav>
     );

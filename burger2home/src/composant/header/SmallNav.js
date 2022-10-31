@@ -16,30 +16,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import "./SmallNav.css";
 
-const SmallNav = () => {
+const SmallNav = ({toggleDrawer,isOpen,setIsOpen}) => {
   const { t } = useTranslation();
 
-  const [isOpen, setIsOpen] = useState(false);
   const [largeur, setLargeur] = useState(window.innerWidth);
-
-  const toggleDrawer = (leave) => (event) => {
-    if (event.type === "keydown"
-      && (event.key === "Tab" || event.key     ==="Shift")
-    ) {
-      return;
-    }
-
-    if(leave === true)
-    {
-      setIsOpen(false);
-    }
-    else{
-      setIsOpen(!isOpen);
-    }
-
-   
-  };
-
 
   useEffect(() => {
     const changeWidth = () => {

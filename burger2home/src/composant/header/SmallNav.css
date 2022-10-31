@@ -1,12 +1,7 @@
 .css-1u2w381-MuiModal-root-MuiDrawer-root {
-    z-index: 9;
     transform: translateY(100px);
 }
 
-
-.ttt{
-    z-index: 9;
-}
 
 .navSmallHeader4,.navSmallHeader5,.navSmallHeader6,.navSmallHeader7{
     display: none;
