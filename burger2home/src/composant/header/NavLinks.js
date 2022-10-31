@@ -8,7 +8,7 @@ const NavLinks = ({closeMenu}) => {
     const {t} = useTranslation();
 
     return(
-        <ul className={"linksHeader"}>
+        <ul className="linksHeader">
             <li className="linkHeader" id="navHeader1"> <Link to="/" onClick={closeMenu} > {t('navigation.accueil')} </Link> </li>
             <li className="linkHeader" id="navHeader2"> <Link to="/carte" onClick={closeMenu} > {t('navigation.carte')} </Link> </li>
             <li className="linkHeader" id="navHeader3"> <Link to="/concept" onClick={closeMenu} > {t('navigation.concept')} </Link> </li>

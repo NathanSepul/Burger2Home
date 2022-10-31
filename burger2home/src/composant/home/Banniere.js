@@ -15,8 +15,9 @@ const Banniere = () => {
 
   return (
     <Carousel className='Banniere' 
-              // autoPlay 
-              interval={3000} 
+              autoPlay 
+              interval={4000}
+              transitionTime={600} 
               infiniteLoop
               showStatus={false}
               showThumbs={false}>
@@ -37,19 +38,19 @@ const Banniere = () => {
                   <div id='slide2_line1'><p>Burger2Home</p></div>
                   
                   <div id='slide2_line2'>
-                    <div class='line1'></div>
-                    <div class='line2'>
-                      <div class="lineRight"></div> <span className='lineCenter'><p>♦︎</p></span> <div class="lineLeft"></div>
+                    <div className='line1'></div>
+                    <div className='line2'>
+                      <div className="lineRight"></div> <span className='lineCenter'><p>♦︎</p></span> <div className="lineLeft"></div>
                     </div> 
                   </div>
                   
                   <div id='slide2_line3'><p>{t('accueil.carousel.headerSlide3')}</p></div>
                   
                   <div id='slide2_line4'>
-                    <div class='line3'>
-                      <div class="lineRight"></div> <span className='lineCenter'><p>♦︎</p></span> <div class="lineLeft"></div>
+                    <div className='line3'>
+                      <div className="lineRight"></div> <span className='lineCenter'><p>♦︎</p></span> <div className="lineLeft"></div>
                     </div> 
-                    <div class='line4'></div>
+                    <div className='line4'></div>
                   </div>
                  
                   <div id='slide2_line5'><p>{t('accueil.carousel.heure')}</p></div>

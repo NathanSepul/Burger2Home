@@ -1,32 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import NavLinks from './NavLinks.js';
+import {Link } from "react-router-dom";
+
 import SelectLanguage from '../../i18n/SelectLanguage.js';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import CloseIcon from '@mui/icons-material/Close';
+import { Badge } from "@mui/material";
 
 import { useTranslation } from 'react-i18next';
 import "./Nav.css"
 
+import SmallNav from "./SmallNav.js";
 const Nav = () => {
+
     const {t} = useTranslation();
 
-    const [isOpenMenu,setIsOpenMenu] = useState("false");
     const [toggleMenu,setToggleMenu] = useState("false");
     const [largeur, setLargeur] = useState(window.innerWidth);
-
-    const handleToggleMenu = () => {
-        setToggleMenu(!toggleMenu);
-        setIsOpenMenu(!isOpenMenu);
-    }
-
-    const closeMenu = () => {
-        setToggleMenu(false);
-        setIsOpenMenu(false);
-    }
 
     useEffect(()=>{
         const changeWidth = () => {
@@ -35,7 +25,6 @@ const Nav = () => {
             // astuce pour qaund on grandit la fenetre on replace a false l'affichage
             if(window.innerWidth > 767){
                 setToggleMenu(false);
-                setIsOpenMenu(false); 
             }
         }
 
@@ -51,9 +40,9 @@ const Nav = () => {
 
             {/* short circuit opérateur // avec opérateur ternaire */}
             
-            {(toggleMenu || largeur > 767) && (
+            {( largeur > 767) && (
                 <div id="navLinksTall">
-				    <NavLinks closeMenu={closeMenu}/>
+				    <NavLinks />
 			    </div>
             )}
 
@@ -65,42 +54,20 @@ const Nav = () => {
                 
                 <span className="verticalLine"></span>
 
-                <a href="index.html" className="monCompte">{t('navigation.compte')}</a>
+                <Link to="/compte" className="monCompte"> {t('navigation.compte')} </Link>
 
                 <a href="index.html" className="monPanier"> 
-                    <ShoppingCartIcon fontSize="large" />
+                    <Badge badgeContent={4} color="primary">
+                            <ShoppingCartIcon fontSize="large" />
+                    </Badge>
                 </a>
              
             </div>
 
             <div className="navCompteSmall">
-                <IconButton aria-label="menu">
-                    <a href="index.html"> 
-                        <AccountCircleIcon fontSize="large"/> 
-                    </a>
-                </IconButton>
-
-                <IconButton aria-label="menu">
-                    <a href="index.html"> 
-                        <ShoppingCartIcon fontSize="large" />
-                    </a>
-                </IconButton>
-                
-                <IconButton  id="menuBurger" aria-label="menu" onClick={handleToggleMenu}>
-                   
-                    {(!isOpenMenu) && (
-                        <MenuIcon fontSize="large"/>
-                    )}
-
-                    {(isOpenMenu) && (
-                        <CloseIcon fontSize="large" />
-                    )}
-                </IconButton>
+                <SmallNav />
             </div>
-           
-
         </nav>
-        
     );
 };
 

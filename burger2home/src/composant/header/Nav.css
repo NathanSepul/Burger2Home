@@ -19,13 +19,13 @@
 
     padding-left: auto; 
 
-    text-align: right; 
+    text-align: center; 
     align-self:center;
 }
 
 #selectLangue select{ 
     width: 30px;
-    text-align: right;
+    text-align: center;
 }
 
 .langue-select{
@@ -89,7 +89,7 @@
     .monPanier{
         margin-top: auto;
         margin-bottom: auto;
-        margin-right: 10px;
+        margin-right: 20px;
         grid-column: 4;
     }
         

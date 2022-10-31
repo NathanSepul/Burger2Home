@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Layout from "./pages/Layout"
 import Carte from "./pages/Carte.js";
 import Concept from "./pages/Concept.js";
+import Compte from "./pages/Compte.js";
+
 import NoPage from './pages/NoPage.js';
 
 const App = () => {
@@ -15,6 +17,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="carte" element={<Carte />} />
           <Route path="concept" element={<Concept />} />
+          <Route path="compte" element={<Compte />} />
           <Route path="marketing" element={<NoPage />} />
           <Route path="stocks" element={<NoPage />} />
           <Route path="droit" element={<NoPage />} />
