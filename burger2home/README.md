@@ -3,7 +3,7 @@
 
 ## Available Scripts
 
-[X] `npm start`
+- [x] `npm start`
 
 
 ## Dépendance utilisée
