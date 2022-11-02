@@ -26,7 +26,7 @@ const Informations = () => {
             setIsLoading(true);
 
 
-            fetch("http://sepul.be/test.json")
+            fetch("https://github.com/NathanSepul/Sepul/blob/0a241b8ea5adb9b0aa0a9941aeee3ea763f2250d/compte.json")
                 .then(response => response.json())
 
                 .then(data => {
