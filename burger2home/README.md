@@ -8,3 +8,5 @@
 - [X] npm i @mui/icons-material 
 - [X] npm i @mui/material @emotion/react @emotion/styled
 - [X] npm i react-responsive-carousel (carousel)
+- [x] npm install dayjs --save
+- [x] npm i @mui/x-date-pickers

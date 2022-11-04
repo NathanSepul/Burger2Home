@@ -1,5 +1,9 @@
 
 {
+    "langue":{
+        "value":"en"
+    },
+
     "navigation": {
         "compte":"My Account",
         "accueil":"Home",
@@ -59,6 +63,18 @@
             "p2":"For our vegetables: 'Les jardins de la Vecquée',",
             "p3":"For our buns : l’Epis d’or,",
             "p4":"Our minced meat: Boucherie Baugnet."
+        }
+    },
+
+    "compte":{
+        "titre":"My Account",
+        "informations": "My Informations",
+        "commandes": "My Orders",
+        "details":{
+            "nom":"Last Name",
+            "prenom":"First Name",
+            "anniversaire":"Date of birth",
+            "enregistrer":"Save"
         }
     }
    

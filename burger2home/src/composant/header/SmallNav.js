@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect} from 'react';
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -19,11 +19,8 @@ import "./SmallNav.css";
 const SmallNav = ({toggleDrawer,isOpen,setIsOpen}) => {
   const { t } = useTranslation();
 
-  const [largeur, setLargeur] = useState(window.innerWidth);
-
   useEffect(() => {
     const changeWidth = () => {
-      setLargeur(window.innerWidth)
 
       if (window.innerWidth > 767) {
         setIsOpen(false);
@@ -35,13 +32,12 @@ const SmallNav = ({toggleDrawer,isOpen,setIsOpen}) => {
     return () => {
       window.removeEventListener('resize', changeWidth)
     }
-  }, [])
+  })
 
   const list = () => (
     <Box
-      id="ttt"
       sx={{ width: "auto" }}
-      role="small menu"
+      role="menu"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >

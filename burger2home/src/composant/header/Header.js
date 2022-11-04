@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Nav from "./Nav.js"
 import logo from  "../../picture/logoBurger.jpg";
 import {Link } from "react-router-dom";
@@ -10,7 +10,7 @@ const Header = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggleDrawer = (leave) => (event) => {
-        if (event.type === "keydown" && (event.key === "Tab" || event.key     ==="Shift")){
+        if (event.type === "keydown" && (event.key === "Tab" || event.key ==="Shift")){
           return;
         }
     

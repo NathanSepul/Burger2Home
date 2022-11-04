@@ -1,4 +1,8 @@
 {
+    "langue":{
+        "value":"fr"
+    },
+    
     "navigation": {
         "compte":"Mon Compte",
         "accueil":"Accueil",
@@ -58,6 +62,17 @@
             "p3":"Nos buns : l’Epis d’or,",
             "p4":"Notre haché : Boucherie Baugnet."
         }
+    },
+
+    "compte":{
+        "titre":"Mon compte",
+        "informations": "Mes Informations",
+        "commandes": "Mes Commandes",
+        "details":{
+            "nom":"Nom",
+            "prenom":"Prénom",
+            "anniversaire":"Date de naissance",
+            "enregistrer":"Enregistrer"}
     }
 
    
