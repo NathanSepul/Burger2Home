@@ -16,6 +16,7 @@ import validator from "validator";
 
 import "./Informations.css";
 
+import ModalPassword from './informationsCompte/ModalPassword.js';
 
 
 const Informations = () => {   
@@ -24,10 +25,8 @@ const Informations = () => {
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [user, setUser] = useState({  firstName: "",
-                                        lastName: "",
-                                        birthday: "",
-                                        email:""});
+    const [user, setUser] = useState({});
+
 
 
 
@@ -95,6 +94,7 @@ const Informations = () => {
 
 
     return <div id="Informations">
+
         {( message !== "") && (
             <Alert className="alert" severity="error" onClose={() => {setMessage("")}}>
             {message}
@@ -108,8 +108,8 @@ const Informations = () => {
                 '& > :not(style)': { margin: "8px", width: "auto", minWidth:"30ch" },
             }}
         >
-            <TextField id="champ1" label={t("compte.details.prenom")} variant="outlined" defaultValue={user.firstName} InputProps={{ readOnly: true, }} />
-            <TextField id="champ2" label={t("compte.details.nom")} variant="outlined" defaultValue={user.lastName} InputProps={{ readOnly: true, }} />
+            <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={user.lastName} InputProps={{ readOnly: true, }} />
+            <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={user.firstName} InputProps={{ readOnly: true, }} />
             
             <LocalizationProvider id="champ3" dateAdapter={AdapterDayjs} adapterLocale={i18n.language}>
                     <DatePicker
@@ -121,12 +121,19 @@ const Informations = () => {
                         onChange={updateBithDay}
                     />
             </LocalizationProvider> 
-            <div  id="tampon1"/>
+            
+            <br className='tampon'/>
+            
             <TextField id="champ4" required label="email" variant="outlined" value={user.email} onChange={(e)=>{setUser({...user,email:e.target.value})}}/>
-            <button variant="contained" id="champ5"  type = "submit">{t("compte.details.enregistrer")}</button>
+            <br className='tampon'/>
+            
+            <div id="champ6">
+                <ModalPassword name="modifier le mot de passe" user={user} setUser={setUser}/>
+            </div>
+
+            <button variant="contained" id="champ10"  type = "submit">{t("compte.details.enregistrer")}</button>
         </Box>
 
-        
     </div>
 
 }

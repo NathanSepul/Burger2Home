@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import "./Commandes.css";
-import Row from "./historique/Row.js";
+import Row from "./historiqueCommande/Row.js";
 
 const Commandes = () => {
     const [hasError, setHasError] = useState(false);

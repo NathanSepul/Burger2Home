@@ -10,3 +10,4 @@
 - [X] npm i react-responsive-carousel (carousel)
 - [x] npm install dayjs --save
 - [x] npm i @mui/x-date-pickers
+- [X] npm i react-password-checklist
