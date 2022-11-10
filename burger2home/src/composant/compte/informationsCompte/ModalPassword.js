@@ -5,86 +5,139 @@ import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 import InfoIcon from '@mui/icons-material/Info';
 import PasswordChecklist from "react-password-checklist";
+import Tooltip from '@mui/material/Tooltip';
+import Alert from '@mui/material/Alert';
+import { useTranslation } from 'react-i18next';
 
 import PasswordField from './PasswordField.js';
 import "./ModalPassword.css";
 
-const ModalPassword = ({name,user, setUser}) => {
+const ModalPassword = ({ name, user, setUser }) => {
+    const { t } = useTranslation();
 
     const [openModal, setOpenModal] = useState(false);
-   
+    const [message, setMessage] = useState("");
+
+
     const [oldPwd] = useState(user.password)
-    const [confirmOldPwd,setConfirmOldPwd] = useState("")
+    const [confirmOldPwd, setConfirmOldPwd] = useState("")
 
     const [newPassword, setNewPassword] = useState("")
     const [confirmPwd, setconfirmPwd] = useState("")
-    const [isValide, setIsValide] = useState(false)
+    const [isOK, setIsOK] = useState(false)
 
     const [disable, setDisbale] = useState(true);
 
-    const setPasswordUser = (value) => setUser({...user,password:value})
+    const setPasswordUser = (value) => setUser({ ...user, password: value })
 
     const resetAllValue = () => {
         setConfirmOldPwd("");
         setNewPassword("");
         setconfirmPwd("");
-        setIsValide(false);
+        setIsOK(false);
         setDisbale(true);
+        setMessage("");
     }
-    
-    const handleCloseModal = () => {
+
+    const handleCloseModalValider = () => {
+
+        if (isOK) {
+            setOpenModal(false);
+            setPasswordUser(newPassword);
+            resetAllValue();
+        }
+        else if (newPassword === oldPwd) {
+            setMessage(t('mdp.erreur.identique'));
+        }
+        else {
+            setMessage(t('mdp.erreur.criteres'));
+        }
+
+
+    }
+
+    const handleCloseModalAnnuler = () => {
         setOpenModal(false);
-        isValide ? setPasswordUser(newPassword) : console.log("pas de modification");
         resetAllValue();
     }
 
+    const toolTipsCheckList = () => {
+        return (
+            <PasswordChecklist
+                rules={["minLength", "specialChar", "number", "capital", "match"]}
+                sx={{ zIndex: "10000010" }}
+                minLength={8}
+                value={newPassword}
+                valueAgain={confirmPwd}
+                onChange={isValid => setIsOK(isValid)}
+                messages={{
+                    minLength: t('mdp.checkList.minLength'),
+                    specialChar: t('mdp.checkList.specialChar'),
+                    number: t('mdp.checkList.number'),
+                    capital: t('mdp.checkList.capital'),
+                    match: t('mdp.checkList.match'),
+                }}
+            />);
+    }
 
 
     return (
-        <div >
-            <Button  onClick={() => setOpenModal(true)}>{name}</Button>
-            <Modal
-                open={openModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
+        <div id="tt">
+            <Button onClick={() => setOpenModal(true)}>{t('mdp.button')}</Button>
+            <Modal open={openModal} sx={{ zIndex: "1000001" }}>
+
                 <Box className="modalPwd">
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Modifier de passe
+
+                    {(message !== "") && (
+                        <Alert className="alert" severity="error" onClose={() => { setMessage("") }}>
+                            <p>{message}</p>
+                        </Alert>
+                    )}
+
+                    <Typography id="modal-modal-title" variant="h5" component="h2">
+                        {t('mdp.update.titre')}
                     </Typography>
-                        <PasswordField disable={false} pwd={confirmOldPwd} setPwd={setConfirmOldPwd} />
-                        <div>
-                            <PasswordChecklist
-                                rules={["match"]}
+
+                    <Typography id="modal-modal-description" sx={{ mb: 1, mt: 2 }}>
+                        {t('mdp.update.txt')}
+                    </Typography>
+
+                    <div className="contenuModal">
+                        <PasswordField disable={false} pwd={confirmOldPwd} setPwd={setConfirmOldPwd} labelInput={t('mdp.update.actuel')} />
+
+                        <div id="list">
+                            <PasswordChecklist rules={["match"]}
                                 value={oldPwd}
                                 valueAgain={confirmOldPwd}
-                                onChange={(isValid) => {
-                                    isValid ? setDisbale(false) :  setDisbale(true);
-                                }}
+                                onChange={(isValid) => { isValid ? setDisbale(false) : setDisbale(true); }}
+                                messages={{ match: t('mdp.checkList.matchOld') }}
                             />
                         </div>
 
-                        <div id="newPassword">
-                            <PasswordField disable={disable} pwd={newPassword} setPwd={setNewPassword} />
+                        <br />
 
-                            <PasswordField disable={disable} pwd={confirmPwd} setPwd={setconfirmPwd} />
-                            </div>
-                            <div>
-                                <PasswordChecklist
-                                    rules={["minLength", "specialChar", "number", "capital", "match"]}
-                                    minLength={5}
-                                    value={newPassword}
-                                    valueAgain={confirmPwd}
-                                    onChange={(isValid) => {
-                                        setIsValide(isValid)
-                                    }}
-                                />
-                            </div>
-                       
-                    <Button className="validerModal" onClick={handleCloseModal}> Valider </Button>
+                        <PasswordField disable={disable} pwd={newPassword} setPwd={setNewPassword} labelInput={t('mdp.update.nouveau')} />
+
+                        <br />
+                        <PasswordField disable={disable} pwd={confirmPwd} setPwd={setconfirmPwd} labelInput={t('mdp.update.confirmer')} />
+
+                        {/* <br /> */}
+                        <div id="tooltip">
+                            <Tooltip title={toolTipsCheckList()} placement="bottom" arrow>
+                                <InfoIcon />
+                            </Tooltip>
+                        </div>
+                    </div>
+
+
+                    <div className="buttonsModal">
+                        <Button variant="outlined" onClick={handleCloseModalValider}> {t('mdp.update.valider')} </Button>
+                        <div>&nbsp; &nbsp;</div>
+                        <Button variant="outlined" onClick={handleCloseModalAnnuler}> {t('mdp.update.annuler')} </Button>
+                    </div>
                 </Box>
             </Modal>
-        </div>     
+        </div>
     );
 
 }

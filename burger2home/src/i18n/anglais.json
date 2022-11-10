@@ -76,6 +76,34 @@
             "anniversaire":"Date of birth",
             "enregistrer":"Save"
         }
+    },
+
+    "mdp":{
+        "button":"Change password",
+        "update":{
+            "titre":"Change password",
+            "txt":"Use this form to change your Burger2Home account password.",
+            "actuel":"Current password",
+            "nouveau":"New password",
+            "confirmer":"Enter the new password again",
+            "annuler":"Cancel",
+            "valider":"Confirm"
+        },
+
+        "checkList":{
+            "matchOld":"The password is correct",
+            "minLength":"The password contains at least 8 characters.",
+            "specialChar":"The password contains at least 1 special character.",
+            "number":"The password contains at least 1 number.",
+            "capital":"The password contains at least 1 capital letter.",
+            "match": "The passwords match."
+        },
+
+        "erreur":{
+            "identique":"The new and old passwords must be different.",
+            "criteres":"Safety criteria are not respected."
+        }
     }
+
    
 }

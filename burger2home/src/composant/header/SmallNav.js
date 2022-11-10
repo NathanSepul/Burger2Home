@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
@@ -16,7 +16,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import "./SmallNav.css";
 
-const SmallNav = ({toggleDrawer,isOpen,setIsOpen}) => {
+const SmallNav = ({ toggleDrawer, isOpen, setIsOpen }) => {
   const { t } = useTranslation();
 
   useEffect(() => {

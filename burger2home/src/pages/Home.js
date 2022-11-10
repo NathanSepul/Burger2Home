@@ -1,4 +1,4 @@
-import React from 'react' 
+import React from 'react'
 
 import Banniere from '../composant/home/Banniere.js';
 import Area1 from '../composant/home/Area1.js';
@@ -17,15 +17,16 @@ import { useTranslation } from 'react-i18next';
 
 const Home = () => {
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
-  return (<main>
-            <Banniere/>
-            <Area2 titre={t('accueil.area2.titre')} img1={formidable} img2={it} img3={fondant} txt1={t('accueil.area2.txt1')} txt2={t('accueil.area2.txt2')} txt3={t('accueil.area2.txt3')} name="lesStars"/>
-            <Area1/>
-            <Area2 titre={t('accueil.area3.titre')} img1={minute} img2={jour} img3={main} txt1={t('accueil.area3.txt1')}  txt2={t('accueil.area3.txt2')}  txt3={t('accueil.area3.txt3')}   name="enPratique"/>
-          </main>
-          );
+  return (
+    <main>
+      <Banniere />
+      <Area2 titre={t('accueil.area2.titre')} img1={formidable} img2={it} img3={fondant} txt1={t('accueil.area2.txt1')} txt2={t('accueil.area2.txt2')} txt3={t('accueil.area2.txt3')} name="lesStars" />
+      <Area1 />
+      <Area2 titre={t('accueil.area3.titre')} img1={minute} img2={jour} img3={main} txt1={t('accueil.area3.txt1')} txt2={t('accueil.area3.txt2')} txt3={t('accueil.area3.txt3')} name="enPratique" />
+    </main>
+  );
 };
 
 

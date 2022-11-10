@@ -72,7 +72,36 @@
             "nom":"Nom",
             "prenom":"Prénom",
             "anniversaire":"Date de naissance",
-            "enregistrer":"Enregistrer"}
+            "enregistrer":"Enregistrer"
+        }
+    },
+
+    "mdp":{
+        "button":"Modifier le mot de passe",
+        
+        "update":{
+            "titre":"Modifier le mot de passe",
+            "txt":"Utilisez ce formulaire pour modifier le mot de passe de votre compte Burger2Home.",
+            "actuel":"Mot de passe actuel",
+            "nouveau":"Nouveau nouveau mot de passe",
+            "confirmer":"Saisissez une seconde fois le nouveau mot de passe",
+            "annuler":"Annuler",
+            "valider":"Valider"
+        },
+
+        "checkList":{
+            "matchOld":"Le mot de passe est correct.",
+            "minLength":"Le mot de passe contient au moins 8 caractères.",
+            "specialChar":"Le mot de passe contient au moins 1 caractères spécial.",
+            "number":"Le mot de passe contient au moins 1 chiffre.",
+            "capital":"Le mot de passe contient au moins 1 lettre majuscule.",
+            "match": "Les mots de passe correspondent."
+        },
+
+        "erreur":{
+            "identique":"Le nouveau et l'ancien mot de passe doivent être différent.",
+            "criteres":"Les critères de sécurité ne sont pas respecté."
+        }
     }
 
    

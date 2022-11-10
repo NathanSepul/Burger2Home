@@ -19,9 +19,9 @@ import "./Informations.css";
 import ModalPassword from './informationsCompte/ModalPassword.js';
 
 
-const Informations = () => {   
+const Informations = () => {
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
@@ -31,7 +31,7 @@ const Informations = () => {
 
 
     const validationFormulaire = (event) => {
-       
+
         if (validator.isEmail(user.email)) {
             setMessage("");
         } else {
@@ -42,43 +42,43 @@ const Informations = () => {
 
     //méthode appelé dé que le composant est crée (monté)
     useEffect(() => {
-       
-            setHasError(false);
-            setIsLoading(true);
 
-            // fetch("http://sepul.be/test.json",{ 
-            //     method: 'get',
-            //         headers: {
-            //         'Accept': 'application/json, text/plain, */*',
-            //         'Content-Type': 'application/json',
-            //         },
-            //         'credentials': 'same-origin'
-            // })
+        setHasError(false);
+        setIsLoading(true);
+
+        // fetch("http://sepul.be/test.json",{ 
+        //     method: 'get',
+        //         headers: {
+        //         'Accept': 'application/json, text/plain, */*',
+        //         'Content-Type': 'application/json',
+        //         },
+        //         'credentials': 'same-origin'
+        // })
 
 
-            fetch("./compte.json")
-                .then(response => response.json())
+        fetch("./compte.json")
+            .then(response => response.json())
 
-                .then(data => {
-                    console.log();
-                    setIsLoading(false);
-                    setUser(data);
-                })
+            .then(data => {
+                console.log();
+                setIsLoading(false);
+                setUser(data);
+            })
 
-                .catch(() => {
-                    setHasError(true);
-                });
+            .catch(() => {
+                setHasError(true);
+            });
 
     }, []);
 
 
     const updateBithDay = useCallback(value => {
-        if(value!==null){
+        if (value !== null) {
             const d = new Date(value); // voir si on stock les dates en en-EN ou fr-FR
             console.log(d.toLocaleDateString("fr-FR"));
-            setUser({...user,birthday:d})
+            setUser({ ...user, birthday: d })
         }
-    },[user]) 
+    }, [user])
 
 
     if (hasError) {
@@ -93,48 +93,50 @@ const Informations = () => {
 
 
 
-    return <div id="Informations">
+    return (
+        <div id="Informations">
 
-        {( message !== "") && (
-            <Alert className="alert" severity="error" onClose={() => {setMessage("")}}>
-            {message}
-            </Alert>
-        )}
-        <Box
-            id="formInformation"
-            onSubmit={validationFormulaire}
-            component="form"
-            sx={{
-                '& > :not(style)': { margin: "8px", width: "auto", minWidth:"30ch" },
-            }}
-        >
-            <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={user.lastName} InputProps={{ readOnly: true, }} />
-            <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={user.firstName} InputProps={{ readOnly: true, }} />
-            
-            <LocalizationProvider id="champ3" dateAdapter={AdapterDayjs} adapterLocale={i18n.language}>
+            {(message !== "") && (
+                <Alert className="alert" severity="error" onClose={() => { setMessage("") }}>
+                    {message}
+                </Alert>
+            )}
+            <Box
+                id="formInformation"
+                onSubmit={validationFormulaire}
+                component="form"
+                sx={{
+                    '& > :not(style)': { margin: "8px", width: "auto", minWidth: "30ch" },
+                }}
+            >
+                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={user.lastName} InputProps={{ readOnly: true, }} />
+                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={user.firstName} InputProps={{ readOnly: true, }} />
+
+                <LocalizationProvider id="champ3" dateAdapter={AdapterDayjs} adapterLocale={i18n.language}>
                     <DatePicker
                         disableFuture
                         placeholder="jjj"
                         label={t("compte.details.anniversaire")}
                         value={user.birthday}
-                        renderInput={(params) => <TextField {...params}/>}
+                        renderInput={(params) => <TextField {...params} />}
                         onChange={updateBithDay}
                     />
-            </LocalizationProvider> 
-            
-            <br className='tampon'/>
-            
-            <TextField id="champ4" required label="email" variant="outlined" value={user.email} onChange={(e)=>{setUser({...user,email:e.target.value})}}/>
-            <br className='tampon'/>
-            
-            <div id="champ6">
-                <ModalPassword name="modifier le mot de passe" user={user} setUser={setUser}/>
-            </div>
+                </LocalizationProvider>
 
-            <button variant="contained" id="champ10"  type = "submit">{t("compte.details.enregistrer")}</button>
-        </Box>
+                <br className='tampon' />
 
-    </div>
+                <TextField id="champ4" required label="email" variant="outlined" value={user.email} onChange={(e) => { setUser({ ...user, email: e.target.value }) }} />
+                <br className='tampon' />
+
+                <div id="champ5">
+                    <ModalPassword user={user} setUser={setUser} />
+                </div>
+
+                <button variant="contained" id="champ10" type="submit">{t("compte.details.enregistrer")}</button>
+            </Box>
+
+        </div>
+    );
 
 }
 

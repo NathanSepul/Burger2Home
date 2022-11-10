@@ -1,14 +1,14 @@
 import React from 'react';
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import './Navigation.css';
 
 const Navigation = () => {
 
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
-    return(
+    return (
         <nav className='NavigationFooter'>
             <ul className={"linksFooter"}>
                 <li className="linkFooter" id="navFooter1"> <Link to="/" > {t('navigation.accueil')} </Link> </li>

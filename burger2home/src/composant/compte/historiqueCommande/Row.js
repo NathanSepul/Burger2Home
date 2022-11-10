@@ -9,13 +9,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DetailTab from "./DetailTab.js"
 const Row = ({ order }) => {
   const [open, setOpen] = React.useState(false);
-  
+
   return (
     <React.Fragment>
 
-      <TableRow sx={{ '& > *': { backgroundColor:"#DEDEDE", } }}>
+      <TableRow sx={{ '& > *': { backgroundColor: "#DEDEDE", } }}>
 
-{/* tableau primaire */}
+        {/* tableau primaire */}
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -36,8 +36,8 @@ const Row = ({ order }) => {
         <TableCell>{order.total}</TableCell>
       </TableRow>
 
-{/* tableau secondaire */}
-      <DetailTab orderLines={order.orderLines} open={open}/>
+      {/* tableau secondaire */}
+      <DetailTab orderLines={order.orderLines} open={open} />
 
     </React.Fragment>
   );
