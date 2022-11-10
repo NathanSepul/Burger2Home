@@ -19,9 +19,11 @@ const Area1 = () => {
                     <p>{t('accueil.area1.p2')}</p>
                 </div>
 
-                <button className="toConcept" type="button">
-                    <Link to="/concept" > {t('accueil.area1.button')} </Link>
-                </button>
+                <Link to="/concept" className="linkToConcept"> 
+                    <button type="button" className="toConcept">
+                        {t('accueil.area1.button')}
+                    </button>
+                </Link>
 
             </article>
         </section>

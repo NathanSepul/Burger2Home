@@ -15,7 +15,7 @@ const Banniere = () => {
 
   return (
     <Carousel className='Banniere'
-              autoPlay
+              // autoPlay
               interval={4000}
               transitionTime={600}
               infiniteLoop
@@ -28,9 +28,11 @@ const Banniere = () => {
         </div>
 
         <div className="banToConcept">
-          <button type="button" className="buttonConcept">
-            <Link to="/carte" > {t('accueil.carousel.buttonSlide1')} </Link>
-          </button>
+            <Link to="/concept" className="linkConcept"> 
+              <button type="button" className="buttonConcept">
+                {t('accueil.carousel.buttonSlide1')}
+              </button>
+            </Link>
         </div>
       </div>
 

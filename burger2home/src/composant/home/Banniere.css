@@ -72,13 +72,12 @@
     border-radius: 40px;
 
     transform: translateY(-1.5vh);
+
+    font-size: 1rem;
 }
 
-.first_slide .banToConcept a{
-    text-decoration: none;
-    font-size: 1.9em;
-    color: black;
-    display: block;
+.first_slide .banToConcept .buttonConcept:hover {
+    cursor:pointer
 }
 
 /*------------------------------------------------
