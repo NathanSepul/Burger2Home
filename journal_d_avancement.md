@@ -29,3 +29,4 @@
 
 ## semaine 44
 - [x] page du compte
+- [x] ajout de rédux
