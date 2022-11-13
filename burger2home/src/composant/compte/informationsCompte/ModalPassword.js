@@ -1,15 +1,17 @@
 import React, { useState } from "react";
+import PasswordChecklist from "react-password-checklist";
+import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
-import InfoIcon from '@mui/icons-material/Info';
-import PasswordChecklist from "react-password-checklist";
 import Tooltip from '@mui/material/Tooltip';
 import Alert from '@mui/material/Alert';
-import { useTranslation } from 'react-i18next';
+import InfoIcon from '@mui/icons-material/Info';
+
 
 import PasswordField from './PasswordField.js';
+
 import "./ModalPassword.css";
 
 const ModalPassword = ({ name, user, setUser }) => {

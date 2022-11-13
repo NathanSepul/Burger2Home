@@ -9,10 +9,10 @@ import Divider from '@mui/material/Divider';
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
-
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton, Badge } from "@mui/material";
 import Login from "./login/Login.js";
+
 import "./SmallNav.css";
 
 const SmallNav = ({ toggleDrawer, isOpen, setIsOpen }) => {

@@ -2,10 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../picture/logoBurger.jpg";
 import Navigation from "./Navigation.js"
-
 import "./Footer.css";
-
-
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {

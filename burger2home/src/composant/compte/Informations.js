@@ -1,22 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
-
 import 'dayjs/locale/fr';
-
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
 import validator from "validator";
-
-import "./Informations.css";
-
 import ModalPassword from './informationsCompte/ModalPassword.js';
+import "./Informations.css";
 
 
 const Informations = () => {

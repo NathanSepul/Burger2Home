@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import NavLinks from './NavLinks.js';
 import { Link } from "react-router-dom";
-
 import SelectLanguage from '../../i18n/SelectLanguage.js';
-
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from "@mui/material";
-
-
+import NavLinks from './NavLinks.js';
 import SmallNav from "./SmallNav.js";
-import Login from "./login/Login.js"
+import Login from "./login/Login.js";
+
 import "./Nav.css"
 
 

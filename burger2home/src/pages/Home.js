@@ -1,19 +1,14 @@
 import React from 'react'
-
 import Banniere from '../composant/home/Banniere.js';
 import Area1 from '../composant/home/Area1.js';
 import Area2 from '../composant/home/Area2.js';
-
 import formidable from '../picture/formidable.jpeg';
 import it from '../picture/it.jpg';
 import fondant from '../picture/fondant.jpg';
 import main from '../picture/a_la_main.jpg';
 import minute from '../picture/preparer_minute.jpg';
 import jour from '../picture/frais_du_jour.jpg';
-
 import { useTranslation } from 'react-i18next';
-
-// import './Home.css'
 
 const Home = () => {
 

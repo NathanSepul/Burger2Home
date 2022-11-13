@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import Nav from "./Nav.js"
 import logo from "../../picture/logoBurger.jpg";
 import { Link } from "react-router-dom";
-
 import "./Header.css";
-
 
 const Header = () => {
 
