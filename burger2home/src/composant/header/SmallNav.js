@@ -34,7 +34,7 @@ const SmallNav = ({ toggleDrawer}) => {
     return () => {
       window.removeEventListener('resize', changeWidth)
     }
-  },[])
+  },[dispatch])
 
   const list = () => (
     <Box
