@@ -12,26 +12,29 @@ import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton, Badge } from "@mui/material";
 import Login from "./login/Login.js";
-
+import { useSelector, useDispatch } from 'react-redux';
+import {setIsOpen} from '../../redux/smallMenuSlice.js';
 import "./SmallNav.css";
 
-const SmallNav = ({ toggleDrawer, isOpen, setIsOpen }) => {
+const SmallNav = ({ toggleDrawer}) => {
+  
+  const isOpen = useSelector(state => state.isOpen.value)
+  const dispatch = useDispatch()
   const { t } = useTranslation();
 
   useEffect(() => {
     const changeWidth = () => {
-
       if (window.innerWidth > 767) {
-        setIsOpen(false);
+        dispatch(setIsOpen(false))
       }
     }
-
+    
     window.addEventListener('resize', changeWidth)
 
     return () => {
       window.removeEventListener('resize', changeWidth)
     }
-  })
+  },[])
 
   const list = () => (
     <Box
@@ -62,10 +65,11 @@ const SmallNav = ({ toggleDrawer, isOpen, setIsOpen }) => {
   return (
     <span>
       <React.Fragment key="top">
-      <Login toggleDrawer={toggleDrawer} isSmall={true}/>
+      
+        <Login toggleDrawer={toggleDrawer} isSmall={true}/>
 
         <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
-          <Link to="/panier" className="monCompte">
+          <Link to="/panier" className="monPanier">
             <Badge badgeContent={4} color="primary">
               <ShoppingCartIcon fontSize="large" />
             </Badge>

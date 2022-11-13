@@ -6,11 +6,10 @@ import { Badge } from "@mui/material";
 import NavLinks from './NavLinks.js';
 import SmallNav from "./SmallNav.js";
 import Login from "./login/Login.js";
-
 import "./Nav.css"
 
 
-const Nav = ({ toggleDrawer, isOpen, setIsOpen }) => {
+const Nav = ({ toggleDrawer}) => {
    
     const [largeur, setLargeur] = useState(window.innerWidth);
 
@@ -45,7 +44,7 @@ const Nav = ({ toggleDrawer, isOpen, setIsOpen }) => {
 
                 <span className="verticalLine"></span>
 
-                <Login toggleDrawer={toggleDrawer} isSmall={false}/>
+                <Login toggleDrawer={toggleDrawer} isSmall={false} />
 
                 <Link to="/compte" className="monPanier"> 
                     <Badge badgeContent={4} color="primary">
@@ -56,7 +55,7 @@ const Nav = ({ toggleDrawer, isOpen, setIsOpen }) => {
             </div>
 
             <div className="navCompteSmall">
-                <SmallNav toggleDrawer={toggleDrawer} isOpen={isOpen} setIsOpen={setIsOpen} />
+                <SmallNav toggleDrawer={toggleDrawer} />
             </div>
         </nav>
     );

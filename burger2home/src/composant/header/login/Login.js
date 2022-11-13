@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { IconButton } from "@mui/material";
+
+
+import { useSelector, useDispatch } from 'react-redux';
+import {login} from '../../../redux/userSlice.js';
 import "./Login.css";
 
 const Login = ({ toggleDrawer, isSmall })  =>{
-    const [connected,isConnected] = useState(false);
+
+    const isConnected = useSelector(state => state.isConnected.value)
+    const dispatch = useDispatch()
+  
     const { t } = useTranslation();
 
-    const switchStatConnected = () =>{
-        isConnected(!connected);
-    };
-
-
     const smallSwitchStatConnected = () =>{
-        isConnected(!connected);
         toggleDrawer(true);
     }
+
     if(isSmall) {
-        if(connected){
+        if(isConnected){
            return(
                 <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
                     <Link to="/compte">
@@ -30,7 +32,7 @@ const Login = ({ toggleDrawer, isSmall })  =>{
         }
         else{
             return(
-                <button type="button"  className="monCompte" onClick={smallSwitchStatConnected}> se connecter </button>
+                <button type="button"  className="monCompte" onClick={() => dispatch(login())}> se connecter </button>
             );
         }
     }
@@ -38,7 +40,7 @@ const Login = ({ toggleDrawer, isSmall })  =>{
 
 
     else{
-        if(connected){
+        if(isConnected){
             return(
                 <Link to="/compte" className="monCompte"> {t('navigation.compte')} </Link>
 
@@ -46,7 +48,7 @@ const Login = ({ toggleDrawer, isSmall })  =>{
         }
         else{
             return(
-                <button type="button"  className="monCompte" onClick={switchStatConnected}> se connecter </button>
+                <button type="button"  className="monCompte" onClick={() => dispatch(login())}> se connecter </button>
             );
         }
     }

@@ -11,6 +11,8 @@ const SelectLanguage = () => {
                 i18n.changeLanguage("en");
                 break;
             case "fr":
+                i18n.changeLanguage("fr");
+                break;
             default:
                 i18n.changeLanguage("fr");
                 break;
