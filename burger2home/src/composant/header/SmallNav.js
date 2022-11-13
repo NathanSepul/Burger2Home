@@ -12,8 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton, Badge } from "@mui/material";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import Login from "./login/Login.js";
 import "./SmallNav.css";
 
 const SmallNav = ({ toggleDrawer, isOpen, setIsOpen }) => {
@@ -63,11 +62,7 @@ const SmallNav = ({ toggleDrawer, isOpen, setIsOpen }) => {
   return (
     <span>
       <React.Fragment key="top">
-        <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
-          <Link to="/compte">
-            <AccountCircleIcon fontSize="large" />
-          </Link>
-        </IconButton>
+      <Login toggleDrawer={toggleDrawer} isSmall={true}/>
 
         <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
           <Link to="/panier" className="monCompte">

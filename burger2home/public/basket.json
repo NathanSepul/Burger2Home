@@ -1,0 +1,24 @@
+[
+    {
+        "id": "2",
+        "date": "22/02/2000",
+        "total":"12",
+        "basketLines": [
+            {
+                "id": "1",
+                "product": "bg boeuf",
+                "price": "4",
+                "quantity": "5",
+                "discount": "0"
+            },
+
+            {
+                "id": "2",
+                "product": "bg vg",
+                "price": "3",
+                "quantity": "1",
+                "discount": "0"
+            }
+        ]
+    }
+]

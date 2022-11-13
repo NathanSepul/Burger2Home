@@ -21,3 +21,11 @@
 
 ## semaine 42
 - [x] reunion avec mr Martel le 23/10
+- [x] page notre concepte
+
+## semaine 43
+- [x] page d'acceil carrousel
+
+
+## semaine 44
+- [x] page du compte

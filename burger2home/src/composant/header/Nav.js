@@ -7,14 +7,14 @@ import SelectLanguage from '../../i18n/SelectLanguage.js';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from "@mui/material";
 
-import { useTranslation } from 'react-i18next';
-import "./Nav.css"
 
 import SmallNav from "./SmallNav.js";
+import Login from "./login/Login.js"
+import "./Nav.css"
+
+
 const Nav = ({ toggleDrawer, isOpen, setIsOpen }) => {
-
-    const { t } = useTranslation();
-
+   
     const [largeur, setLargeur] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -48,14 +48,14 @@ const Nav = ({ toggleDrawer, isOpen, setIsOpen }) => {
 
                 <span className="verticalLine"></span>
 
-                <Link to="/compte" className="monCompte"> {t('navigation.compte')} </Link>
+                <Login toggleDrawer={toggleDrawer} isSmall={false}/>
 
-                <a href="index.html" className="monPanier">
+                <Link to="/compte" className="monPanier"> 
                     <Badge badgeContent={4} color="primary">
                         <ShoppingCartIcon fontSize="large" />
                     </Badge>
-                </a>
-
+                </Link>
+                
             </div>
 
             <div className="navCompteSmall">

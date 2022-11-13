@@ -15,7 +15,7 @@ const Banniere = () => {
 
   return (
     <Carousel className='Banniere'
-              // autoPlay
+              autoPlay
               interval={4000}
               transitionTime={600}
               infiniteLoop

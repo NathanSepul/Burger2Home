@@ -11,3 +11,4 @@
 - [x] npm install dayjs --save
 - [x] npm i @mui/x-date-pickers
 - [X] npm i react-password-checklist
+- [X] npm i axios

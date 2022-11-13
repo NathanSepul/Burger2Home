@@ -77,15 +77,6 @@
         margin-bottom: auto;
     }
 
-    .monCompte{
-        width: 113px;
-        grid-column: 3;
-        text-align: right;
-        margin-right: 10px;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-
     .monPanier{
         margin-top: auto;
         margin-bottom: auto;
