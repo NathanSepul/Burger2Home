@@ -98,6 +98,7 @@ const Connection = () => {
                         callback={responseFacebook}
                         icon={<FacebookRoundedIcon/>}
                         tag="button"
+                        reAuthenticate={true}
                         // language
                         render={renderProps => (
                             <IconButton aria-label="ConnectionFacebook" onClick={renderProps.onClick}/>
