@@ -10,11 +10,11 @@ import Alert from '@mui/material/Alert';
 import InfoIcon from '@mui/icons-material/Info';
 
 
-import PasswordField from './PasswordField.js';
+import PasswordField from './PasswordField';
 
-import "./ModalPassword.css";
+import "./ModalChangePassword.css";
 
-const ModalPassword = ({ name, user, setUser }) => {
+const ModalChangePassword = ({user, setUser }) => {
     const { t } = useTranslation();
 
     const [openModal, setOpenModal] = useState(false);
@@ -144,4 +144,4 @@ const ModalPassword = ({ name, user, setUser }) => {
 
 }
 
-export default ModalPassword
+export default ModalChangePassword

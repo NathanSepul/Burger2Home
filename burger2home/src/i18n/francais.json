@@ -102,6 +102,16 @@
             "identique":"Le nouveau et l'ancien mot de passe doivent être différent.",
             "criteres":"Les critères de sécurité ne sont pas respecté."
         }
+    },
+
+    "connexion":{
+        "connexion": "Connection",
+        "email":"Email",
+        "pwd": "Mot de passe",
+        "continuer":"Continuer",
+        "inscription":"S'inscrire",
+        "errorEmail":"Veuillez entrez un email valide",
+        "autreConnexion":"Connectez-vous via le réseau de votre choix !"
     }
 
    

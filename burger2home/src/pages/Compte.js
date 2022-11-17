@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Informations from '../composant/compte/Informations.js';
-import Commandes from '../composant/compte/Commandes.js';
+import Informations from '../composant/compte/informationsCompte/Informations.js';
+import Commandes from '../composant/compte/historiqueCommande/Commandes.js';
 import { useTranslation } from 'react-i18next';
 import InfoIcon from '@mui/icons-material/Info';
 import HistoryIcon from '@mui/icons-material/History';

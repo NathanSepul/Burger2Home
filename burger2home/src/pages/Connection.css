@@ -1,0 +1,51 @@
+h1{
+    margin-bottom:30px;
+    padding-top: 30px;
+    text-align: center;
+}
+h2{
+    font-weight: 500;
+}
+.connectionForm{
+    text-align: center;
+    padding: 20px 0;
+    width: 400px;
+    margin: 10 auto;
+    background-color: #FEFEFE;
+    display: block;
+}
+
+#connectionNetwork{
+    margin-top: 10px;
+    padding: 0px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+
+#toInscription{
+    text-decoration: none;
+    color:rgb(26, 118, 210)
+}
+
+#toInscription:visited {
+    color:rgb(26, 118, 210)
+}
+
+#toInscription:hover {
+    text-decoration: underline;
+}
+
+#buttonConnection{
+    width: 40%;
+    background-color: #D68910;
+    color:black
+}
+
+#facebook{
+    color:rgb(53, 53, 213)
+}
+#google{
+    color:rgb(175, 27, 27)
+}

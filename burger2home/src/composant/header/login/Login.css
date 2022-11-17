@@ -1,4 +1,4 @@
-.monCompte{
+.monCompte, .connection{
     width: 113px;
     grid-column: 3;
     text-align: right;
@@ -6,6 +6,7 @@
     margin-top: auto;
     margin-bottom: auto;
 }
+
 
 /* ecran inf à 767px*/
 @media screen and (max-width: 767px){

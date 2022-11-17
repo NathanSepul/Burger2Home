@@ -9,7 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import validator from "validator";
-import ModalPassword from './informationsCompte/ModalPassword.js';
+import ModalChangePassword from '../../password/ModalChangePassword.js';
 import "./Informations.css";
 
 
@@ -123,7 +123,7 @@ const Informations = () => {
                 <br className='tampon' />
 
                 <div id="champ5">
-                    <ModalPassword user={user} setUser={setUser} />
+                    <ModalChangePassword user={user} setUser={setUser} />
                 </div>
 
                 <button variant="contained" id="champ10" type="submit">{t("compte.details.enregistrer")}</button>

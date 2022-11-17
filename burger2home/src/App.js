@@ -6,6 +6,8 @@ import Layout from "./pages/Layout"
 import Carte from "./pages/Carte.js";
 import Concept from "./pages/Concept.js";
 import Compte from "./pages/Compte.js";
+import Connection from "./pages/Connection.js";
+
 
 import NoPage from './pages/NoPage.js';
 
@@ -22,6 +24,7 @@ const App = () => {
           <Route path="stocks" element={<NoPage />} />
           <Route path="droit" element={<NoPage />} />
           <Route path="burgers" element={<NoPage />} />
+          <Route path="connection" element={<Connection />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

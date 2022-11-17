@@ -13,3 +13,5 @@
 - [X] npm i react-password-checklist
 - [X] npm i axios
 - [x] npm i --save redux
+- []  npm installs react-facebook-login --save --force
+- [X] npm i @react-oauth/google@latest

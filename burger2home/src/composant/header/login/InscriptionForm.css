@@ -1,0 +1,21 @@
+#inscription{
+    color:#000;
+    font-size: 1rem; 
+}
+
+
+.inscriptionForm {
+    max-width: none;
+    min-width: 500px;
+    width: auto;
+    background-color: white;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%,-50%);
+    border: 2px solid #000;
+    padding: 35px;
+    padding-bottom: 60px;
+
+    
+}   
