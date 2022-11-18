@@ -5,7 +5,7 @@ import Home from "./components/home/Home.js";
 import Layout from "./Layout.js"
 import Card from "./components/card/Card.js";
 import Concept from "./components/concept/Concept.js";
-import Account from "./components/compte/Account.js";
+import Account from "./components/account/Account.js";
 import Connection from "./components/login/Connection.js";
 import NoPage from './components/NoPage.js';
 
