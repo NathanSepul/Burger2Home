@@ -30,3 +30,10 @@
 ## semaine 44
 - [x] page du compte
 - [x] ajout de rédux
+
+## semaine 45
+- [x] page connexion google, facebook
+- [x] oauth
+
+## semaine 46
+- [x] continuité des recherches et premiere implémentation des oauth google et facebook
