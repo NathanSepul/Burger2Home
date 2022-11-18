@@ -1,15 +1,16 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./composant/home/Home";
-import Layout from "./pages/Layout"
+import Home from "./composant/home/Home.js";
+import Layout from "./Layout.js"
 import Carte from "./composant/carte/Carte.js";
 import Concept from "./composant/concept/Concept.js";
 import Compte from "./composant/compte/Compte.js";
 import Connection from "./composant/login/Connection.js";
+import NoPage from './composant/NoPage.js';
+
 import {PrivateRouteCompte,PrivateRouteConnection} from "./PrivateRoute";
 
-import NoPage from './pages/NoPage.js';
 
 const App = () => {
   return (
