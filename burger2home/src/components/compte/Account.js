@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Informations from './informationsCompte/Informations.js';
-import Commandes from './historiqueCommande/Commandes.js';
+import Informations from './informationsAccount/Informations.js';
+import Commandes from './historyOrders/Orders.js';
 import { useTranslation } from 'react-i18next';
 import InfoIcon from '@mui/icons-material/Info';
 import HistoryIcon from '@mui/icons-material/History';
-import "./Compte.css";
+import "./Account.css";
 
 
-function Compte() {
+function Account() {
     const { t } = useTranslation();
 
     const [selectedInformations, setSelectedInformations] = useState("Active");
@@ -55,4 +55,4 @@ function Compte() {
     );
 }
 
-export default Compte;
+export default Account;

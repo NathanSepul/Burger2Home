@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./composant/home/Home.js";
+import Home from "./components/home/Home.js";
 import Layout from "./Layout.js"
-import Carte from "./composant/carte/Carte.js";
-import Concept from "./composant/concept/Concept.js";
-import Compte from "./composant/compte/Compte.js";
-import Connection from "./composant/login/Connection.js";
-import NoPage from './composant/NoPage.js';
+import Card from "./components/card/Card.js";
+import Concept from "./components/concept/Concept.js";
+import Account from "./components/compte/Account.js";
+import Connection from "./components/login/Connection.js";
+import NoPage from './components/NoPage.js';
 
 import {PrivateRouteCompte,PrivateRouteConnection} from "./PrivateRoute";
 
@@ -18,11 +18,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="carte" element={<Carte />} />
+          <Route path="carte" element={<Card />} />
           <Route path="concept" element={<Concept />} />
           
           <Route element={<PrivateRouteCompte/>}>
-            <Route path="compte" element={<Compte />} />
+            <Route path="compte" element={<Account />} />
           </Route>
 
           <Route element={<PrivateRouteConnection/>}>

@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./Banniere.css";
+import "./Banner.css";
 
-const Banniere = () => {
+const Banner = () => {
   const { t } = useTranslation();
 
   return (
@@ -86,4 +86,4 @@ const Banniere = () => {
   );
 }
 
-export default Banniere;
+export default Banner;

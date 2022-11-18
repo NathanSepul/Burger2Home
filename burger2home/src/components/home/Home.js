@@ -1,5 +1,5 @@
 import React from 'react'
-import Banniere from './Banniere.js';
+import Banniere from './Banner.js';
 import Area1 from './Area1.js';
 import Area2 from './Area2.js';
 import formidable from '../../picture/formidable.jpeg';

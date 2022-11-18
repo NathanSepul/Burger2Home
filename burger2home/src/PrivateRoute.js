@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector} from 'react-redux';
 import {Outlet} from "react-router-dom";
-import Connection from "./composant/login/Connection.js"
-import Compte from "./composant/compte/Compte.js"
+import Connection from "./components/login/Connection.js"
+import Account from "./components/compte/Account.js"
 
 
 
@@ -18,7 +18,7 @@ export const PrivateRouteConnection = () => {
     const user = useSelector(state => state.userConnected)
 
     return(
-        user.isConnected ? <Compte/> : <Outlet /> 
+        user.isConnected ? <Account/> : <Outlet /> 
     );
 }
  

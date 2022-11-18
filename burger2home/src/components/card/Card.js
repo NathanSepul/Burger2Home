@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Carte() {
+function Card() {
     return (
         <h1>page Carte</h1>
     );
 }
 
-export default Carte;
+export default Card;
