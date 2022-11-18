@@ -7,9 +7,11 @@ import Card from "./components/card/Card.js";
 import Concept from "./components/concept/Concept.js";
 import Account from "./components/account/Account.js";
 import Connection from "./components/login/Connection.js";
+import Inscription from "./components/login/Inscription.js";
+
 import NoPage from './components/NoPage.js';
 
-import {PrivateRouteCompte,PrivateRouteConnection} from "./PrivateRoute";
+import {PrivateRouteCompte,PrivateRouteConnection, PrivateRouteInscription} from "./PrivateRoute";
 
 
 const App = () => {
@@ -28,7 +30,11 @@ const App = () => {
           <Route element={<PrivateRouteConnection/>}>
             <Route path="connection" element={<Connection />} />
           </Route>
-         
+
+          <Route element={<PrivateRouteInscription/>}>
+            <Route path="inscription" element={<Inscription />} />
+          </Route>
+                   
 
           <Route path="marketing" element={<NoPage />} />
           <Route path="stocks" element={<NoPage />} />

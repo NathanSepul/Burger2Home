@@ -84,7 +84,7 @@ const ModalChangePassword = ({user, setUser }) => {
 
 
     return (
-        <div id="tt">
+        <div>
             <Button onClick={() => setOpenModal(true)}>{t('mdp.button')}</Button>
             <Modal open={openModal} sx={{ zIndex: "1000001" }}>
 
@@ -124,7 +124,7 @@ const ModalChangePassword = ({user, setUser }) => {
                         <PasswordField disable={disable} pwd={confirmPwd} setPwd={setconfirmPwd} labelInput={t('mdp.update.confirmer')} />
 
                         {/* <br /> */}
-                        <div id="tooltip">
+                        <div className="tooltip">
                             <Tooltip title={toolTipsCheckList()} placement="bottom" arrow>
                                 <InfoIcon />
                             </Tooltip>

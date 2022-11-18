@@ -1,0 +1,61 @@
+h1{
+    margin-bottom:30px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+h2{
+    font-weight: 500;
+    margin-bottom:20px;
+}
+
+.inscriptionForm{
+    text-align: center;
+    padding: 20px 20px;
+    width: 50%;
+    max-width: 800px;
+    min-width: 400px;
+    margin: 0 auto;
+    background-color: #FEFEFE;
+    border-radius: 10px;
+}
+
+.inscriptionForm input{
+    width: 100% !important ;
+}
+ 
+#name{
+    display: flex ;
+    justify-content: space-between ;
+    flex-wrap: wrap;
+    margin: 0px auto;
+    width: 100%;
+}
+
+#name input{
+    width: 10%;
+}
+
+
+#pwd{
+    display: flex ;
+    justify-content: space-between ;
+    flex-wrap: wrap;
+    margin: 0px auto;
+    width: 100%;
+}
+
+
+.passwordDiv{
+    width: 45%;
+}
+
+.tooltipInscription{
+    text-align: center;
+    margin: auto 0px;
+}
+
+
+
+
+

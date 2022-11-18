@@ -55,7 +55,6 @@ const Connection = () => {
                 <Box
                     onSubmit={validationFormulaire}
                     component="form"
-
                     sx={{
                         '& > :not(style)': { m: "auto", width: "75%" },
                     }}
@@ -73,7 +72,7 @@ const Connection = () => {
                     </div>
 
                     <div id="toInscription">
-                        <Link to="/">{t('connexion.inscription')}</Link>
+                        <Link to="/inscription">{t('connexion.inscription')}</Link>
                     </div>
                     
                 </Box>
