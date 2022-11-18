@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector} from 'react-redux';
 import {Outlet} from "react-router-dom";
-import Connection from "./pages/Connection.js"
-import Compte from "./pages/Compte.js"
+import Connection from "./composant/login/Connection.js"
+import Compte from "./composant/compte/Compte.js"
 
 
 

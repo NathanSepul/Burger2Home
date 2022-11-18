@@ -5,7 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Badge } from "@mui/material";
 import NavLinks from './NavLinks.js';
 import SmallNav from "./SmallNav.js";
-import Login from "./login/Login.js";
+import Login from "../login/Login.js";
 import "./Nav.css"
 
 

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { IconButton, Badge } from "@mui/material";
-import Login from "./login/Login.js";
+import Login from "../login/Login.js";
 import { useSelector, useDispatch } from 'react-redux';
 import {setIsOpen} from '../../redux/smallMenuSlice.js';
 import "./SmallNav.css";

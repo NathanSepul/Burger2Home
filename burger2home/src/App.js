@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./composant/home/Home";
 import Layout from "./pages/Layout"
-import Carte from "./pages/Carte.js";
-import Concept from "./pages/Concept.js";
-import Compte from "./pages/Compte.js";
-import Connection from "./pages/Connection.js";
+import Carte from "./composant/carte/Carte.js";
+import Concept from "./composant/concept/Concept.js";
+import Compte from "./composant/compte/Compte.js";
+import Connection from "./composant/login/Connection.js";
 import {PrivateRouteCompte,PrivateRouteConnection} from "./PrivateRoute";
 
 import NoPage from './pages/NoPage.js';

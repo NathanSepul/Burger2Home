@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Concept.css";
-import pdt from "../picture/pdt_pelee.jpg";
-import montage from "../picture/montage.jpeg";
+import pdt from "../../picture/pdt_pelee.jpg";
+import montage from "../../picture/montage.jpeg";
 import { useTranslation } from 'react-i18next';
 
 const Concept = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PasswordField from '../../compte/informationsCompte/PasswordField.js';
+import PasswordField from '../password/PasswordField.js';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -7,7 +7,7 @@ import Modal from '@mui/material/Modal';
 import Button from "@mui/material/Button";
 import Tooltip from '@mui/material/Tooltip';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../../redux/userSlice.js';
+import { login } from '../../redux/userSlice.js';
 import PasswordChecklist from "react-password-checklist";
 import InfoIcon from '@mui/icons-material/Info';
 
