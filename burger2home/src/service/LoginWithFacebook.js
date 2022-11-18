@@ -1,11 +1,21 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import { useDispatch } from 'react-redux';
+import { login,logout } from '../redux/userSlice.js';
 import "./Facebook.css";
+
 const LoginWithFacebook = () => {
-  
+  const dispatch = useDispatch()
+
   const responseFacebook=(response) => {
-    console.log(response);
+    if (response.accessToken) {
+      console.log(response)
+      dispatch(login());
+    } else {
+      console.log(response)
+      dispatch(logout());
+    }
   }
 
     return (

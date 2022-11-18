@@ -29,7 +29,7 @@ const Connection = () => {
 
     const erroEmail = () => {
         if (hasErroEmail)
-            return "Entrez un email valide";
+            return t('connexion.errorEmail');
 
         return ""
     }
@@ -61,15 +61,21 @@ const Connection = () => {
                     }}
                 >
                     <h2>{t('connexion.connexion')}</h2>
-                    <br />
+                    <br/>
                     <TextField error={hasErroEmail} helperText={erroEmail()} required id="email" label={t('connexion.email')} variant="outlined" value={email} onChange={handleChangeEmail} />
-                    <br /><br />
+                    <br/><br/>
                     <PasswordField id="pwd" disable={false} pwd={pwd} setPwd={setPwd} labelInput={t('connexion.pwd')} />
-                    <br /><br />
+                    <br/>
                     <Button id="buttonConnection" variant="contained" type="submit">{t('connexion.continuer')}</Button>
-                    <br /><br />
-                    <Link id="toInscription" to="/">{t('connexion.inscription')}</Link>
-                    <br /><br />
+                    
+                    <div id="toMdpOublie">
+                        <Link  to="/">{t('connexion.mdpOublie')}</Link>
+                    </div>
+
+                    <div id="toInscription">
+                        <Link to="/">{t('connexion.inscription')}</Link>
+                    </div>
+                    
                 </Box>
                 <Divider />
                 <br />

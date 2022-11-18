@@ -111,7 +111,8 @@
         "continuer":"Continuer",
         "inscription":"S'inscrire",
         "errorEmail":"Veuillez entrez un email valide",
-        "autreConnexion":"Connectez-vous via le réseau de votre choix !"
+        "autreConnexion":"Connectez-vous via le réseau de votre choix !",
+        "mdpOublie":"Mot de passe oublié ?"
     }
 
    

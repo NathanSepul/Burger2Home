@@ -23,23 +23,36 @@ h2{
     justify-content: space-around;
     
 }
-
 #toInscription{
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+#toMdpOublie {
+    margin-top: 15px;
+}
+
+#toInscription a,
+#toMdpOublie a{
     text-decoration: none;
+    color:rgb(26, 118, 210);
+}
+
+#toInscription a:visited,
+#toMdpOublie a:visited {
     color:rgb(26, 118, 210)
 }
 
-#toInscription:visited {
-    color:rgb(26, 118, 210)
-}
-
-#toInscription:hover {
+#toInscription a:hover,
+#toMdpOublie a:hover{
     text-decoration: underline;
 }
+
 
 #buttonConnection{
     width: 40%;
     background-color: #D68910;
-    color:black
+    color:black;
+    margin-top: 5px;
 }
 
