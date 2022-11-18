@@ -8,13 +8,13 @@ import "./Login.css";
 
 const Login = ({ toggleDrawer, isSmall }) => {
 
-    const isConnected = useSelector(state => state.isConnected.value)
+    const user = useSelector(state => state.userConnected)
 
     const { t } = useTranslation();
 
 
 
-    if (isConnected) {
+    if (user.isConnected) {
         if (isSmall) {
             return (
                 <IconButton aria-label="menu" onClick={toggleDrawer(true)}>

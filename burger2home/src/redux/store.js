@@ -6,7 +6,7 @@ import smallMenuReducer from "./smallMenuSlice.js"
 
 export default configureStore({
     reducer: {
-        isConnected: userReducer,
+        userConnected: userReducer,
         isOpen: smallMenuReducer
     }
   })

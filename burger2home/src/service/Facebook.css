@@ -1,0 +1,13 @@
+.facebook{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #4c69ba;
+    color: white;
+}
+
+
+.facebook:hover{
+    cursor: pointer;
+}
+

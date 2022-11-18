@@ -1,16 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const userSlice = createSlice({
-  name: 'isConnected',
+  name: 'user',
   initialState: {
-    value: false
+    isConnected: false,
+    provider:"",
+    name:"",
+    email:""
   },
   reducers: {
     login: state => {
-      state.value = true
+      state.isConnected = true
     },
     logout: state => {
-      state.value = false
+      state.isConnected = false
     }
   }
 })
