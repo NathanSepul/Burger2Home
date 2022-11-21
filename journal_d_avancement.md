@@ -38,3 +38,4 @@
 ## semaine 46
 - [x] continuité des recherches et premiere implémentation des oauth google et facebook
 - [X] ajout de route privée
+- [X] persitance des données créée avec redux slice
