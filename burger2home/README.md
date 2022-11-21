@@ -15,3 +15,6 @@
 - [x] npm i --save redux
 - []  npm installs react-facebook-login --save --force
 - [X] npm i @react-oauth/google@latest
+- [X] npm install react-google-login --force
+- [X] npm install redux-persist --force
+- [X] npm install redux-thunk --force

@@ -2,10 +2,20 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
-    color: white;
-    background-color: rgb(198, 30, 30);
 }
+
 
 #google:hover{
     cursor: pointer;
 }
+
+
+
+.SVGAnimatedString {
+    width: 62px !important;
+}
+
+
+
+
+

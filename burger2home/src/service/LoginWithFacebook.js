@@ -19,13 +19,14 @@ const LoginWithFacebook = () => {
   }
 
     return (
+      
       <FacebookLogin
         cssClass="facebook"
         appId="494868705942734"
         autoLoad={false}
         fields="name,email,picture"
         size="small"
-        icon={<FacebookRoundedIcon fontSize="large" id="tt"/>}
+        icon={<FacebookRoundedIcon fontSize="large" />}
         textButton=""
         scope="public_profile"
         callback={(e)=>responseFacebook(e)}
