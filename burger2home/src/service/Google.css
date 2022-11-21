@@ -2,17 +2,12 @@
     width: 55px;
     height: 55px;
     border-radius: 50%;
+    background-color: rgb(234, 234, 234);
 }
 
 
 #google:hover{
     cursor: pointer;
-}
-
-
-
-.SVGAnimatedString {
-    width: 62px !important;
 }
 
 

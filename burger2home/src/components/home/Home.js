@@ -16,6 +16,7 @@ const Home = () => {
 
   return (
     <main>
+      <title>Burger2Home</title>
       <Banniere />
       <Area2 titre={t('accueil.area2.titre')} img1={formidable} img2={it} img3={fondant} txt1={t('accueil.area2.txt1')} txt2={t('accueil.area2.txt2')} txt3={t('accueil.area2.txt3')} name="lesStars" />
       <Area1 />

@@ -56,6 +56,22 @@ h2{
 }
 
 
+#inscriptionNetwork{
+    margin-top: 10px;
+    padding: 0px 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    
+}
+
+#buttonInscription{
+    width: 40%;
+    background-color: #D68910;
+    color:black;
+    margin-top: 5px;
+}
+
 
 
 

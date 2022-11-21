@@ -1,11 +1,11 @@
 import React from 'react';
-import GoogleIcon from '@mui/icons-material/Google';
 import { useGoogleLogin,GoogleLogin } from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice.js';
+import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import "./Google.css";
 
-const LoginWithGoogle = () => {
+export const LoginWithGoogle = () => {
     
     const dispatch = useDispatch()
 
@@ -18,44 +18,11 @@ const LoginWithGoogle = () => {
 
     return (
         <button  type="button" id="google" aria-label="connectionGoogle" onClick={() => {loginWithGoogle()}}>
-            <GoogleIcon id="ss" fontSize="large" />
+            <FcGoogle size="3em" />
         </button>
     )
 
 
-// const handleLoginSuccess = (credentialResponse) => {
-//     dispatch(login())
-//     console.log(credentialResponse);
-// }
-
-// const handleLoginError = (credentialResponse) => {
-//     dispatch(login())
-//     console.log(credentialResponse);
-// }
-//     return (
-        
-//         // <button  type="button" id="google" aria-label="connectionGoogle">
-//         //      <GoogleIcon fontSize="large" />
-//         // </button>
-//         <GoogleLogin
-//             onSuccess={R => handleLoginSuccess(R)}
-//             onError={R => handleLoginError(R)}
-//             type="standard"
-//             text=' '
-//             size="large"
-//             shape="circle"
-//             logo_alignment="center"
-//             ux_mode="popup"
-//             className="google"
-//             context="signin"
-//             cookiePolicy={'single_host_origin'}
-//             style={{marginTop:"100px"}}
-            
-//             // isSignedIn={true}
-//             // useOneTap
-//         />
-//     );
-    
 }
 
 export default LoginWithGoogle;

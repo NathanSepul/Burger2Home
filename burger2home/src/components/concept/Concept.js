@@ -9,6 +9,7 @@ const Concept = () => {
 
     return (
         <main>
+            <title>Burger2Home | {t('concept.titre')}</title>
             <h3>{t('concept.titre')}</h3>
             <section id="conceptSection">
                 <article id="gauche">

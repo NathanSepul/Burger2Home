@@ -106,11 +106,11 @@
     },
 
     "connexion":{
-        "connexion": "Connexion",
+        "connexion": "Connection",
         "email":"Email",
         "pwd":"Password",
         "continuer":"Continue",
-        "inscription":"Subscribe",
+        "inscription":"Sign Up",
         "errorEmail":"Please enter a valid email",
         "autreConnexion":"Connect via the network of your choice !",
         "mdpOublie":"Forgot your password ?"

@@ -4,6 +4,7 @@ import Commandes from './historyOrders/Orders.js';
 import { useTranslation } from 'react-i18next';
 import InfoIcon from '@mui/icons-material/Info';
 import HistoryIcon from '@mui/icons-material/History';
+import LogoutWithGoogle from "../../service/LogoutWithGoogle.js"
 import "./Account.css";
 
 
@@ -27,8 +28,9 @@ function Account() {
 
     return (
         <main className='Compte'>
+            <title>Burger2Home | {t("compte.titre")}</title>
             <div id="title"><h1>{t("compte.titre")}</h1></div>
-
+            <LogoutWithGoogle/>
             <section className='buttonComtpte'>
                 <div className='mesInformations' id={selectedInformations} onClick={SwitchToInformation}>
                     <span> <InfoIcon /> </span>  <p className='txt'>{t("compte.informations")}</p>

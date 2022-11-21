@@ -50,6 +50,7 @@ const Connection = () => {
 
     return (
         <main>
+            <title>Burger2Home | {t('connexion.connexion')}</title>
             <h1>Burger2Home</h1>
             <div className="connectionForm">
                 <Box

@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import PasswordField from '../password/PasswordField.js';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice.js';
 import PasswordChecklist from "react-password-checklist";
 import InfoIcon from '@mui/icons-material/Info';
 import Divider from '@mui/material/Divider';
+import LoginWithFacebook from '../../service/LoginWithFacebook.js';
+import LoginWithGoogle from '../../service/LoginWithGoogle.js';
+import Button from "@mui/material/Button";
 
 import "./Inscription.css";
 
@@ -56,6 +58,7 @@ const Inscription = () => {
 
     return (
         <main id="inscription">
+            <title>Burger2Home | Inscription</title>
             <h1>Burger2Home</h1>
             <div className="inscriptionForm">
                 <form onSubmit={validationFormulaire} >
@@ -81,12 +84,17 @@ const Inscription = () => {
 
                     <br />
 
-                    <button variant="contained" type="submit">s'inscrire</button>
+                    <Button id="buttonInscription" variant="contained" type="submit">s'inscrire</Button>
+
                 </form>
                 
                 <br />
                 <Divider />
-
+                <p>Inscrivez-vous via un de ces réseaux</p>
+                <div id="inscriptionNetwork">
+                    <LoginWithGoogle/>
+                    <LoginWithFacebook/>
+                </div>
             </div>
             <br />
         </main>
