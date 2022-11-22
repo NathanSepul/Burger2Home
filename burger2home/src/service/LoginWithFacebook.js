@@ -7,11 +7,14 @@ import "./Facebook.css";
 
 const LoginWithFacebook = () => {
   const dispatch = useDispatch()
-
+  const user = {provider:"Facebook",  name:"", email:""}
   const responseFacebook=(response) => {
     if (response.accessToken) {
       console.log(response)
-      dispatch(login());
+      user.name = response.name;
+      user.email = response.email
+      dispatch(login(user));
+      
     } else {
       console.log(response)
       dispatch(logout());

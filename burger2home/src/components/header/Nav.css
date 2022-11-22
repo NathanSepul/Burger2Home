@@ -110,5 +110,17 @@
     #menuBurger{
         color: black;
     }
+
+    .verticalLine{
+        height: 80%;
+        border-right: 2px solid black;
+        grid-column: 2;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    #selectLangue{
+        margin-bottom: 5px;
+    }
     
 }

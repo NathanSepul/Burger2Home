@@ -9,11 +9,21 @@ export const userSlice = createSlice({
     email:""
   },
   reducers: {
-    login: state => {
-      state.isConnected = true
+    login: (state,action) => {
+      return state = {
+        isConnected : true,
+        provider : action.payload.provider,
+        email :  action.payload.email,
+        name :  action.payload.name
+      }
     },
     logout: state => {
-      state.isConnected = false
+      return state = {
+        isConnected : false,
+        provider : "",
+        email : "",
+        name :  "",
+      }
     }
   }
 })

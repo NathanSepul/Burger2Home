@@ -8,7 +8,7 @@ import "./Login.css";
 
 const Login = ({ toggleDrawer, isSmall }) => {
 
-    const user = useSelector(state => state.userConnected)
+    const user = useSelector(state => state.user)
 
     const { t } = useTranslation();
 

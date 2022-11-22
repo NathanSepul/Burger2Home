@@ -8,7 +8,7 @@ import Inscription from "./components/login/Inscription.js"
 
 
 export const PrivateRouteCompte = () => {
-    const user = useSelector(state => state.userConnected)
+    const user = useSelector(state => state.user)
 
     return(
         user.isConnected ? <Outlet /> : <Connection/>
@@ -16,7 +16,7 @@ export const PrivateRouteCompte = () => {
 }
 
 export const PrivateRouteConnection = () => {
-    const user = useSelector(state => state.userConnected)
+    const user = useSelector(state => state.user)
 
     return(
         user.isConnected ? <Account/> : <Outlet /> 

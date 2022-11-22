@@ -10,6 +10,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import validator from "validator";
 import ModalChangePassword from '../../password/ModalChangePassword.js';
+import LogoutWithGoogle from "../../../service/LogoutWithGoogle.js"
+import { useSelector} from 'react-redux';
+
 import "./Informations.css";
 
 
@@ -19,14 +22,15 @@ const Informations = () => {
     const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [user, setUser] = useState({});
+    const [updateUser, setUser] = useState({});
+    const userRedux = useSelector(state => state.user)
 
 
 
 
     const validationFormulaire = (event) => {
 
-        if (validator.isEmail(user.email)) {
+        if (validator.isEmail(updateUser.email)) {
             setMessage("");
         } else {
             event.preventDefault();
@@ -70,9 +74,9 @@ const Informations = () => {
         if (value !== null) {
             const d = new Date(value); // voir si on stock les dates en en-EN ou fr-FR
             console.log(d.toLocaleDateString("fr-FR"));
-            setUser({ ...user, birthday: d })
+            setUser({ ...updateUser, birthday: d })
         }
-    }, [user])
+    }, [updateUser])
 
 
     if (hasError) {
@@ -103,15 +107,14 @@ const Informations = () => {
                     '& > :not(style)': { margin: "8px", width: "auto", minWidth: "30ch" },
                 }}
             >
-                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={user.lastName} InputProps={{ readOnly: true, }} />
-                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={user.firstName} InputProps={{ readOnly: true, }} />
+                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={userRedux.name} InputProps={{ readOnly: true, }} />
+                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={userRedux.name} InputProps={{ readOnly: true, }} />
 
                 <LocalizationProvider id="champ3" dateAdapter={AdapterDayjs} adapterLocale={i18n.language}>
                     <DatePicker
                         disableFuture
-                        placeholder="jjj"
                         label={t("compte.details.anniversaire")}
-                        value={user.birthday}
+                        value={updateUser.birthday}
                         renderInput={(params) => <TextField {...params} />}
                         onChange={updateBithDay}
                     />
@@ -119,16 +122,16 @@ const Informations = () => {
 
                 <br className='tampon' />
 
-                <TextField id="champ4" required label="email" variant="outlined" value={user.email} onChange={(e) => { setUser({ ...user, email: e.target.value }) }} />
+                <TextField id="champ4" required label="email" variant="outlined" value={userRedux.email} onChange={(e) => { setUser({ ...updateUser, email: e.target.value }) }} />
                 <br className='tampon' />
 
                 <div id="champ5">
-                    <ModalChangePassword user={user} setUser={setUser} />
+                    <ModalChangePassword user={updateUser} setUser={setUser} />
                 </div>
 
                 <button variant="contained" id="champ10" type="submit">{t("compte.details.enregistrer")}</button>
             </Box>
-
+            <LogoutWithGoogle/>
         </div>
     );
 

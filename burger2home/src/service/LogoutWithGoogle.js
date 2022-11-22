@@ -2,7 +2,7 @@ import React from "react"
 import {googleLogout} from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
 import { logout } from '../redux/userSlice.js';
-
+import "./Google.css"
 const LogoutWithGoogle = ()=>{
   const dispatch = useDispatch()
 
@@ -11,7 +11,9 @@ const LogoutWithGoogle = ()=>{
     dispatch(logout());
   }
   return (
-    <button onClick={() => {logoutGoogle()}}> yooo</button>
+    <div className="divButton">
+      <button variant="contained" className="disconnectButton" type="" onClick={() => {logoutGoogle()}}>Déconnexion</button>
+    </div>
   )
 }
 

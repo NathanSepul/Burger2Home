@@ -22,7 +22,7 @@ const persistedReducerSmallMenu = persistReducer(persistConfigMenu, smallMenuRed
 
 export const store = configureStore({
     reducer: {
-        userConnected: persistedReducerUser,
+        user: persistedReducerUser,
         isOpen: persistedReducerSmallMenu
     },
     middleware: [thunk]
