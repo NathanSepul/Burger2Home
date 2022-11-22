@@ -8,12 +8,20 @@ import "./Google.css";
 export const LoginWithGoogle = () => {
     
     const dispatch = useDispatch()
+    const user = {provider:"Google",  name:"", email:""}
+
+    const SuccesGoogle = (response) => {
+        console.log(response)
+        user.name = response.name;
+        user.email = response.email
+        dispatch(login(user))
+    }
 
     const loginWithGoogle = useGoogleLogin({
-        onSuccess: credentialResponse => { console.log(credentialResponse); dispatch(login()) },
+        onSuccess: Resonse => { SuccesGoogle(Resonse)},
         onError: () => console.log('Login Failed'),
+       
         flow: 'auth-code',
-        prompt:"none"
     });
 
     return (
@@ -21,6 +29,8 @@ export const LoginWithGoogle = () => {
             <FcGoogle size="3em" />
         </button>
     )
+
+    
 
 
 }

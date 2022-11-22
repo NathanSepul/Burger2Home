@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'
+import { createRoot } from 'react-dom/client';
 import App from './App.js';
 import { Provider } from "react-redux";
 import { persistor, store } from './redux/store';
@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './i18n/i18n';
 
 const container = document.getElementById('app');
-const root = ReactDOM.createRoot(container);
+const root = createRoot(container);
 root.render(
     
 
@@ -17,7 +17,7 @@ root.render(
     <GoogleOAuthProvider clientId="199826957034-6cvt4kjaulho32g6e9vgrkt8tvcs0p7v.apps.googleusercontent.com">
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <App />
+                <App/>
             </PersistGate>
         </Provider>
     </GoogleOAuthProvider>
