@@ -1,0 +1,77 @@
+[
+    {
+        "id": "1",
+        "name": "Le fondant",
+        "price":"7.5",
+        "pictureUrl":"/picture/fondant.jpg",
+        "description": "un super bg",
+        "allergene": [
+            {
+                "id": "1",
+                "name": "lactose"
+            },
+
+            {
+                "id": "2",
+                "name": "gluglu"
+            }
+        ]
+    },
+
+    {
+        "id": "2",
+        "name": "Le formidable",
+        "price":"8",
+        "pictureUrl":"/picture/formidable.jpeg",
+        "description": "un super bg 2",
+        "allergene": [
+            {
+                "id": "1",
+                "name": "lactose 2"
+            },
+
+            {
+                "id": "2",
+                "name": "gluglu 3"
+            }
+        ]
+    },
+
+    {
+        "id": "3",
+        "name": "L'I.T",
+        "price":"9",
+        "pictureUrl":"/picture/it.jpg",
+        "description": "un super bg 3",
+        "allergene": [
+            {
+                "id": "1",
+                "name": "lactose 3"
+            },
+
+            {
+                "id": "2",
+                "name": "gluglu 3"
+            }
+        ]
+    },
+
+    {
+        "id": "4",
+        "name": "L'Incontournable",
+        "price":"5",
+        "pictureUrl":"/picture/formidable.jpeg",
+        "description": "un super bg 4",
+        "allergene": [
+            {
+                "id": "1",
+                "name": "lactose 4"
+            },
+
+            {
+                "id": "2",
+                "name": "gluglu 4"
+            }
+        ]
+    }
+]

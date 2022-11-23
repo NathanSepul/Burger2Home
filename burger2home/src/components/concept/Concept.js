@@ -1,7 +1,5 @@
 import React from 'react';
 import "./Concept.css";
-import pdt from "../../picture/pdt_pelee.jpg";
-import montage from "../../picture/montage.jpeg";
 import { useTranslation } from 'react-i18next';
 
 const Concept = () => {
@@ -20,14 +18,14 @@ const Concept = () => {
                     <br />
                     <p>{t('concept.gauche.p3')}</p>
                     <br />
-                    <img src={pdt} alt="eplucher pdt" />
+                    <img src={"/picture/pdt_pelee.jpg"} alt="eplucher pdt" />
 
                     <br /><br /><br />
                 </article>
 
                 <article id="droit">
                     <br />
-                    <img src={montage} alt="montage de burger" />
+                    <img src={"/picture/montage.jpeg"} alt="montage de burger" />
 
                     <br />
                     <br />

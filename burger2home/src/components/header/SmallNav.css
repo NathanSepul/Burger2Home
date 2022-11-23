@@ -13,7 +13,7 @@
 
 .linksSmallHeader {
     list-style-type: none;
-    background: linear-gradient(0deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.2)), url("../../picture/backgroundHeader.jpg");
+    background: linear-gradient(0deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.2)), url("/public/picture/backgroundHeader.jpg");
 }
 
 .linkSmallHeader {

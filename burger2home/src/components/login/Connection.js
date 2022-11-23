@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import PasswordField from '../password/PasswordField.js';
 import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
@@ -11,7 +11,6 @@ import Divider from '@mui/material/Divider';
 import { Link } from "react-router-dom";
 import LoginWithFacebook from '../../service/LoginWithFacebook.js';
 import LoginWithGoogle from '../../service/LoginWithGoogle.js';
-import { useNavigate} from 'react-router-dom';
 
 import "./Connection.css";
 
@@ -23,7 +22,6 @@ const Connection = () => {
     const { t } = useTranslation();
 
     const dispatch = useDispatch()
-    const navigate = useNavigate();
     
     const handleChangeEmail = event => {
         setEmail(event.target.value);
@@ -93,8 +91,8 @@ const Connection = () => {
                 <br />
                 <p>{t('connexion.autreConnexion')}</p>
                 <div id="connectionNetwork">
-                    <LoginWithGoogle/>
-                    {/* <LoginWithFacebook/> */}
+                    <LoginWithGoogle />
+                    <LoginWithFacebook/>
                 </div>
             </div>
             <br />

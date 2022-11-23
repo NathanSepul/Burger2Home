@@ -3,8 +3,10 @@ h1{
     padding-top: 30px;
     text-align: center;
 }
+
 h2{
     font-weight: 500;
+    margin-bottom:20px;
 }
 .connectionForm{
     text-align: center;
@@ -12,7 +14,7 @@ h2{
     width: 400px;
     margin: 10 auto;
     background-color: #FEFEFE;
-    display: block;
+    /* display: block; */
     border-radius: 10px;
     box-shadow: 3px 3px 3px gray;
 }

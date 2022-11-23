@@ -3,7 +3,7 @@ import { useSelector} from 'react-redux';
 import {Outlet} from "react-router-dom";
 import Connection from "./components/login/Connection.js"
 import Account from "./components/account/Account.js"
-import Inscription from "./components/login/Inscription.js"
+// import Inscription from "./components/login/Inscription.js"
 
 
 
@@ -24,7 +24,7 @@ export const PrivateRouteConnection = () => {
 }
 
 export const PrivateRouteInscription = () => {
-    const user = useSelector(state => state.userConnected)
+    const user = useSelector(state => state.user)
 
     return(
         user.isConnected ? <Account/> : <Outlet /> 

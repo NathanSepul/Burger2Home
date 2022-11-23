@@ -1,8 +1,4 @@
 import React from 'react';
-import ban3 from "../../picture/ban3.jpg";
-import arrow from "../../picture/arrow.png";
-import logo from "../../picture/logoBurger.jpg"
-
 import { Carousel } from 'react-responsive-carousel';
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -61,7 +57,7 @@ const Banner = () => {
       <div className='third_slide'>
         <div className="slide3Left">
           <div id="left1">
-            <img src={logo} id="logoCarousel" alt="logoCarousel" />
+            <img src={"/picture/logoBurger.jpg"} id="logoCarousel" alt="logoCarousel" />
             <p id="txtCarousel1" >BURGER2HOME</p>
           </div>
 
@@ -70,7 +66,7 @@ const Banner = () => {
           </div>
 
           <div id="left3">
-            <img src={arrow} id="arrow" alt="arrow" />
+            <img src={"/picture/arrow.png"} id="arrow" alt="arrow" />
             <div>
               <Link to="/carte" > {t('accueil.carousel.txtPromo1')}</Link>
             </div>
@@ -78,7 +74,7 @@ const Banner = () => {
         </div>
 
         <div className="slide3Right">
-          <img src={ban3} id="img3" alt="img burger poulet" />
+          <img src={"/picture/ban3.jpg"} id="img3" alt="img burger poulet" />
         </div>
       </div>
 

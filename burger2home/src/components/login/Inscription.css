@@ -12,12 +12,14 @@ h2{
 .inscriptionForm{
     text-align: center;
     padding: 20px 20px;
-    width: 50%;
+    width: 40%;
     max-width: 800px;
     min-width: 400px;
-    margin: 0 auto;
+    margin: 10 auto;
     background-color: #FEFEFE;
+    /* display: block; */
     border-radius: 10px;
+    box-shadow: 3px 3px 3px gray;
 }
 
 .inscriptionForm input{
@@ -57,8 +59,8 @@ h2{
 
 
 #inscriptionNetwork{
-    margin-top: 10px;
-    padding: 0px 200px;
+    margin:10px 100px;
+   
     display: flex;
     flex-direction: row;
     justify-content: space-around;

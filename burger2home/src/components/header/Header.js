@@ -1,6 +1,5 @@
 import React from 'react';
 import Nav from "./Nav.js"
-import logo from "../../picture/logoBurger.jpg";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {setIsOpen} from '../../redux/smallMenuSlice.js';
@@ -28,7 +27,7 @@ const Header = () => {
 
   return (
     <header>
-      <Link to="" id="gridLogo" onClick={toggleDrawer(true)} > <img src={logo} alt="burger2home" id="logoheader" />  </Link>
+      <Link to="" id="gridLogo" onClick={toggleDrawer(true)} > <img src={"/picture/logoBurger.jpg"} alt="burger2home" id="logoheader" />  </Link>
      
       <div id="Header">
         <Nav toggleDrawer={toggleDrawer}/>

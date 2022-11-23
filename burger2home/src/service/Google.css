@@ -5,6 +5,18 @@
     background-color: rgb(234, 234, 234);
 }
 
+/* 
+#gsi_42458_577392-wrapper, #gsi_42458_577392-overlay{
+    width: 55px !important;
+    height: 55px !important;
+    background-color: green;
+}
+ */
+
+ #c{
+    width: 55px !important;
+    height: 55px !important;
+ }
 
 #google:hover{
     cursor: pointer;
