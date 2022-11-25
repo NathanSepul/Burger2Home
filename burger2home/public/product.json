@@ -3,7 +3,7 @@
         "id": "1",
         "name": "Le fondant",
         "price":"7.5",
-        "pictureUrl":"/picture/fondant.jpg",
+        "pictureUrl":"/picture/burger/fondant.jpg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
@@ -22,7 +22,7 @@
         "id": "2",
         "name": "Le formidable",
         "price":"8",
-        "pictureUrl":"/picture/formidable.jpeg",
+        "pictureUrl":"/picture/burger/formidable.jpeg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
@@ -41,7 +41,7 @@
         "id": "3",
         "name": "L'I.T",
         "price":"9",
-        "pictureUrl":"/picture/it.jpg",
+        "pictureUrl":"/picture/burger/it.jpg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
@@ -60,7 +60,7 @@
         "id": "4",
         "name": "L'Incontournable",
         "price":"5",
-        "pictureUrl":"/picture/formidable.jpeg",
+        "pictureUrl":"/picture/burger/formidable.jpeg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
