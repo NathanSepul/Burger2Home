@@ -4,8 +4,8 @@
         "name": "Le fondant",
         "price":"7.5",
         "pictureUrl":"/picture/fondant.jpg",
-        "description": "un super bg",
-        "allergene": [
+        "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
+        "allergenes": [
             {
                 "id": "1",
                 "name": "lactose"
@@ -23,8 +23,8 @@
         "name": "Le formidable",
         "price":"8",
         "pictureUrl":"/picture/formidable.jpeg",
-        "description": "un super bg 2",
-        "allergene": [
+        "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
+        "allergenes": [
             {
                 "id": "1",
                 "name": "lactose 2"
@@ -42,8 +42,8 @@
         "name": "L'I.T",
         "price":"9",
         "pictureUrl":"/picture/it.jpg",
-        "description": "un super bg 3",
-        "allergene": [
+        "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
+        "allergenes": [
             {
                 "id": "1",
                 "name": "lactose 3"
@@ -61,8 +61,8 @@
         "name": "L'Incontournable",
         "price":"5",
         "pictureUrl":"/picture/formidable.jpeg",
-        "description": "un super bg 4",
-        "allergene": [
+        "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
+        "allergenes": [
             {
                 "id": "1",
                 "name": "lactose 4"
