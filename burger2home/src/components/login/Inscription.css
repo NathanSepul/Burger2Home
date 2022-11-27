@@ -15,7 +15,8 @@ h2{
     width: 40%;
     max-width: 800px;
     min-width: 400px;
-    margin: 10 auto;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #FEFEFE;
     /* display: block; */
     border-radius: 10px;
