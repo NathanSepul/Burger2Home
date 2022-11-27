@@ -14,12 +14,12 @@ root.render(
     
 
 <React.StrictMode>
-    <GoogleOAuthProvider clientId="199826957034-6cvt4kjaulho32g6e9vgrkt8tvcs0p7v.apps.googleusercontent.com">
-        <Provider store={store}>
+    <Provider store={store}>
+        <GoogleOAuthProvider clientId="199826957034-6cvt4kjaulho32g6e9vgrkt8tvcs0p7v.apps.googleusercontent.com">
             <PersistGate loading={null} persistor={persistor}>
                 <App/>
             </PersistGate>
-        </Provider>
-    </GoogleOAuthProvider>
+        </GoogleOAuthProvider>
+    </Provider>
 </React.StrictMode>
 );

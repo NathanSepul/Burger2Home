@@ -46,18 +46,6 @@ const Connection = () => {
         dispatch(login())
     }
 
-    // useEffect(() => {
-    //     const reload = () => {
-    //         navigate("/connection")
-    //     }
-
-    //     window.addEventListener("beforeunload", reload)
-
-    //     return () => {
-    //         window.removeEventListener('beforeunload', reload)
-    //     }
-    // }, [])
-
     return (
         <main>
             <title>Burger2Home | {t('connexion.connexion')}</title>

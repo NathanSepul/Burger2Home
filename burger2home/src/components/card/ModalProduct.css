@@ -16,7 +16,7 @@
     max-width: 670px;
     min-width: 350px;
     width: 40%;
-    height: 650px;
+    /* height: 650px; */
     background-color: white;
     position: absolute;
     top: 50vh;
@@ -60,16 +60,74 @@
     max-width: 320px;
 }
 
+.rigthModal{    
+    display: flex;
+    padding-right: 5%;
+    padding-left:  5%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.allergenes{
+    transform: translateX(30px);
+}
+
 .allergenes div{
     transform: translateX(-30px);
 }  
 
 
-.allergenes{
-    float: right;
+
+.addButton{
+    background-color: #D68910;
+    padding: 3px;
+}
+
+.addButton input{
+   padding-top: 5px;
+   padding-bottom: 5px;
+   background-color: white;
+   text-align: center;
+   border-radius: 3px;
+}
+
+.arrow{
+    border-radius: 10px;
+    padding:0px;
+    margin:0px;
+    transform: translateX(10px);
+    width: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    background-color: #DEDEDE !important;
+
+}
+
+.dropDown, .dropUP{
+    display: block;
+    padding:0px;
+    margin:0px;
+    height: 20px;
+    width: 20px;
+    border-radius: 0;
+}
+
+.dropDown:active, .dropUP:active{
+    background-color: green !important;
 }
 
 .descriptionModal{
     padding-left: 35px;
     text-align:left;
+}
+
+.buttonsModalProduct button{
+    background-color: #D68910;
+    /* height: 50px; */
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 20px;
+    float: right;
+    transform: translateX(-20px)
 }
