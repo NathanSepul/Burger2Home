@@ -39,3 +39,10 @@
 - [x] continuité des recherches et premiere implémentation des oauth google et facebook
 - [X] ajout de route privée
 - [X] persitance des données créée avec redux slice
+
+
+## semaine 47
+- [x] problème de rafraichissemnt avec le use google login
+- [x] résolution de ce problème
+- [x] premiere version de l'affichage de produits
+- [x] modal affichage de produit
