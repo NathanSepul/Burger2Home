@@ -114,6 +114,10 @@
         "errorEmail":"Please enter a valid email",
         "autreConnexion":"Connect via the network of your choice !",
         "mdpOublie":"Forgot your password ?"
+    }, 
+
+    "produits":{
+        "allergenes":"Allergens"
     }
 
    

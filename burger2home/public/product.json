@@ -2,72 +2,77 @@
     {
         "id": "1",
         "name": "Le fondant",
-        "price":"7.5",
-        "pictureUrl":"/picture/burger/fondant.jpg",
+        "price": "7.5",
+        "pictureUrl": "/picture/burger/fondant.jpg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
                 "id": "1",
                 "name": "lactose"
             },
-
             {
                 "id": "2",
-                "name": "gluglu"
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "fruit à coque"
+            },
+            {
+                "id": "4",
+                "name": "céréal"
             }
         ]
     },
-
     {
         "id": "2",
         "name": "Le formidable",
-        "price":"8",
-        "pictureUrl":"/picture/burger/formidable.jpeg",
+        "price": "8",
+        "pictureUrl": "/picture/burger/formidable.jpeg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
                 "id": "1",
-                "name": "lactose 2"
+                "name": "lactose"
             },
-
             {
                 "id": "2",
-                "name": "gluglu 3"
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "gluten"
             }
         ]
     },
-
     {
         "id": "3",
         "name": "L'I.T",
-        "price":"9",
-        "pictureUrl":"/picture/burger/it.jpg",
+        "price": "9",
+        "pictureUrl": "/picture/burger/it.jpg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
                 "id": "1",
                 "name": "lactose 3"
             },
-
             {
                 "id": "2",
                 "name": "gluglu 3"
             }
         ]
     },
-
     {
         "id": "4",
         "name": "L'Incontournable",
-        "price":"5",
-        "pictureUrl":"/picture/burger/formidable.jpeg",
+        "price": "5",
+        "pictureUrl": "/picture/burger/formidable.jpeg",
         "description": "Buns toasté, burger 100% pur bœuf, mesclun, oignons rouges, cornichons, double cheddar, sauce Daily",
         "allergenes": [
             {
                 "id": "1",
                 "name": "lactose 4"
             },
-
             {
                 "id": "2",
                 "name": "gluglu 4"

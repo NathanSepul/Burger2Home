@@ -53,10 +53,13 @@ const Nav = ({ toggleDrawer}) => {
                 </Link>
                 
             </div>
-
-            <div className="navCompteSmall">
-                <SmallNav toggleDrawer={toggleDrawer} />
-            </div>
+            {(largeur <= 767) && (
+                <div className="navCompteSmall">
+                    <span className="verticalLine"></span>
+                    <SmallNav toggleDrawer={toggleDrawer} />
+                </div>
+            )}
+            
         </nav>
     );
 };

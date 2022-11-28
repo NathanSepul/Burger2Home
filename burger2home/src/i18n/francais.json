@@ -113,6 +113,10 @@
         "errorEmail":"Veuillez entrez un email valide",
         "autreConnexion":"Connectez-vous via le réseau de votre choix !",
         "mdpOublie":"Mot de passe oublié ?"
+    }, 
+
+    "produits":{
+        "allergenes":"Allergènes"
     }
 
    

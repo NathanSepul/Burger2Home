@@ -10,30 +10,37 @@
 
 .iconClose{
     float: right;
-    /* right: -35px; */
 }
+
+
 .modalProduct {
-    max-width: 670px;
+    max-width: 700px;
     min-width: 350px;
-    width: 40%;
-    /* height: 650px; */
+    width: 50%;
     background-color: white;
     position: absolute;
     top: 50vh;
     left: 50vw;
     transform: translate(-50%,-50%);
     border: 2px solid #000;
-    /* padding-left: 35px; */
-    /* padding-right: 35px; */
-    padding-bottom: 60px;
     border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 60px; 
 }  
-
 .titreModal{
+    width: 100%;
     margin-top: 35px;
     font-size:xx-large;
     font-weight: 900;
-    text-align: center;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+
 }
 .priceModal{
     font-size:x-large;
@@ -42,45 +49,16 @@
     margin-bottom: 30px;
 }
 
-.contenuModalProduct{
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-around;
+
+.add{
+    text-align: center;
+    margin : auto
 }
-
-
-.imageModal{
-    border-radius: 10px;
-    object-fit: cover;
-    width: 23vw;
-    height: 23vw;
-
-    max-height: 320px;
-    max-width: 320px;
-}
-
-.rigthModal{    
-    display: flex;
-    padding-right: 5%;
-    padding-left:  5%;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.allergenes{
-    transform: translateX(30px);
-}
-
-.allergenes div{
-    transform: translateX(-30px);
-}  
-
-
 
 .addButton{
     background-color: #D68910;
     padding: 3px;
+    max-width: 120px !important;
 }
 
 .addButton input{
@@ -91,7 +69,7 @@
    border-radius: 3px;
 }
 
-.arrow{
+.arrowModal{
     border-radius: 10px;
     padding:0px;
     margin:0px;
@@ -104,30 +82,134 @@
 
 }
 
-.dropDown, .dropUP{
+.dropDown, .dropUp{
     display: block;
     padding:0px;
     margin:0px;
     height: 20px;
     width: 20px;
-    border-radius: 0;
 }
 
-.dropDown:active, .dropUP:active{
-    background-color: green !important;
+.dropUp:active{
+    background-color:  #a7a7a7 !important;
+    border-radius: 10px 10px 0 0;
 }
 
-.descriptionModal{
-    padding-left: 35px;
-    text-align:left;
+.dropDown:active{
+    background-color: #a7a7a7 !important;
+    border-radius: 0px 0px 10px 10px;
+
 }
 
+.arrow button:hover{
+    background-color: transparent;
+}
+
+
+
+.buttonsModalProduct .totalDisplay{
+    background-color: #cdcdcd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 10px;
+
+}
 .buttonsModalProduct button{
     background-color: #D68910;
-    /* height: 50px; */
     font-size: 1rem;
     padding: 10px;
     border-radius: 20px;
-    float: right;
-    transform: translateX(-20px)
+   
+}
+
+@media screen and (min-width: 768px){
+
+    .contenuModalProduct{
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+    }
+
+    .imageModal{
+        border-radius: 10px;
+        object-fit: cover;
+        width: 23vw;
+        height: 20vw;
+        max-height: 320px;
+    }
+
+    .descriptionModal{
+        text-align:left;
+        width: 23vw;
+    }
+
+    .rigthModal{    
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transform: translateX(3px);
+    }
+
+    .buttonsModalProduct{
+        display: flex;
+        flex-direction: row;
+        float: right;
+        transform: translateX(-20px)
+    }
+
+    
+    
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+     
+    .contenuModalProduct{
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .leftModal{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .imageModal{
+        border-radius: 10px;
+        object-fit: cover;
+        width: 40vw;
+        height: 30vw;
+        max-height: 320px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .descriptionModal{
+        width: 40vw;
+        text-align:left;
+        margin-right: auto;
+        margin-left: auto;   
+        margin-top: 10px; 
+        margin-bottom: 10px; 
+    }
+
+    .rigthModal{    
+        display: flex;
+        flex-direction: column;
+       
+    }
+
+    .supplement{
+        margin : auto
+    }
+
+    .buttonsModalProduct{
+        display: flex;
+        flex-direction: row;
+        justify-content:space-evenly;
+        margin-top: 20px;
+        
+    }
 }
