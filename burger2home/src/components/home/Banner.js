@@ -66,7 +66,7 @@ const Banner = () => {
           </div>
 
           <div id="left3">
-            <img src={"/picture/arrow.png"} id="arrow" alt="arrow" />
+            <img src={"/picture/banner/arrow.png"} id="arrow" alt="arrow" />
             <div>
               <Link to="/carte" > {t('accueil.carousel.txtPromo1')}</Link>
             </div>
@@ -74,7 +74,7 @@ const Banner = () => {
         </div>
 
         <div className="slide3Right">
-          <img src={"/picture/ban3.jpg"} id="img3" alt="img burger poulet" />
+          <img src={"/picture/banner/ban3.jpg"} id="img3" alt="img burger poulet" />
         </div>
       </div>
 

@@ -1,0 +1,44 @@
+[
+    {
+        "id": "1",
+        "name": "Coca Normal",
+        "price": "7.5",
+        "pictureUrl": "/picture/drink/cocaNormal.png",
+        "description": "c'est délicieux",
+        "allergenes": [
+            {
+                "id": "1",
+                "name": "céréal"
+            },
+            {
+                "id": "2",
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "fruit à coque"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Fanta Orange",
+        "price": "7.5",
+        "pictureUrl":"/picture/drink/fantaOrange.png",
+        "description": "un super fanta",
+        "allergenes": [
+            {
+                "id": "1",
+                "name": "céréal"
+            },
+            {
+                "id": "2",
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "fruit à coque"
+            }
+        ]
+    }
+]

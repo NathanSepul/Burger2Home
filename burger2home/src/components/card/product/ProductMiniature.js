@@ -6,12 +6,12 @@ import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRound
 import ModalProduct from "./ModalProduct.js"
 import "./ProductMiniature.css"
 
-const ProductMiniature = ({product}) => {
+const ProductMiniature = ({product,hadExtra}) => {
 
     return (
             <Card className="product" sx={{ minWidth:250, width:250, background:"transparent", boxShadow: "none"}}>
 
-                <ModalProduct product={product}/>
+                <ModalProduct product={product} hadExtra={hadExtra}/>
 
                 <CardContent className="contentCard">
                     <div>{product.name}</div>

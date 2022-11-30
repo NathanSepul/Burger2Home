@@ -1,21 +1,28 @@
-#carte{
-    min-height: 4000px;
+.categories{
+    text-align: left;
 }
-#filtre{
+
+.globalCarte{
+    display: flex;
+    flex-direction: row;
+}
+.filtre{
     width: 200px;
+    height: max-content;
     background-color: #FFF;
-    float: left;
-    top:102px;
     position: sticky;
-    min-height: 200px;
-    margin-top: 10px;
+    top:102px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px rgb(49, 48, 48);
+    padding: 8px
+}
+
+.filtre ul {
+    list-style-type: none;
 }
 
 .produits{
-    float: right;
     width: calc(100vw - 210px);
-    height: 6000px;
-    /* background-color: aqua;   */
     padding: 10px;
-    padding-right: 50px;
-}
+    text-align: center !important;
+ }

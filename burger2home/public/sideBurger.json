@@ -1,0 +1,65 @@
+[
+    {
+        "id": "1",
+        "name": "Petite Frite",
+        "price": "7.5",
+        "pictureUrl": "/picture/sideBurger/frite.png",
+        "description": "des toutes petite frites (100g)",
+        "allergenes": [
+            {
+                "id": "1",
+                "name": "céréal"
+            },
+            {
+                "id": "2",
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "fruit à coque"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Moyen Frite",
+        "price": "7.5",
+        "pictureUrl":"/picture/sideBurger/frite.png",
+        "description": "des frites de taille normal (200g)",
+        "allergenes": [
+            {
+                "id": "1",
+                "name": "céréal"
+            },
+            {
+                "id": "2",
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "fruit à coque"
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "name": "Grande Frite",
+        "price": "7.5",
+        "pictureUrl": "/picture/sideBurger/frite.png",
+        "description": "des toutes grande frites (300g)",
+        "allergenes": [
+            {
+                "id": "1",
+                "name": "céréal"
+            },
+            {
+                "id": "2",
+                "name": "gluten"
+            },
+            {
+                "id": "3",
+                "name": "fruit à coque"
+            }
+        ]
+    }
+]

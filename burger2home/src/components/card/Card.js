@@ -1,24 +1,69 @@
-import React from 'react';
-import ProductList from "./ProductList.js"
+import React, {useState} from 'react';
+import Burger from "./Burger.js";
+import SideBurger from './SideBurger.js';
+import Drink from './Drink.js';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+
 import "./Card.css";
 
-function Card() {
+function TabPanel(props) {
+    const {children, value, index} = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`menu-${index}`}
+            aria-labelledby={`menu-${index}`}
+        >
+            {value === index && (
+                <Box sx={{ p: "10px" }}>
+                    {children}
+                </Box>
+            )}
+        </div>
+    );
+}
+
+const Card = () => {
+
+    const [value, setValue] = useState(0);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
+
     return (
         <main id="carte">
-             <title>Burger2Home | La Carte</title>
-             <h1>Notre Carte</h1>
-             <div id="filtre">
-                <h3> filtre</h3>
-                <ul>
-                    <li>type</li>
-                </ul>
+            <title>Burger2Home | La Carte</title>
+            {/* <h1>La Carte</h1> */}
+           
+           
+            <Box sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 2, borderColor: 'divider', pt:"10px"}}>
+                    <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+                        <Tab label="Nos Bugers"/>
+                        <Tab label="Nos accompagenements"/>
+                        <Tab label="Les Boissons"/>
+                    </Tabs>
+                </Box>
 
-             </div>
-             <section className='produits'>
-                <ProductList />
-             </section>
+                <TabPanel value={value} index={0}>
+                   <Burger/>
+                </TabPanel>
+
+                <TabPanel value={value} index={1}>
+                    <SideBurger/>
+                </TabPanel>
+
+                <TabPanel value={value} index={2}>
+                   <Drink/>
+                </TabPanel>
+            </Box>
         </main>
-      
+
     );
 }
 

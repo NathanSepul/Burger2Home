@@ -14,7 +14,7 @@ import AllergensDialog from "./AllergensDialog.js";
 import Supplement from "./Supplement.js";
 import "./ModalProduct.css";
 
-const ModalProduct = ({ product }) => {
+const ModalProduct = ({ product, hadExtra}) => {
 
     const [total, setTotal] = useState(product.price);
     const [totalExtra, setTotalExtra] = useState(0);
@@ -93,9 +93,12 @@ const ModalProduct = ({ product }) => {
 
 
                         <div className="rigthModal">
-                            <div className="supplement">
-                                <Supplement/>
-                            </div>
+                            {(hadExtra !== "none") &&(
+                                <div className="supplement">
+                                    <Supplement/>
+                                </div>
+                            )}
+                            
 
                             <div className="add">
                                 <OutlinedInput
