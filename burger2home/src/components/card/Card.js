@@ -5,11 +5,13 @@ import Drink from './Drink.js';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
 
 import "./Card.css";
 
 function TabPanel(props) {
     const {children, value, index} = props;
+   
 
     return (
         <div
@@ -28,7 +30,7 @@ function TabPanel(props) {
 }
 
 const Card = () => {
-
+    const { t } = useTranslation();
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -44,9 +46,9 @@ const Card = () => {
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 2, borderColor: 'divider', pt:"10px"}}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-                        <Tab label="Nos Bugers"/>
-                        <Tab label="Nos accompagenements"/>
-                        <Tab label="Les Boissons"/>
+                        <Tab label={t('carte.burgers')}/>
+                        <Tab label={t('carte.accompagnements')}/>
+                        <Tab label={t('carte.boissons')}/>
                     </Tabs>
                 </Box>
 

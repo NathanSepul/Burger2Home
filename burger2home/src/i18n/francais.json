@@ -115,6 +115,12 @@
         "mdpOublie":"Mot de passe oublié ?"
     }, 
 
+    "carte":{
+        "burgers":"Nos Burgers",
+        "accompagnements":"Nos Accompagnements",
+        "boissons":"Nos Boissons"
+    },
+
     "produits":{
         "allergenes":"Allergènes"
     }

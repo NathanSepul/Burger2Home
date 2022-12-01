@@ -116,6 +116,12 @@
         "mdpOublie":"Forgot your password ?"
     }, 
 
+    "carte":{
+        "burger":"Ours Burgers",
+        "Accompagnements":"Ours Burgers Side",
+        "boissons":"Ours Drinks"
+    },
+
     "produits":{
         "allergenes":"Allergens"
     }
