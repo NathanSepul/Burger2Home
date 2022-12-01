@@ -38,7 +38,7 @@ const Banner = () => {
         <div id='slide2_line2'>
           <div className='line1'></div>
           <div className='line2'>
-            <div className="lineRight"></div> <span className='lineCenter'><p>♦︎</p></span> <div className="lineLeft"></div>
+            <div className="lineLeft"></div> <span className='lineCenter'><p>♦︎</p></span> <div className="lineRight"></div>
           </div>
         </div>
 
@@ -46,7 +46,7 @@ const Banner = () => {
 
         <div id='slide2_line4'>
           <div className='line3'>
-            <div className="lineRight"></div> <span className='lineCenter'><p>♦︎</p></span> <div className="lineLeft"></div>
+            <div className="lineLeft"></div> <span className='lineCenter'><p>♦︎</p></span> <div className="lineRight"></div>
           </div>
           <div className='line4'></div>
         </div>

@@ -132,8 +132,8 @@
     text-align: center;
 }
 
-.lineleft{
-    border-top: dotted 2px #DEDEDE;
+.lineLeft{
+    border-top: dotted 2px  #DEDEDE;
     transform: translateY(45%);
 }
 
