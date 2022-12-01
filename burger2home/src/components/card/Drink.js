@@ -1,5 +1,6 @@
-import React, {useState,useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import ProductList from "./product/ProductList.js"
+import Loding from "../loding/Loding.js"
 
 const Burger = () => {
     const [hasError, setHasError] = useState(false);
@@ -20,20 +21,19 @@ const Burger = () => {
 
     }, []);
 
-    return (
-        <div className="globalCarte">
-            <div className="filtre">
-                <h3> filtre</h3>
-                <ul>
-                    <li>type</li>
-                </ul>
-            </div>
+    if (isLoading) {
+        return <Loding />;
+    }
 
-            <section className='produits'>
-                <ProductList products={drinks} hadExtra="none"/>
-            </section>
-        </div>
-    );
+    else {
+        return (
+            <div className="globalCarte">
+                <section className='produits'>
+                    <ProductList products={drinks} hadExtra="none" />
+                </section>
+            </div>
+        );
+    }
 }
 
 export default Burger

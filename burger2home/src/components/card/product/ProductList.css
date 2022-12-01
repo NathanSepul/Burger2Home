@@ -1,5 +1,10 @@
 .list{
-    display: grid;
+    /* display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;  
 }
+

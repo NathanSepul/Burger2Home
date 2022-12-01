@@ -23,6 +23,7 @@
 
 .produits{
     width: calc(100vw - 210px);
+    min-height: calc(100vh - 300px);
     padding: 10px;
-    text-align: center !important;
+    margin: 0 auto;
  }

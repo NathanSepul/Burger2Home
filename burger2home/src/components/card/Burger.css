@@ -1,0 +1,9 @@
+.titleFiltre{
+    color: black !important;
+    text-decoration:underline;
+    margin-top: 10px;
+}
+
+.filtreCheckBox{
+    padding-left: 15px;
+}
