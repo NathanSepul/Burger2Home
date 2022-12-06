@@ -46,3 +46,12 @@
 - [x] résolution de ce problème
 - [x] premiere version de l'affichage de produits
 - [x] modal affichage de produit
+
+## semaine 48
+- [x] ajouts de supplement
+- [x] snack bar général
+- [x] page boisson, burger et accompagenemnts
+
+## semaine 49
+- [x] suppression de l'ajout de supplément car ce n'était pas demandé
+- [x] restructuration de l'affichage de la modale lié à la suppression des suppléments
