@@ -21,7 +21,7 @@ const ModalProduct = ({ product }) => {
     const [total, setTotal] = useState(product.price);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
-   
+    const [buttonDisable, setDisable] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -29,8 +29,11 @@ const ModalProduct = ({ product }) => {
     let max = 50;
 
     const handleSetQunatity = event => {
-        if (event.target.value <= max && event.target.value >= min) {
+        if ( parseInt(event.target.value) <= max &&  parseInt(event.target.value) >= min) {
             setQuantity(event.target.value);
+        }
+        else{
+            setQuantity(0);
         }
     }
 
@@ -41,6 +44,7 @@ const ModalProduct = ({ product }) => {
     }
 
     const closeModal = () => {
+        setQuantity(1);
         setOpenModal(false);
     }
 
@@ -50,7 +54,9 @@ const ModalProduct = ({ product }) => {
             id:product.id,
             name:product.name, 
             quantity:quantity,
-            price:product.price};
+            price:product.price,
+            url:product.pictureUrl
+        };
         dispatch(addToBasketRedux(localProduct));
         setOpenModal(false);
 
@@ -60,15 +66,18 @@ const ModalProduct = ({ product }) => {
     }
 
     const subtract = () => {
-        (quantity - 1) >= min ? setQuantity(quantity - 1) : setQuantity(quantity)
+        (parseInt(quantity) - 1) >= min ? setQuantity(parseInt(quantity) - 1) : setQuantity(0)
     }
 
     const add = () => {
-        (quantity + 1) <= max ? setQuantity(quantity + 1) : setQuantity(quantity)
+        (parseInt(quantity) + 1) <= max ? setQuantity(parseInt(quantity) + 1) : setQuantity(quantity)
     }
 
     useEffect(() => {
-        setTotal(product.price * quantity)
+        setTotal(product.price * parseInt(quantity))
+        
+        quantity === 0 ? setDisable(true) : setDisable(false)
+
     }, [quantity, product.price])
 
     return (
@@ -134,7 +143,7 @@ const ModalProduct = ({ product }) => {
 
                         <div className="buttonsModalProduct">
                             <div className="totalDisplay">{total} €</div>
-                            <button type="button" onClick={addToBasket}>Ajouter au panier</button>
+                            <button type="button" disabled={buttonDisable} onClick={addToBasket}>Ajouter au panier</button>
                         </div>
                     </div>
 

@@ -15,10 +15,10 @@ export const LoginWithGoogle = () => {
     const SuccesGoogle = (response) => {
         console.log(response)
         user.name = response.name;
-        user.email = response.email
-
-        dispatch(open(openSnack))
-        dispatch(login(user))
+        user.email = response.email;
+        user.birthday = "01/07/1998";
+        dispatch(open(openSnack));
+        dispatch(login(user));
     }
 
     const loginWithGoogle = useGoogleLogin({

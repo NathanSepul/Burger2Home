@@ -20,7 +20,9 @@ const ProductMiniature = ({product,hadExtra}) => {
             id:product.id,
             name:product.name, 
             quantity:1,
-            price:product.price};
+            price:product.price,
+            url:product.pictureUrl
+        };
             
         dispatch(addToBasketRedux(localProduct));
     }
@@ -34,8 +36,8 @@ const ProductMiniature = ({product,hadExtra}) => {
                     <div>{product.name}</div>
                     <div>{product.price} €</div>
                     <div>
-                        <IconButton>
-                            <AddShoppingCartRoundedIcon fontSize="large" onClick={addToBasket}/>
+                        <IconButton onClick={addToBasket}>
+                            <AddShoppingCartRoundedIcon fontSize="large" />
                         </IconButton>
                      </div>
                 </CardContent>

@@ -8,9 +8,9 @@ import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import validator from "validator";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { useSelector} from 'react-redux';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 
@@ -24,9 +24,10 @@ const Informations = () => {
     const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [updateUser, setUser] = useState();
-    setUser(useSelector(state => state.user))
-    // const userRedux = useSelector(state => state.user);
+    const userRedux = useSelector(state => state.user);
+    const [updateUser, setUser] = useState(userRedux);
+   
+    // setUser(useSelector(state => state.user))
     const openSnack = {msg:"", severity:""};
     const dispatch = useDispatch();
 
