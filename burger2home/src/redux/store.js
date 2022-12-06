@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from "./userSlice.js";
 import smallMenuReducer from "./smallMenuSlice.js";
 import snackBarReducer from "./snackBarSlice.js";
+import basketReducer from "./basketSlice";
 
 
 import { persistStore, persistReducer } from 'redux-persist'
@@ -20,12 +21,19 @@ const persistConfigMenu = {
 
 const persistConfiSnackBar={
     key:"snackBar",
-    storage
+    storage,
+}
+
+const persistConfiBasket={
+    key:"basket",
+    storage,
 }
 
 const persistedReducerUser = persistReducer(persistConfigUser, userReducer)
 const persistedReducerSmallMenu = persistReducer(persistConfigMenu, smallMenuReducer)
 const persistedReducerSnackBar = persistReducer(persistConfiSnackBar, snackBarReducer)
+const persistedReducerBasket = persistReducer(persistConfiBasket, basketReducer)
+
 
 
 export const store = configureStore({
@@ -33,6 +41,7 @@ export const store = configureStore({
         user: persistedReducerUser,
         isOpen: persistedReducerSmallMenu,
         snackBar: persistedReducerSnackBar,
+        basket:persistedReducerBasket
     },
     middleware: [thunk]
 })

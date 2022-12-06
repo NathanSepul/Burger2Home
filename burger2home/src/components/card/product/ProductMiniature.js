@@ -3,10 +3,25 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
-import ModalProduct from "./ModalProduct.js"
+import ModalProduct from "./ModalProduct.js";
+import { addToBasketRedux } from '../../../redux/basketSlice.js';
+import { useDispatch } from 'react-redux';
+
 import "./ProductMiniature.css"
 
 const ProductMiniature = ({product,hadExtra}) => {
+
+    const dispatch = useDispatch();
+    const addToBasket = () =>{
+
+        const localProduct= {
+            id:product.id,
+            name:product.name, 
+            quantity:1,
+            price:product.price};
+            
+        dispatch(addToBasketRedux(localProduct));
+    }
 
     return (
             <Card className="product" sx={{ minWidth:250, width:250, background:"transparent", boxShadow: "none"}}>
@@ -18,7 +33,7 @@ const ProductMiniature = ({product,hadExtra}) => {
                     <div>{product.price} €</div>
                     <div>
                         <IconButton>
-                            <AddShoppingCartRoundedIcon fontSize="large"/>
+                            <AddShoppingCartRoundedIcon fontSize="large" onClick={addToBasket}/>
                         </IconButton>
                      </div>
                 </CardContent>

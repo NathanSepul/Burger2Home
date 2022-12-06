@@ -6,13 +6,14 @@ import { Badge } from "@mui/material";
 import NavLinks from './NavLinks.js';
 import SmallNav from "./SmallNav.js";
 import Login from "../login/Login.js";
+import { useSelector } from 'react-redux';
 import "./Nav.css"
 
 
-const Nav = ({ toggleDrawer}) => {
-   
-    const [largeur, setLargeur] = useState(window.innerWidth);
+const Nav = ({ toggleDrawer }) => {
 
+    const [largeur, setLargeur] = useState(window.innerWidth);
+    const basketRedux = useSelector(state => state.basket.quantity)
     useEffect(() => {
         const changeWidth = () => {
             setLargeur(window.innerWidth)
@@ -46,12 +47,18 @@ const Nav = ({ toggleDrawer}) => {
 
                 <Login toggleDrawer={toggleDrawer} isSmall={false} />
 
-                <Link to="/compte" className="monPanier"> 
-                    <Badge badgeContent={4} color="primary">
+                <Link to="/compte" className="monPanier">
+                    {(basketRedux >= 1) && (
+                        <Badge badgeContent={basketRedux} color="primary">
+                            <ShoppingCartIcon fontSize="large" />
+                        </Badge>
+                    )}
+
+                    {(basketRedux === 0) && (
                         <ShoppingCartIcon fontSize="large" />
-                    </Badge>
+                    )}
                 </Link>
-                
+
             </div>
             {(largeur <= 767) && (
                 <div className="navCompteSmall">
@@ -59,7 +66,7 @@ const Nav = ({ toggleDrawer}) => {
                     <SmallNav toggleDrawer={toggleDrawer} />
                 </div>
             )}
-            
+
         </nav>
     );
 };

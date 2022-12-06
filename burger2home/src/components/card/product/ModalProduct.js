@@ -11,13 +11,19 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import Divider from '@mui/material/Divider';
 import AllergensDialog from "./AllergensDialog.js";
+import { useDispatch } from 'react-redux';
+import { addToBasketRedux } from '../../../redux/basketSlice.js';
+import { useSelector} from 'react-redux';
+
 import "./ModalProduct.css";
 
 const ModalProduct = ({ product }) => {
-
     const [total, setTotal] = useState(product.price);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
+   
+
+    const dispatch = useDispatch();
 
     let min = 1;
     let max = 50;
@@ -38,6 +44,17 @@ const ModalProduct = ({ product }) => {
         setOpenModal(false);
     }
 
+    const addToBasket = () =>{
+
+        const localProduct= {
+            id:product.id,
+            name:product.name, 
+            quantity:quantity,
+            price:product.price};
+        dispatch(addToBasketRedux(localProduct));
+        setOpenModal(false);
+
+    }
     const remove = () => {
         setQuantity(min);
     }
@@ -117,7 +134,7 @@ const ModalProduct = ({ product }) => {
 
                         <div className="buttonsModalProduct">
                             <div className="totalDisplay">{total} €</div>
-                            <button type="button" onClick={closeModal}>Ajouter au panier</button>
+                            <button type="button" onClick={addToBasket}>Ajouter au panier</button>
                         </div>
                     </div>
 
