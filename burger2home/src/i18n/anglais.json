@@ -124,6 +124,10 @@
 
     "produits":{
         "allergenes":"Allergens"
+    },
+
+    "panier":{
+        "titre":"My Basket"
     }
 
    

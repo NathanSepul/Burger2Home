@@ -9,11 +9,12 @@ import Divider from '@mui/material/Divider';
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { IconButton, Badge } from "@mui/material";
+import { IconButton } from "@mui/material";
 import Login from "../login/Login.js";
 import { useSelector, useDispatch } from 'react-redux';
 import {setIsOpen} from '../../redux/smallMenuSlice.js';
+import ToBasket from "./ToBasket.js";
+
 import "./SmallNav.css";
 
 const SmallNav = ({ toggleDrawer}) => {
@@ -69,11 +70,7 @@ const SmallNav = ({ toggleDrawer}) => {
         <Login toggleDrawer={toggleDrawer} isSmall={true}/>
 
         <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
-          <Link to="/panier" className="monPanier">
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartIcon fontSize="large" />
-            </Badge>
-          </Link>
+          <ToBasket/>
         </IconButton>
 
         <Button onClick={toggleDrawer(false)} >

@@ -123,6 +123,10 @@
 
     "produits":{
         "allergenes":"Allergènes"
+    },
+
+    "panier":{
+        "titre":"Mon panier"
     }
 
    
