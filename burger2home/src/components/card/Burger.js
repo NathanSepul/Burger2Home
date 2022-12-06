@@ -5,7 +5,8 @@ import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import { useDispatch } from 'react-redux';
+import { open } from '../../redux/snackBarSlice.js';
 import ProductList from "./product/ProductList.js";
 import Loding from "../loding/Loding.js"
 import "./Burger.css";
@@ -16,6 +17,9 @@ const Burger = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [burgers, setBurgers] = useState([]);
 
+    const openSnack = {msg:"", severity:""};
+    const dispatch = useDispatch();
+    
     useEffect(() => {
         setIsLoading(true);
 
@@ -29,6 +33,12 @@ const Burger = () => {
                 setHasError(true);
             })
     }, []);
+
+    if (hasError) {
+        openSnack.msg="Les données n'ont pas pu être chargée";
+        openSnack.severity="error";
+        dispatch(open(openSnack))
+    }
 
     if (isLoading) {
         return <Loding />;

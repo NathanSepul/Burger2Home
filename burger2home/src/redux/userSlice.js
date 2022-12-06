@@ -6,7 +6,8 @@ export const userSlice = createSlice({
     isConnected: false,
     provider:"",
     name:"",
-    email:""
+    email:"",
+    birthday:""
   },
   reducers: {
     login: (state,action) => {
@@ -14,7 +15,8 @@ export const userSlice = createSlice({
         isConnected : true,
         provider : action.payload.provider,
         email :  action.payload.email,
-        name :  action.payload.name
+        name :  action.payload.name,
+        birthday: action.payload.birthday,
       }
     },
     logout: state => {
@@ -23,6 +25,7 @@ export const userSlice = createSlice({
         provider : "",
         email : "",
         name :  "",
+        birthday:""
       }
     }
   }

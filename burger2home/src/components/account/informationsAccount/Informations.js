@@ -3,40 +3,41 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
 import 'dayjs/locale/fr';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useSelector} from 'react-redux';
 import validator from "validator";
 
+import { useSelector} from 'react-redux';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useDispatch } from 'react-redux';
+import { open } from '../../../redux/snackBarSlice.js';
+
+import Loding from "../../loding/Loding.js"
 import ModalChangePassword from '../../password/ModalChangePassword.js';
 import LogoutWithGoogle from "../../../service/LogoutWithGoogle.js"
-
 import "./Informations.css";
 
 const Informations = () => {
 
     const { t } = useTranslation();
-    const [message, setMessage] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [updateUser, setUser] = useState({});
-    const userRedux = useSelector(state => state.user)
-
-
-
+    const [updateUser, setUser] = useState();
+    setUser(useSelector(state => state.user))
+    // const userRedux = useSelector(state => state.user);
+    const openSnack = {msg:"", severity:""};
+    const dispatch = useDispatch();
 
     const validationFormulaire = (event) => {
 
-        if (validator.isEmail(updateUser.email)) {
-            setMessage("");
-        } else {
+        if (!validator.isEmail(updateUser.email)) {
             event.preventDefault();
-            setMessage(<li>Please, enter valid Email!</li>);
-        }
+            openSnack.msg="Please, enter valid Email!";
+            openSnack.severity="warning";
+            dispatch(open(openSnack))
+        } 
     }
 
     //méthode appelé dé que le composant est crée (monté)
@@ -45,27 +46,18 @@ const Informations = () => {
         setHasError(false);
         setIsLoading(true);
 
-        // fetch("http://sepul.be/test.json",{ 
-        //     method: 'get',
-        //         headers: {
-        //         'Accept': 'application/json, text/plain, */*',
-        //         'Content-Type': 'application/json',
-        //         },
-        //         'credentials': 'same-origin'
-        // })
-
-
         fetch("./compte.json")
             .then(response => response.json())
 
             .then(data => {
                 console.log();
                 setIsLoading(false);
-                setUser(data);
+                // setUser(data);
             })
 
             .catch(() => {
                 setHasError(true);
+                // setIsLoading(false);
             });
 
     }, []);
@@ -81,25 +73,19 @@ const Informations = () => {
 
 
     if (hasError) {
-        return <Alert className="alert" severity="error" onClose={() => { }}>
-            <p>Les données n'ont pas pu être chargée</p>
-        </Alert>;
+        openSnack.msg="Les données n'ont pas pu être chargée";
+        openSnack.severity="error";
+        dispatch(open(openSnack))
     }
 
     if (isLoading) {
-        return <p>Chargement en cours ... </p>;
+        return <Loding />;
     }
-
 
 
     return (
         <div id="Informations">
 
-            {(message !== "") && (
-                <Alert className="alert" severity="error" onClose={() => { setMessage("") }}>
-                    {message}
-                </Alert>
-            )}
             <Box
                 id="formInformation"
                 onSubmit={validationFormulaire}
@@ -108,8 +94,8 @@ const Informations = () => {
                     '& > :not(style)': { margin: "8px", width: "auto", minWidth: "30ch" },
                 }}
             >
-                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={userRedux.name} InputProps={{ readOnly: true, }} />
-                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={userRedux.name} InputProps={{ readOnly: true, }} />
+                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={updateUser.name} InputProps={{ readOnly: true, }} />
+                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={updateUser.name} InputProps={{ readOnly: true, }} />
 
                 <LocalizationProvider id="champ3" dateAdapter={AdapterDayjs} adapterLocale={i18n.language}>
                     <DatePicker
@@ -123,7 +109,7 @@ const Informations = () => {
 
                 <br className='tampon' />
 
-                <TextField id="champ4" required label="email" variant="outlined" value={userRedux.email} onChange={(e) => { setUser({ ...updateUser, email: e.target.value }) }} />
+                <TextField id="champ4" required label="email" variant="outlined" value={updateUser.email} onChange={(e) => { setUser({ ...updateUser, email: e.target.value }) }} />
                 <br className='tampon' />
 
                 <div id="champ5">

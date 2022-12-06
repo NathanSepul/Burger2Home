@@ -20,42 +20,36 @@ import "./Connection.css";
 
 const Connection = () => {
     const [email, setEmail] = useState("");
-    const [hasErroEmail, setHasErrorEmail] = useState(false)
     const [pwd, setPwd] = useState("");
-    const user = {provider:"local",  name:"", email:""}
-    const openSnack = {msg:"Connexion réussie avec google", severity:"success"}
 
-    const { t } = useTranslation();
-
+    const user = {provider:"local",  name:"", email:"", birthday:""}
+    const openSnack = {msg:"", severity:""}
     const dispatch = useDispatch()
 
+    const { t } = useTranslation();
 
     const handleChangeEmail = event => {
         setEmail(event.target.value);
     }
 
-    const erroEmail = () => {
-        if (hasErroEmail)
-            return t('connexion.errorEmail');
-
-        return ""
-    }
     const validationFormulaire = (event) => {
 
         if (!validator.isEmail(email)) {
             event.preventDefault();
-            setHasErrorEmail(true)
+            openSnack.msg=t('connexion.errorEmail');
+            openSnack.severity="warning";
+            dispatch(open(openSnack))
         }
-        else {
-            setHasErrorEmail(false)
+        else{
+            //ici on fait le lien avec le back quand il y en aura un
+            user.name = "nathan sépul";
+            user.email = email;
+            user.birthday = "01/07/1998";
+            dispatch(login(user));
+            openSnack.msg="Connexion réussie avec google";
+            openSnack.severity="success";
+            dispatch(open(openSnack));
         }
-
-        
-        user.name = "nathan sépul"
-        user.email = email
-        dispatch(login(user))
-        dispatch(open(openSnack))
-        
     }
 
     return (
@@ -72,7 +66,7 @@ const Connection = () => {
                 >
                     <h2>{t('connexion.connexion')}</h2>
                     <br/>
-                    <TextField error={hasErroEmail} helperText={erroEmail()} required id="email" label={t('connexion.email')} variant="outlined" value={email} onChange={handleChangeEmail} />
+                    <TextField required id="email" label={t('connexion.email')} variant="outlined" value={email} onChange={handleChangeEmail} />
                     <br/><br/>
                     <PasswordField id="pwd" disable={false} pwd={pwd} setPwd={setPwd} labelInput={t('connexion.pwd')} />
                     <br/>

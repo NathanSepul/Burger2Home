@@ -3,21 +3,23 @@ import { createSlice } from '@reduxjs/toolkit'
 export const snackBarSlice = createSlice({
   name: 'snackBar',
   initialState: {
-    isOpen: false,
-    msg:"nott initialised",
-    severity:"success",
+    // isOpen: false,
+    // msg:"not initialised",
+    // severity:"success",
   },
   reducers: {
     open: (state,action) => {
       return state = {
         isOpen : true,
         msg : action.payload.msg,
-        severity :  action.payload.type,
+        severity :  action.payload.severity,
       }
     },
     close: state => {
       return state = {
-        isConnected : false,
+        isOpen : false,
+        msg : "",
+        severity : state.severity,
       }
     }
   }

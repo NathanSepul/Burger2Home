@@ -6,7 +6,11 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
+import { useDispatch } from 'react-redux';
+import { open } from '../../../redux/snackBarSlice.js';
+import Loding from "../../loding/Loding.js"
 import Row from "./Row.js";
 import "./Orders.css";
 
@@ -15,9 +19,12 @@ const Orders = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [orders, setOrders] = useState([]);
 
+    const openSnack = {msg:"", severity:""};
+    const dispatch = useDispatch();
+
     useEffect(() => {
 
-        // setHasError(false);
+        setHasError(false);
         setIsLoading(true);
 
         fetch("./orders.json")
@@ -34,6 +41,16 @@ const Orders = () => {
             });
 
     }, []);
+
+    if (hasError) {
+        openSnack.msg="Les données n'ont pas pu être chargée";
+        openSnack.severity="error";
+        dispatch(open(openSnack))
+    }
+
+    if (isLoading) {
+        return <Loding />;
+    }
 
     return (
         <div id="historique"> 
