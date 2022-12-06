@@ -29,7 +29,7 @@ const Burger = () => {
         return (
             <div className="globalCarte">
                 <section className='produits'>
-                    <ProductList products={drinks} hadExtra="none" />
+                    <ProductList products={drinks}/>
                 </section>
             </div>
         );

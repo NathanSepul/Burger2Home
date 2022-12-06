@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice.js';
+import {open} from '../../redux/snackBarSlice.js';
+
 import TextField from '@mui/material/TextField';
 import validator from "validator";
 import Divider from '@mui/material/Divider';
@@ -18,11 +20,14 @@ const Connection = () => {
     const [email, setEmail] = useState("");
     const [hasErroEmail, setHasErrorEmail] = useState(false)
     const [pwd, setPwd] = useState("");
+    const user = {provider:"local",  name:"", email:""}
+    const openSnack = {msg:"Connexion réussie avec google", severity:"success"}
 
     const { t } = useTranslation();
 
     const dispatch = useDispatch()
-    
+
+
     const handleChangeEmail = event => {
         setEmail(event.target.value);
     }
@@ -43,7 +48,12 @@ const Connection = () => {
             setHasErrorEmail(false)
         }
 
-        dispatch(login())
+        
+        user.name = "nathan sépul"
+        user.email = email
+        dispatch(login(user))
+        dispatch(open(openSnack))
+        
     }
 
     return (

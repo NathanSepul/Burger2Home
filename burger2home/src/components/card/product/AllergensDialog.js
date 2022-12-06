@@ -18,7 +18,7 @@ const AllergensDialog = ({ product }) => {
     return (
         <span className="allergenesIcon">
             <IconButton onClick={() => setOpenDialog(true)}>
-                <InfoIcon sx={{ color: "black" }} fontSize="small" />
+                <InfoIcon sx={{ color: "black" }} fontSize="medium" />
             </IconButton>
 
             <Dialog

@@ -11,13 +11,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import Divider from '@mui/material/Divider';
 import AllergensDialog from "./AllergensDialog.js";
-import Supplement from "./Supplement.js";
 import "./ModalProduct.css";
 
-const ModalProduct = ({ product, hadExtra}) => {
+const ModalProduct = ({ product }) => {
 
     const [total, setTotal] = useState(product.price);
-    const [totalExtra, setTotalExtra] = useState(0);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
 
@@ -50,13 +48,11 @@ const ModalProduct = ({ product, hadExtra}) => {
 
     const add = () => {
         (quantity + 1) <= max ? setQuantity(quantity + 1) : setQuantity(quantity)
-
     }
 
     useEffect(() => {
-        let intermediaire = product.price + totalExtra
-        setTotal(intermediaire*quantity)
-    }, [quantity])
+        setTotal(product.price * quantity)
+    }, [quantity, product.price])
 
     return (
         <div>
@@ -80,64 +76,51 @@ const ModalProduct = ({ product, hadExtra}) => {
 
                     <div className="titreModal">
                         {product.name}
-                        <AllergensDialog product={product}/>
+                        <AllergensDialog product={product} />
                     </div>
                     <div className="priceModal">{product.price} €</div>
 
-                    <div className="contenuModalProduct">
+                    <div className="contentModal">
+                        <img className="imageModal" src={product.pictureUrl} alt={product.name} />
+                        <p className="descriptionModal">{product.description}</p>
 
-                        <div className="leftModal">
-                            <img className="imageModal" src={product.pictureUrl} alt={product.name} />
-                            <p className="descriptionModal">{product.description}</p>
+                        <div className="add">
+                            <OutlinedInput
+                                className="addButton"
+                                sx={{ width: "120px", pl: "0px" }}
+                                value={quantity}
+                                onKeyPress={onlyNumber}
+                                onChange={handleSetQunatity}
+                                startAdornment={
+                                    <InputAdornment position="start" sx={{ p: "0", ml: "-5px", mr: "-5px" }} >
+                                        <IconButton onClick={remove} sx={{ width: "40px" }}>
+                                            <DeleteIcon sx={{ color: "black" }} />
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+
+                                endAdornment={
+                                    <div className="arrowModal" >
+                                        <IconButton onClick={add} className="dropUp" color="none">
+                                            <ArrowDropUpIcon sx={{ color: "black" }} fontSize="medium" color="none" />
+                                        </IconButton>
+
+                                        <Divider />
+
+                                        <IconButton onClick={subtract} className="dropDown" color="none">
+                                            <ArrowDropDownIcon sx={{ color: "black" }} fontSize="medium" />
+                                        </IconButton>
+                                    </div>
+                                }
+                            />
                         </div>
 
-
-                        <div className="rigthModal">
-                            {(hadExtra !== "none") &&(
-                                <div className="supplement">
-                                    <Supplement/>
-                                </div>
-                            )}
-                            
-
-                            <div className="add">
-                                <OutlinedInput
-                                    className="addButton"
-                                    sx={{ width: "120px", pl: "0px" }}
-                                    value={quantity}
-                                    onKeyPress={onlyNumber}
-                                    onChange={handleSetQunatity}
-                                    startAdornment={
-                                        <InputAdornment position="start" sx={{ p: "0", ml: "-5px", mr: "-5px" }} >
-                                            <IconButton onClick={remove} sx={{ width: "40px" }}>
-                                                <DeleteIcon sx={{ color: "black" }} />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-
-                                    endAdornment={
-                                        <div className="arrowModal" >
-                                            <IconButton onClick={add} className="dropUp" color="none">
-                                                <ArrowDropUpIcon sx={{ color: "black" }} fontSize="medium" color="none" />
-                                            </IconButton>
-
-                                            <Divider />
-
-                                            <IconButton onClick={subtract} className="dropDown" color="none">
-                                                <ArrowDropDownIcon sx={{ color: "black" }} fontSize="medium" />
-                                            </IconButton>
-                                        </div>
-                                    }
-                                />
-                            </div>
+                        <div className="buttonsModalProduct">
+                            <div className="totalDisplay">{total} €</div>
+                            <button type="button" onClick={closeModal}>Ajouter au panier</button>
                         </div>
                     </div>
 
-
-                    <div className="buttonsModalProduct">
-                        <div className="totalDisplay">{total} €</div>
-                        <button type="button" onClick={closeModal}>Ajouter au panier</button>
-                    </div>
                 </Box>
             </Modal>
         </div>

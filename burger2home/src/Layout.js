@@ -2,12 +2,45 @@ import React from "react";
 import {Outlet} from "react-router-dom";
 import Navbar from "./components/header/Header.js";
 import Footer from "./components/footer/Footer.js";
+import Snackbar from '@mui/material/Snackbar';
+import { close,open } from './redux/snackBarSlice.js';
+import { useSelector, useDispatch} from 'react-redux';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Layout = () => {
+
+  const snackBar = useSelector(state => state.snackBar)
+  const dispatch = useDispatch()
+
+  const handleClose = () => {
+    dispatch(close())
+  };
+
+
   return (
     <>
       <Navbar />
+
+      <Snackbar
+        open={snackBar.isOpen}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={ {vertical: 'bottom', horizontal: 'right'}}
+      >
+        <Alert onClose={handleClose} severity= {snackBar.severity}>
+          {snackBar.msg}
+        </Alert>
+      </Snackbar>
+
       <Outlet />
+
       <Footer />
     </>
   );

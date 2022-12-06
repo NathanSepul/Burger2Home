@@ -36,7 +36,7 @@ const SideBurger = () => {
                 </div>
 
                 <section className='produits'>
-                    <ProductList products={sides} hadExtra="none" />
+                    <ProductList products={sides}/>
                 </section>
             </div>
         );

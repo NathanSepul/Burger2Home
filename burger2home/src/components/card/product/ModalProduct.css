@@ -1,20 +1,19 @@
 .CardMedia:hover{
-     cursor: pointer;
-     margin-bottom: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .CardMedia{
-    margin-bottom: 10px;
-    border-radius: 10px;
+   margin-bottom: 10px;
+   border-radius: 10px;
 }
 
 .iconClose{
-    float: right;
+   float: right;
 }
 
-
 .modalProduct {
-    max-width: 700px;
+    max-width: 550px;
     min-width: 350px;
     width: 50%;
     background-color: white;
@@ -24,10 +23,9 @@
     transform: translate(-50%,-50%);
     border: 2px solid #000;
     border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 60px; 
-}  
+    padding:10px
+} 
+
 .titreModal{
     width: 100%;
     margin-top: 35px;
@@ -46,13 +44,37 @@
     font-size:x-large;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+}
+.contentModal{
+    display: flex;
+    flex-direction: column;
+}
+
+.imageModal{
+    width: 32vw;
+    height: 32vw;
+    max-height: 400px;
+    max-width: 400px;
+    min-width: 224px;
+    min-height: 224px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin : 5px auto;
+    
+}
+
+.descriptionModal{
+    text-align:left;
+    margin: 5px auto;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 
 .add{
     text-align: center;
-    margin : auto
+    margin : 5px auto
 }
 
 .addButton{
@@ -105,7 +127,11 @@
     background-color: transparent;
 }
 
-
+.buttonsModalProduct{
+    margin : 20px auto; 
+    display: flex;
+    flex-direction: row;
+}
 
 .buttonsModalProduct .totalDisplay{
     background-color: #cdcdcd;
@@ -120,96 +146,7 @@
     background-color: #D68910;
     font-size: 1rem;
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
    
 }
 
-@media screen and (min-width: 768px){
-
-    .contenuModalProduct{
-        margin-bottom: 20px;
-        display: flex;
-        flex-direction: row;
-        justify-content:space-evenly;
-    }
-
-    .imageModal{
-        border-radius: 10px;
-        object-fit: cover;
-        width: 23vw;
-        height: 20vw;
-        max-height: 320px;
-    }
-
-    .descriptionModal{
-        text-align:left;
-        width: 23vw;
-    }
-
-    .rigthModal{    
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transform: translateX(3px);
-    }
-
-    .buttonsModalProduct{
-        display: flex;
-        flex-direction: row;
-        float: right;
-        transform: translateX(-20px)
-    }
-
-    
-    
-}
-
-/* ecran inf à 767px*/
-@media screen and (max-width: 767px){
-     
-    .contenuModalProduct{
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-
-    .leftModal{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .imageModal{
-        border-radius: 10px;
-        object-fit: cover;
-        width: 40vw;
-        height: 30vw;
-        max-height: 320px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .descriptionModal{
-        width: 40vw;
-        text-align:left;
-        margin-right: auto;
-        margin-left: auto;   
-        margin-top: 10px; 
-        margin-bottom: 10px; 
-    }
-
-    .rigthModal{    
-        display: flex;
-        flex-direction: column;
-       
-    }
-
-    .supplement{
-        margin : auto
-    }
-
-    .buttonsModalProduct{
-        display: flex;
-        flex-direction: row;
-        justify-content:space-evenly;
-        margin-top: 20px;
-        
-    }
-}

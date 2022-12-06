@@ -1,6 +1,8 @@
 import React from 'react';
 import { useGoogleLogin} from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
+import { open } from '../redux/snackBarSlice.js';
+
 import { login } from '../redux/userSlice.js';
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import "./Google.css";
@@ -8,11 +10,14 @@ export const LoginWithGoogle = () => {
     
     const dispatch = useDispatch()
     const user = {provider:"Google",  name:"", email:""}
+    const openSnack = {msg:"Connexion réussie avec google", severity:"success"}
 
     const SuccesGoogle = (response) => {
         console.log(response)
         user.name = response.name;
         user.email = response.email
+
+        dispatch(open(openSnack))
         dispatch(login(user))
     }
 
