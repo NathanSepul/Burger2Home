@@ -1,6 +1,7 @@
 import React from "react"
 import ProductMiniature from "./ProductMiniature.js"
 import "./ProductList.css"
+
 const ProductList = ({products}) => {
 
     

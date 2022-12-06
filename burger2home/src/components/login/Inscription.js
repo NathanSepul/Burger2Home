@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import PasswordField from '../password/PasswordField.js';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
-import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../redux/userSlice.js';
+
 import PasswordChecklist from "react-password-checklist";
 import InfoIcon from '@mui/icons-material/Info';
 import Divider from '@mui/material/Divider';
-import LoginWithFacebook from '../../service/LoginWithFacebook.js';
-import LoginWithGoogle from '../../service/LoginWithGoogle.js';
 import Button from "@mui/material/Button";
 
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../../redux/userSlice.js';
+
+import LoginWithFacebook from '../../service/LoginWithFacebook.js';
+import LoginWithGoogle from '../../service/LoginWithGoogle.js';
+import PasswordField from '../password/PasswordField.js';
 import "./Inscription.css";
 
 const Inscription = () => {

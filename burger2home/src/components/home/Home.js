@@ -1,8 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 import Banniere from './Banner.js';
 import Area1 from './Area1.js';
 import Area2 from './Area2.js';
-import { useTranslation } from 'react-i18next';
 
 const Home = () => {
 

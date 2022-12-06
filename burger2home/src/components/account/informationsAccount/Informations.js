@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
 import { useTranslation } from 'react-i18next';
 import i18n from "i18next";
 import 'dayjs/locale/fr';
@@ -8,13 +9,13 @@ import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useSelector} from 'react-redux';
 import validator from "validator";
+
 import ModalChangePassword from '../../password/ModalChangePassword.js';
 import LogoutWithGoogle from "../../../service/LogoutWithGoogle.js"
-import { useSelector} from 'react-redux';
 
 import "./Informations.css";
-
 
 const Informations = () => {
 

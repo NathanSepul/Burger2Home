@@ -1,7 +1,7 @@
 import React from 'react';
-import './NavLinks.css'
 import {Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import './NavLinks.css'
 
 const NavLinks = ({closeMenu}) => {
     const {t} = useTranslation();

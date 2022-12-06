@@ -1,8 +1,9 @@
 import React from 'react';
-import Nav from "./Nav.js"
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import {setIsOpen} from '../../redux/smallMenuSlice.js';
+
+import Nav from "./Nav.js"
 import "./Header.css";
 
 const Header = () => {

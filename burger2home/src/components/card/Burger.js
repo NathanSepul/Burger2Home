@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react"
-import ProductList from "./product/ProductList.js";
-import Loding from "../loding/Loding.js"
+
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 
-
+import ProductList from "./product/ProductList.js";
+import Loding from "../loding/Loding.js"
 import "./Burger.css";
+
 const Burger = () => {
 
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [burgers, setBurgers] = useState([]);
-
-    // const [filtre, setFiltre] = useState({
-    //     classique: false,
-    //     healthy: false,
-    //     gluten: false,
-    //     lactose: false
-    // })
 
     useEffect(() => {
         setIsLoading(true);
@@ -36,13 +29,6 @@ const Burger = () => {
                 setHasError(true);
             })
     }, []);
-
-    // const handleChange = (event, tt) => {
-    //     setFiltre(previousState => {
-    //         return { ...previousState, classique: event.target.checked }
-    //     });
-
-    // };
 
     if (isLoading) {
         return <Loding />;

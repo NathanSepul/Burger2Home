@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import Informations from './informationsAccount/Informations.js';
-import Commandes from './historyOrders/Orders.js';
+
 import { useTranslation } from 'react-i18next';
 import InfoIcon from '@mui/icons-material/Info';
 import HistoryIcon from '@mui/icons-material/History';
+
+import Informations from './informationsAccount/Informations.js';
+import Commandes from './historyOrders/Orders.js';
 import "./Account.css";
 
 

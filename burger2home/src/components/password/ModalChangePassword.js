@@ -9,9 +9,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Alert from '@mui/material/Alert';
 import InfoIcon from '@mui/icons-material/Info';
 
-
 import PasswordField from './PasswordField';
-
 import "./ModalChangePassword.css";
 
 const ModalChangePassword = ({user, setUser }) => {

@@ -6,7 +6,8 @@ import TableRow from '@mui/material/TableRow';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-import DetailTab from "./DetailTab.js"
+import DetailTab from "./DetailTab.js";
+
 const Row = ({ order }) => {
   const [open, setOpen] = React.useState(false);
 

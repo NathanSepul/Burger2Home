@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import Burger from "./Burger.js";
-import SideBurger from './SideBurger.js';
-import Drink from './Drink.js';
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTranslation } from 'react-i18next';
 
+import Drink from './Drink.js';
+import Burger from "./Burger.js";
+import SideBurger from './SideBurger.js';
 import "./Card.css";
 
 function TabPanel(props) {

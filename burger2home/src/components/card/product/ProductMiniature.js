@@ -1,12 +1,14 @@
 import React from 'react';
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
-import ModalProduct from "./ModalProduct.js";
+
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
 import { useDispatch } from 'react-redux';
 
+import ModalProduct from "./ModalProduct.js";
 import "./ProductMiniature.css"
 
 const ProductMiniature = ({product,hadExtra}) => {

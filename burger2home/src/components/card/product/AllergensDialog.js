@@ -4,9 +4,9 @@ import InfoIcon from '@mui/icons-material/Info';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from "@mui/material/Button";
+
 import { useTranslation } from "react-i18next";
 
 import "./AllergensDialog.css";
@@ -18,7 +18,7 @@ const AllergensDialog = ({ product }) => {
     return (
         <span className="allergenesIcon">
             <IconButton onClick={() => setOpenDialog(true)}>
-                <InfoIcon sx={{ color: "black" }} fontSize="medium" />
+                <InfoIcon sx={{ color: "black" }} fontSize="small" />
             </IconButton>
 
             <Dialog

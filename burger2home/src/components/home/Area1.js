@@ -1,9 +1,8 @@
 import React from 'react';
-import './Area1.css';
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-
+import './Area1.css';
 
 const Area1 = () => {
     const { t } = useTranslation();

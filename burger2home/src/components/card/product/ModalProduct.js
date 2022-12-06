@@ -10,11 +10,11 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import Divider from '@mui/material/Divider';
-import AllergensDialog from "./AllergensDialog.js";
+
 import { useDispatch } from 'react-redux';
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
-import { useSelector} from 'react-redux';
 
+import AllergensDialog from "./AllergensDialog.js";
 import "./ModalProduct.css";
 
 const ModalProduct = ({ product }) => {

@@ -10,11 +10,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
-import Login from "../login/Login.js";
+
 import { useSelector, useDispatch } from 'react-redux';
 import {setIsOpen} from '../../redux/smallMenuSlice.js';
-import ToBasket from "./ToBasket.js";
 
+import Login from "../login/Login.js";
+import ToBasket from "./ToBasket.js";
 import "./SmallNav.css";
 
 const SmallNav = ({ toggleDrawer}) => {

@@ -3,17 +3,19 @@ import PasswordField from '../password/PasswordField.js';
 import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
-import { useDispatch } from 'react-redux';
-import { login } from '../../redux/userSlice.js';
-import {open} from '../../redux/snackBarSlice.js';
 
 import TextField from '@mui/material/TextField';
 import validator from "validator";
 import Divider from '@mui/material/Divider';
 import { Link } from "react-router-dom";
+
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/userSlice.js';
+import {open} from '../../redux/snackBarSlice.js';
+
+
 import LoginWithFacebook from '../../service/LoginWithFacebook.js';
 import LoginWithGoogle from '../../service/LoginWithGoogle.js';
-
 import "./Connection.css";
 
 const Connection = () => {

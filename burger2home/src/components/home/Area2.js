@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import './Area2.css';
 
 const Area2 = ({ titre, img1, img2, img3, txt1, txt2, txt3, name }) => {
