@@ -3,11 +3,8 @@ import {Outlet} from "react-router-dom";
 import Navbar from "./components/header/Header.js";
 import Footer from "./components/footer/Footer.js";
 import Snackbar from '@mui/material/Snackbar';
-import { close,open } from './redux/snackBarSlice.js';
+import { close } from './redux/snackBarSlice.js';
 import { useSelector, useDispatch} from 'react-redux';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(props, ref) {

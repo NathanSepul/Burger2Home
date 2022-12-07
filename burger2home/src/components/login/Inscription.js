@@ -8,7 +8,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import Divider from '@mui/material/Divider';
 import Button from "@mui/material/Button";
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice.js';
 
 import LoginWithFacebook from '../../service/LoginWithFacebook.js';
@@ -21,8 +21,6 @@ const Inscription = () => {
     const [Password, setPassword] = useState("")
     const [confirmPwd, setconfirmPwd] = useState("")
     const [isOK, setIsOK] = useState(false)
-
-    const user = useSelector(state => state.user)
 
     const dispatch = useDispatch()
 
