@@ -1,12 +1,25 @@
+.basketMain{
+    min-height: calc(100vh - 120px - 100px)
+}
+
+
 .contentBasket{
     display: flex;
     flex-direction: row;
 }
 .basket{
-    width: 75%;
-    margin: 20px;
+    width: 70%;
     margin-right: auto;
     margin-left: auto;
+}
+
+.basket th{
+    text-decoration: underline;
+    font-size: medium;
+    font-weight:500;
+}
+.emptyBasket{
+  height: 50px;
 }
 .summary{
     padding-bottom: 10px;
@@ -40,4 +53,16 @@
     padding: 10px;
     border-radius: 20px;
     margin-bottom: 20px;
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+    .contentBasket{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .basket{
+        width: 90%;
+    }
 }

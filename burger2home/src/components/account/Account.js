@@ -30,7 +30,7 @@ function Account() {
     return (
         <main className='Compte'>
             <title>Burger2Home | {t("compte.titre")}</title>
-            <div id="title"><h1>{t("compte.titre")}</h1></div>
+            <div className="title"><h1>{t("compte.titre")}</h1></div>
          
             <section className='buttonComtpte'>
                 <div className='mesInformations' id={selectedInformations} onClick={SwitchToInformation}>

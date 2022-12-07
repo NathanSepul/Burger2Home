@@ -18,16 +18,16 @@ const DetailTab = ({ orderLines, open }) => {
                         <Table size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Produit</TableCell>
-                                    <TableCell>Quantitée</TableCell>
-                                    <TableCell>Prix</TableCell>
+                                    <TableCell component="th" scope="row">Produit</TableCell>
+                                    <TableCell component="th" scope="row">Quantitée</TableCell>
+                                    <TableCell component="th" scope="row">Prix</TableCell>
                                 </TableRow>
                             </TableHead>
 
                             <TableBody>
                                 {orderLines.map((line) => (
                                     <TableRow key={line.id}>
-                                        <TableCell component="th" scope="row">
+                                        <TableCell >
                                             {line.product}
                                         </TableCell>
                                         <TableCell>{line.price}</TableCell>

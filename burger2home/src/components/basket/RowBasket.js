@@ -6,15 +6,16 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import Divider from '@mui/material/Divider';
 
 import { useDispatch } from 'react-redux';
-import { updateQuantity } from '../../redux/basketSlice.js';
+import { updateQuantity,removeFromBasket } from '../../redux/basketSlice.js';
 
 import "./RowBasket.css";
 
-const RowBasket = ({ basketLine }) => {
+const RowBasket = ({ basketLine, indexBl }) => {
 
-  const [newValue, setNewValue] = useState({index:basketLine.idBl, quantity:basketLine.quantity })
+  const [newValue, setNewValue] = useState({index:indexBl, quantity:basketLine.quantity })
   
   let min = 1;
   let max = 50;
@@ -34,7 +35,7 @@ const RowBasket = ({ basketLine }) => {
   }
 
   const remove = () => {
-    // dispatch(updateQuantity())
+    dispatch(removeFromBasket(indexBl))
   }
 
   const add = () => {
@@ -52,20 +53,20 @@ const RowBasket = ({ basketLine }) => {
   return (
     <React.Fragment>
 
-      <TableRow sx={{ '& > *': { backgroundColor: "#DEDEDE", } }}>
+      <TableRow sx={{ backgroundColor: "#DEDEDE" }}>
 
-        <TableCell component="th" scope="row">
+        <TableCell>
           <div className="itemProduct">
             <img className="imgBasket" src={basketLine.url} alt={basketLine.url} />
             <span> {basketLine.name}</span>
           </div>
         </TableCell>
 
-        <TableCell component="th" scope="row">
+        <TableCell align="left">
           <div>
             <OutlinedInput
               className="addButtonBasket"
-              sx={{ p: "1px" }}
+              sx={{ p: "1px", m:"0" }}
               value={basketLine.quantity}
               onKeyPress={onlyNumber}
               onChange={handleSetQunatity}
@@ -88,10 +89,12 @@ const RowBasket = ({ basketLine }) => {
 
         </TableCell>
 
-        <TableCell component="th" scope="row"> {total} </TableCell>
-
+        <TableCell align="center"> {total}&nbsp;€ </TableCell>
+        
       </TableRow>
 
+      <TableRow className="interligne">
+      </TableRow>
     </React.Fragment>
   );
 
