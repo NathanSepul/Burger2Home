@@ -65,7 +65,7 @@ const RowBasket = ({ basketLine, indexBl }) => {
           <div>
             <OutlinedInput
               className="addButtonBasket"
-              sx={{ p: "1px", m:"0" }}
+              sx={{ p: "1px", m:"0", width:"150px"}}
               value={basketLine.quantity}
               onKeyPress={onlyNumber}
               onChange={handleSetQunatity}

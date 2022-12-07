@@ -1,9 +1,65 @@
+.basket{
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.emptyBasket{
+    height: 50px;
+}
+
+.contentBasket{
+    display: flex;
+    flex-direction: row;
+}
+
+.basketTab{
+    margin: auto;
+    width: 70% !important;
+}
+
 .basket th{
     text-decoration: underline;
     font-size: medium;
     font-weight:500;
 }
 
-.emptyBasket{
-    height: 50px;
+.summary{
+    padding-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.basketAmount{
+    width: 200px;
+    height: 70px;
+    background-color: #cdcdcd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.basketAmount div{
+    margin-top:auto;
+    margin-bottom:auto; 
+}
+
+.txt2BasketAmount{
+    font-size: 0.5rem;
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+    .contentBasket{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .basketTab{
+        width: 90% !important;
+    }
+    
+
 }

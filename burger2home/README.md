@@ -18,3 +18,4 @@
 - [X] npm install react-google-login --force
 - [X] npm install redux-persist --force
 - [X] npm install redux-thunk --force
+- [X] npm install --save @stripe/react-stripe-js @stripe/stripe-js --force
