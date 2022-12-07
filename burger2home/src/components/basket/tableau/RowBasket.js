@@ -6,10 +6,9 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Divider from '@mui/material/Divider';
 
 import { useDispatch } from 'react-redux';
-import { updateQuantity,removeFromBasket } from '../../redux/basketSlice.js';
+import { updateQuantity,removeFromBasket } from '../../../redux/basketSlice.js';
 
 import "./RowBasket.css";
 

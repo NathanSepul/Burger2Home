@@ -1,0 +1,9 @@
+.basket th{
+    text-decoration: underline;
+    font-size: medium;
+    font-weight:500;
+}
+
+.emptyBasket{
+    height: 50px;
+}
