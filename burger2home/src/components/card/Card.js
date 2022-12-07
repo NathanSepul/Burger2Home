@@ -39,7 +39,7 @@ const Card = () => {
     };
 
     return (
-        <main id="carte">
+        <main className="carte">
             <title>Burger2Home | La Carte</title>
             {/* <h1>La Carte</h1> */}
            

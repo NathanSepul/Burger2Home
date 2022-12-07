@@ -1,3 +1,7 @@
+.carte{
+    background: rgb(222,222,222);
+    background: linear-gradient(180deg, rgba(222,222,222,1) 30%, rgba(255,255,255,1) 45%);
+}
 .categories{
     text-align: left;
 }

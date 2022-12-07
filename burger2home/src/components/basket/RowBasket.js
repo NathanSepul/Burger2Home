@@ -53,7 +53,7 @@ const RowBasket = ({ basketLine, indexBl }) => {
   return (
     <React.Fragment>
 
-      <TableRow sx={{ backgroundColor: "#DEDEDE" }}>
+      <TableRow sx={{ backgroundColor: "#" }}>
 
         <TableCell>
           <div className="itemProduct">
@@ -93,8 +93,8 @@ const RowBasket = ({ basketLine, indexBl }) => {
         
       </TableRow>
 
-      <TableRow className="interligne">
-      </TableRow>
+      {/* <TableRow className="interligne">
+      </TableRow> */}
     </React.Fragment>
   );
 
