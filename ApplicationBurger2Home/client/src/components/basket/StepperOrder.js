@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
 
-import TabBasket from "./tableau/TabBasket.js";
+import TabBasket from "./tabBasket/TabBasket.js";
+import Payement from './payment/Payment.js';
 
 const steps = ['Résumé', 'Votre adresse', 'Vérification', 'Payement'];
 
@@ -86,14 +87,15 @@ const StepperOrder = ({ basket }) => {
           )}
 
           {activeStep === steps.length - 2 && (
-            <div className="payment">
-              on paye
+            <div className="resume">
+              on verifie le résumé
+              
             </div>
           )}
 
           {activeStep === steps.length - 1 && (
-            <div className="resume">
-              on verifie le résumé
+            <div className="payment">
+              <Payement/>
             </div>
           )}
         </div>
