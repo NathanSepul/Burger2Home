@@ -36,3 +36,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### npm i @stripe/stripe-js --force
 ### npm i @react-icons/all-files --force
 ### npm i
+
+
+## WARNING ##
+
+fake serveur strip lien dans la zone proxy dans le fichier package.json
