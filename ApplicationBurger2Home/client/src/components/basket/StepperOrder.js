@@ -61,15 +61,19 @@ const StepperOrder = ({ basket }) => {
 
           <Box sx={{ flex: '1 1 auto' }} />
 
-          {activeStep === steps.length - 1 ? (
-            <Button onClick={handleNext}>
-              Confirmer
-            </Button>
-          ) : (
+          {activeStep < steps.length - 2 &&(
             <Button onClick={handleNext}>
               Suivant<ArrowForwardIosRoundedIcon />
             </Button>
           )}
+
+          {activeStep === steps.length - 2 &&(
+            <Button onClick={handleNext}>
+              Confirmer
+            </Button>
+          )}
+
+          
 
         </Box>
 

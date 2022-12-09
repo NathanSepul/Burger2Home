@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js"
 import PaymentForm from "./PaymentForm.js"
+import Loding from "../../loding/Loding.js"
 
 
+const Payment = () => {
 
-// This is a public sample test API key.
-// Sign in to see your own test API key embedded in code samples.
-// const stripePromise = loadStripe("pk_test_51MClxJEeRpDc67LOc2Hpo0RtCHSXatmeWj0MiQ52uxOytTB3n94KvhnwRDgZMSnBa9P4rSZ2DTskuA0j2esDrQgj00FGi6WbZD")
-function Payment() {
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
   
@@ -31,12 +29,11 @@ function Payment() {
 
     return (
       <>
-        <h1>React Stripe and the Payment Element</h1>
-        {clientSecret && stripePromise && (
+        {clientSecret && stripePromise ? (
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <PaymentForm />
           </Elements>
-        )}
+        ):(<Loding />)}
       </>
     );
   }
