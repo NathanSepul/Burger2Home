@@ -10,6 +10,7 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 
 import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
+import Address from "./address/Address.js";
 
 const steps = ['Résumé', 'Votre adresse', 'Vérification', 'Payement'];
 
@@ -86,7 +87,7 @@ const StepperOrder = ({ basket }) => {
 
           {activeStep === steps.length - 3 && (
             <div className="adresse">
-              on vérifie une adresse
+              <Address/>
             </div>
           )}
 

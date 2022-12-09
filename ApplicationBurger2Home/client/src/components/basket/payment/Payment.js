@@ -9,7 +9,14 @@ const Payment = () => {
 
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
-  
+
+    const appearance = {
+      theme: 'stripe',
+      labels: 'floating'
+    }
+
+    let options  = {clientSecret,appearance}
+    
     useEffect(() => {
         fetch("/config").then(async (r) => {
           const { publishableKey } = await r.json();
@@ -30,7 +37,7 @@ const Payment = () => {
     return (
       <>
         {clientSecret && stripePromise ? (
-          <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <Elements stripe={stripePromise} options={options}>
             <PaymentForm />
           </Elements>
         ):(<Loding />)}

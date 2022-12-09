@@ -45,11 +45,18 @@ export const basketSlice = createSlice({
                 ...state.basketLines.slice(0, action.payload),
                 ...state.basketLines.slice(action.payload + 1)];
                 state.quantity = state.quantity - 1;
+        },
+
+        removeAll:(state) =>{
+            state.basketLines = [ ];
+            state.quantity = 0;
+
+            return state;
         }
 
     },
 })
 
-export const { addToBasketRedux,updateQuantity, removeFromBasket} = basketSlice.actions
+export const { addToBasketRedux,updateQuantity, removeFromBasket,removeAll} = basketSlice.actions
 
 export default basketSlice.reducer
