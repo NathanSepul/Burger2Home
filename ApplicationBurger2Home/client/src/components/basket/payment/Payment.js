@@ -37,7 +37,7 @@ const Payment = () => {
     return (
       <>
         {clientSecret && stripePromise ? (
-          <Elements stripe={stripePromise} options={options}>
+          <Elements stripe={stripePromise} options={options} >
             <PaymentForm />
           </Elements>
         ):(<Loding />)}

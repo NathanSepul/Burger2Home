@@ -24,9 +24,10 @@ const Address = () => {
     
 
       return (
-        <Elements stripe={stripePromise} options={options}>
-          <AddressForm />
-        </Elements>
+        // <Elements stripe={stripePromise} options={options}>
+        //   <AddressForm />
+        // </Elements>
+        <div> AddressForm</div>
       );
   }
 

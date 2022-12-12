@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { open } from '../../redux/snackBarSlice.js';
 import ProductList from "./product/ProductList.js";
 import Loding from "../loding/Loding.js"
+import axios from 'axios';
 import "./Burger.css";
 
 const Burger = () => {
@@ -20,19 +21,32 @@ const Burger = () => {
     const openSnack = {msg:"", severity:""};
     const dispatch = useDispatch();
     
-    useEffect(() => {
-        setIsLoading(true);
+    // useEffect(() => {
+    //     setIsLoading(true);
 
-        fetch("./burgers.json")
-            .then(res => res.json())
-            .then((data) => {
-                setIsLoading(false);
-                setBurgers(data)
-            })
-            .catch(() => {
-                setHasError(true);
-            })
-    }, []);
+    //     fetch("/products/summaries?language=EN&availableProductsOnly=false")
+    //         .then(res => res.json())
+    //         .then((data) => {
+    //             setIsLoading(false);
+    //             console.log(data)
+    //             // setBurgers(data)
+    //         })
+    //         .catch(() => {
+    //             setHasError(true);
+    //         })
+    // }, []);
+    const tt = "FR";
+    useEffect(() =>{
+        axios.get("/products/summaries?language=FR&availableProductsOnly=false")
+         .then((data) => {
+                    setIsLoading(false);
+                    console.log(data)
+                    setBurgers(data)
+                })
+                .catch(() => {
+                    setHasError(true);
+                })
+    },[])
 
     if (hasError) {
         openSnack.msg="Les données n'ont pas pu être chargée";

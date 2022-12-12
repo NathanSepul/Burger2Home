@@ -10,8 +10,9 @@ import "./PaymentForm.css";
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const dispattch = useDispatch();
+  const dispatch = useDispatch();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [message, setMessage] = useState(null);
 
   const handleSubmit = async (e) => {
 
@@ -26,33 +27,47 @@ const PaymentForm = () => {
     setIsProcessing(true);
 
 
-    const result = await stripe.confirmPayment({
+    const {error} = await stripe.confirmPayment({
       elements,
-      // confirmParams: {
-      //   return_url: `${window.location.origin}/`,
-      // },
+      confirmParams: {
+        return_url: `${window.location.origin}/`,
+      },
     });
 
-    console.log(result)
-    if (result.error) {
-      console.log(result.error)
+    if (error.code === "invalid_owner_name"){
+      setMessage("Veillez à entrer le Prénom et le Nom");
     }
-    else {
-      console.log("it work")
-      dispattch(removeAll)
-    }
+
+    console.log(error)
+    // if (result.error) {
+    //   console.log(result.error)
+    // }
+    // else {
+    //   console.log("it work")
+    //   dispatch(removeAll)
+    // }
 
     setIsProcessing(false);
 
   };
 
   return (
-    <form className="paymentForm" >
-      <PaymentElement id="payment-element" />
-      <Button onClick={handleSubmit} >
-        Payer
+    // <form className="paymentForm" action="/create-checkout-session" method="POST">
+    //   <PaymentElement id="payment-element" />
+    //   <Button onClick={handleSubmit} >
+    //     Payer
+    //   </Button>
+    // </form>
+
+    <div className="paymentForm">
+      <PaymentElement />
+      <br/>
+      <Button onClick={handleSubmit} className="paymentButton" disabled={isProcessing}>
+        {isProcessing ? "Action en cours ... " : "Payer"}
       </Button>
-    </form>
+
+      {message && <div className="payment-message">{message}</div>}
+    </div>
   );
 }
 

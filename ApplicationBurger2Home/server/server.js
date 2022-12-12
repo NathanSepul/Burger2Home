@@ -27,6 +27,7 @@ app.post("/create-payment-intent", async (req, res) => {
       currency: "EUR",
       amount : 2000,
       automatic_payment_methods: { enabled: true },
+      receipt_email: 'sepul.nathan@gmail.com',
     });
 
     // Send publishable key and PaymentIntent details to client
