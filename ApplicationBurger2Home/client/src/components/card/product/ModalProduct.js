@@ -54,8 +54,8 @@ const ModalProduct = ({ product }) => {
             id:product.id,
             name:product.name, 
             quantity:quantity,
-            price:product.price,
-            url:product.pictureUrl
+            price:product.actualPrice,
+            url:product.imageUrl
         };
         dispatch(addToBasketRedux(localProduct));
         setOpenModal(false);
@@ -74,11 +74,11 @@ const ModalProduct = ({ product }) => {
     }
 
     useEffect(() => {
-        setTotal(product.price * parseInt(quantity))
+        setTotal(product.actualPrice * parseInt(quantity))
         
         quantity === 0 ? setDisable(true) : setDisable(false)
 
-    }, [quantity, product.price])
+    }, [quantity, product.actualPrice])
 
     return (
         <div>
@@ -87,7 +87,7 @@ const ModalProduct = ({ product }) => {
                 onClick={() => setOpenModal(true)}
                 component="img"
                 height="250"
-                src={product.pictureUrl}
+                src={product.imageUrl}
                 alt={product.name}
             />
 
@@ -107,7 +107,7 @@ const ModalProduct = ({ product }) => {
                     <div className="priceModal">{product.price} €</div>
 
                     <div className="contentModal">
-                        <img className="imageModal" src={product.pictureUrl} alt={product.name} />
+                        <img className="imageModal" src={product.imageUrl} alt={product.name} />
                         <p className="descriptionModal">{product.description}</p>
 
                         <div className="add">

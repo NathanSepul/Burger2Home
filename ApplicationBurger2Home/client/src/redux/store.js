@@ -3,6 +3,7 @@ import userReducer from "./userSlice.js";
 import smallMenuReducer from "./smallMenuSlice.js";
 import snackBarReducer from "./snackBarSlice.js";
 import basketReducer from "./basketSlice";
+import languageReducer from './languageSlice.js';
 
 
 import { persistStore, persistReducer } from 'redux-persist'
@@ -29,10 +30,17 @@ const persistConfiBasket={
     storage,
 }
 
+const persistConfiLanguage={
+    key:"language",
+    storage,
+}
+
 const persistedReducerUser = persistReducer(persistConfigUser, userReducer)
 const persistedReducerSmallMenu = persistReducer(persistConfigMenu, smallMenuReducer)
 const persistedReducerSnackBar = persistReducer(persistConfiSnackBar, snackBarReducer)
 const persistedReducerBasket = persistReducer(persistConfiBasket, basketReducer)
+const persistedReducerLanguage = persistReducer(persistConfiLanguage, languageReducer)
+
 
 
 
@@ -41,7 +49,8 @@ export const store = configureStore({
         user: persistedReducerUser,
         isOpen: persistedReducerSmallMenu,
         snackBar: persistedReducerSnackBar,
-        basket:persistedReducerBasket
+        basket:persistedReducerBasket,
+        language:persistedReducerLanguage
     },
     middleware: [thunk]
 })
