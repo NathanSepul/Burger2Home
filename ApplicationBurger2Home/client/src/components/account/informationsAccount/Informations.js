@@ -64,9 +64,9 @@ const Informations = () => {
     }, []);
 
 
-    const updateBithDay = useCallback(value => {
-        if (value !== null) {
-            const d = new Date(value); // voir si on stock les dates en en-EN ou fr-FR
+    const updateBithDay = useCallback(e => {
+        if (e.target.value !== null) {
+            const d = new Date(e.target.value); // voir si on stock les dates en en-EN ou fr-FR
             console.log(d.toLocaleDateString("fr-FR"));
             setUser({ ...updateUser, birthday: d })
         }
@@ -95,9 +95,9 @@ const Informations = () => {
                     '& > :not(style)': { margin: "8px", width: "auto", minWidth: "30ch" },
                 }}
             >
-                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={updateUser.name} InputProps={{ readOnly: true, }} />
-                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={updateUser.name} InputProps={{ readOnly: true, }} />
-
+                <TextField id="champ1" label={t("compte.details.nom")} variant="outlined" defaultValue={userRedux.firstName} InputProps={{ readOnly: true, }} />
+                <TextField id="champ2" label={t("compte.details.prenom")} variant="outlined" defaultValue={userRedux.lastName} InputProps={{ readOnly: true, }} />
+{/* 
                 <LocalizationProvider id="champ3" dateAdapter={AdapterDayjs} adapterLocale={i18n.language}>
                     <DatePicker
                         disableFuture
@@ -106,11 +106,14 @@ const Informations = () => {
                         renderInput={(params) => <TextField {...params} />}
                         onChange={updateBithDay}
                     />
-                </LocalizationProvider>
+                </LocalizationProvider> */}
+
+                <TextField id="champ3"  InputProps={{ readOnly: true, }} label={t("compte.details.anniversaire")} variant="outlined" value={updateUser.email} onChange={(e) => { setUser({ ...updateUser, email: e.target.value }) }} />
+
 
                 <br className='tampon' />
 
-                <TextField id="champ4" required label="email" variant="outlined" value={updateUser.email} onChange={(e) => { setUser({ ...updateUser, email: e.target.value }) }} />
+                <TextField id="champ4" required label={t("compte.details.anniversaire")} variant="outlined" value={updateUser.birthday}/>
                 <br className='tampon' />
 
                 <div id="champ5">

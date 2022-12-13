@@ -5,9 +5,11 @@ export const userSlice = createSlice({
   initialState: {
     isConnected: false,
     provider:"",
-    name:"",
     email:"",
-    birthday:""
+    firstName:"",
+    lastName:"",
+    birthday:"",
+    role:""
   },
   reducers: {
     login: (state,action) => {
@@ -15,17 +17,22 @@ export const userSlice = createSlice({
         isConnected : true,
         provider : action.payload.provider,
         email :  action.payload.email,
-        name :  action.payload.name,
+        firstName :  action.payload.firstName,
+        lastName: action.payload.lastName,
         birthday: action.payload.birthday,
+        role: action.payload.role
+        
       }
     },
     logout: state => {
       return state = {
         isConnected : false,
         provider : "",
-        email : "",
-        name :  "",
-        birthday:""
+        email :  "",
+        firstName :   "",
+        lastName:  "",
+        birthday:"",
+        role:  ""
       }
     }
   }

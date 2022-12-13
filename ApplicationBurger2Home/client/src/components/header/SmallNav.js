@@ -12,14 +12,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
 
 import { useSelector, useDispatch } from 'react-redux';
-import {setIsOpen} from '../../redux/smallMenuSlice.js';
+import { setIsOpen } from '../../redux/smallMenuSlice.js';
 
 import Login from "../login/Login.js";
 import ToBasket from "./ToBasket.js";
 import "./SmallNav.css";
 
-const SmallNav = ({ toggleDrawer}) => {
-  
+const SmallNav = ({ toggleDrawer }) => {
+  const user = useSelector(state => state.user);
   const isOpen = useSelector(state => state.isOpen.value)
   const dispatch = useDispatch()
   const { t } = useTranslation();
@@ -30,13 +30,13 @@ const SmallNav = ({ toggleDrawer}) => {
         dispatch(setIsOpen(false))
       }
     }
-    
+
     window.addEventListener('resize', changeWidth)
 
     return () => {
       window.removeEventListener('resize', changeWidth)
     }
-  },[dispatch])
+  }, [dispatch])
 
   const list = () => (
     <Box
@@ -52,14 +52,24 @@ const SmallNav = ({ toggleDrawer}) => {
         <Divider />
         <ListItem className="linkSmallHeader" id="navSmallHeader3"> <Link to="/concept" > {t('navigation.concept')} </Link> </ListItem>
         <Divider />
-        <ListItem className="linkSmallHeader" id="navSmallHeader4"> <Link to="/marketing" > {t('navigation.marketing')} </Link> </ListItem>
-        <Divider />
-        <ListItem className="linkSmallHeader" id="navSmallHeader5"> <Link to="/stocks" > {t('navigation.stock')} </Link> </ListItem>
-        <Divider />
-        <ListItem className="linkSmallHeader" id="navSmallHeader6"> <Link to="/droits"  > {t('navigation.droit')} </Link> </ListItem>
-        <Divider />
-        <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/burgers" > {t('navigation.burger')} </Link></ListItem>
-        <Divider />
+
+        {(user.role === "marketing") &&
+          (<>
+            <ListItem className="linkSmallHeader" id="navSmallHeader4"> <Link to="/marketing" > {t('navigation.marketing')} </Link> </ListItem>
+            <Divider />
+          </>
+          )}
+
+        {(user.role === "admin") && (<>
+          <ListItem className="linkSmallHeader" id="navSmallHeader5"> <Link to="/stocks" > {t('navigation.stock')} </Link> </ListItem>
+          <Divider />
+          <ListItem className="linkSmallHeader" id="navSmallHeader6"> <Link to="/droits"  > {t('navigation.droit')} </Link> </ListItem>
+          <Divider />
+          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/burgers" > {t('navigation.burger')} </Link></ListItem>
+          <Divider />
+        </>)}
+
+
       </List>
     </Box>
   );
@@ -67,11 +77,11 @@ const SmallNav = ({ toggleDrawer}) => {
   return (
     <span>
       <React.Fragment key="top">
-      
-        <Login toggleDrawer={toggleDrawer} isSmall={true}/>
+
+        <Login toggleDrawer={toggleDrawer} isSmall={true} />
 
         <IconButton aria-label="menu" onClick={toggleDrawer(true)}>
-          <ToBasket/>
+          <ToBasket />
         </IconButton>
 
         <Button onClick={toggleDrawer(false)} >

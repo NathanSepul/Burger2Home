@@ -9,12 +9,11 @@ import "./Google.css";
 export const LoginWithGoogle = () => {
     
     const dispatch = useDispatch()
-    const user = {provider:"Google",  name:"", email:""}
+    const user = {provider:"Google",  firstName:"", lastName:"", email:""}
     const openSnack = {msg:"Connexion réussie avec google", severity:"success"}
 
     const SuccesGoogle = (response) => {
         console.log(response)
-        user.name = response.name;
         user.email = response.email;
         user.birthday = "01/07/1998";
         dispatch(open(openSnack));

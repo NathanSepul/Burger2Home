@@ -11,19 +11,21 @@ import { Link } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice.js';
-import {open} from '../../redux/snackBarSlice.js';
+import { open } from '../../redux/snackBarSlice.js';
 
 
 import LoginWithFacebook from '../../service/LoginWithFacebook.js';
 import LoginWithGoogle from '../../service/LoginWithGoogle.js';
+
+import axios from 'axios';
 import "./Connection.css";
 
 const Connection = () => {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
 
-    const user = {provider:"local",  name:"", email:"", birthday:""}
-    const openSnack = {msg:"", severity:""}
+    const user = { provider: "local", email: "", lastName: "", firstName: "", role: "" }
+    const openSnack = { msg: "", severity: "" }
     const dispatch = useDispatch()
 
     const { t } = useTranslation();
@@ -35,21 +37,45 @@ const Connection = () => {
     const validationFormulaire = (event) => {
 
         if (!validator.isEmail(email)) {
-            event.preventDefault();
-            openSnack.msg=t('connexion.errorEmail');
-            openSnack.severity="warning";
+            openSnack.msg = t('connexion.errorEmail');
+            openSnack.severity = "warning";
             dispatch(open(openSnack))
         }
-        else{
-            //ici on fait le lien avec le back quand il y en aura un
-            user.name = "nathan sépul";
-            user.email = email;
-            user.birthday = "01/07/1998";
-            dispatch(login(user));
-            openSnack.msg="Connexion réussie avec google";
-            openSnack.severity="success";
+        else {
+            openSnack.msg = "Tentative de connexion en cours";
+            openSnack.severity = "info";
             dispatch(open(openSnack));
+
+            axios.get(`/users/1`)
+                .then((data) => {
+                    user.email = data.data.email;
+                    user.lastName = data.data.lastname;
+                    user.firstName = data.data.firstname
+                    user.role = data.data.role.name;
+                    user.birthday = "01/07/1998";
+                    dispatch(login(user));
+
+                    openSnack.msg = "Connexion réussie";
+                    openSnack.severity = "success";
+                    dispatch(open(openSnack));
+
+                })
+                .catch(() => {
+                    openSnack.msg = "La connection a échoué";
+                    openSnack.severity = "warning";
+                    dispatch(open(openSnack))
+
+                })
+
+            // user.name = "nathan sépul";
+            // user.email = email;
+            // dispatch(login(user));
+            // openSnack.msg="Connexion réussie";
+            // openSnack.severity="success";
+            // dispatch(open(openSnack));
         }
+
+        event.preventDefault();
     }
 
     return (
@@ -65,28 +91,27 @@ const Connection = () => {
                     }}
                 >
                     <h2>{t('connexion.connexion')}</h2>
-                    <br/>
+                    <br />
                     <TextField required id="email" label={t('connexion.email')} variant="outlined" value={email} onChange={handleChangeEmail} />
-                    <br/><br/>
+                    <br /><br />
                     <PasswordField id="pwd" disable={false} pwd={pwd} setPwd={setPwd} labelInput={t('connexion.pwd')} />
-                    <br/>
+                    <br />
                     <Button id="buttonConnection" variant="contained" type="submit">{t('connexion.continuer')}</Button>
-                    
                     <div id="toMdpOublie">
-                        <Link  to="/">{t('connexion.mdpOublie')}</Link>
+                        <Link to="/">{t('connexion.mdpOublie')}</Link>
                     </div>
 
                     <div id="toInscription">
                         <Link to="/inscription">{t('connexion.inscription')}</Link>
                     </div>
-                    
+
                 </Box>
                 <Divider />
                 <br />
                 <p>{t('connexion.autreConnexion')}</p>
                 <div id="connectionNetwork">
                     <LoginWithGoogle />
-                    <LoginWithFacebook/>
+                    <LoginWithFacebook />
                 </div>
             </div>
             <br />
