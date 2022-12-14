@@ -32,3 +32,18 @@ export const PrivateRouteInscription = () => {
     );
 }
  
+export const PrivateRouteMarketing = () => {
+    const user = useSelector(state => state.user)
+
+    return(
+        user.role === "marketing" ? <Outlet /> : <Home/>
+    );
+}
+
+export const PrivateRouteAdmin = () => {
+    const user = useSelector(state => state.user)
+
+    return(
+        user.role === "admin" ? <Outlet /> : <Home/> 
+    );
+}

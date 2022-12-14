@@ -9,9 +9,10 @@ import Account from "./components/account/Account.js";
 import Connection from "./components/login/Connection.js";
 import Inscription from "./components/login/Inscription.js";
 import Basket from "./components/basket/Basket.js";
+import Products from "./components/products/Products.js";
 import NoPage from './components/NoPage.js';
 
-import {PrivateRouteCompte,PrivateRouteConnection, PrivateRouteInscription} from "./PrivateRoute";
+import {PrivateRouteCompte,PrivateRouteConnection, PrivateRouteInscription,PrivateRouteAdmin,PrivateRouteMarketing} from "./PrivateRoute";
 
 
 const App = () => {
@@ -35,12 +36,18 @@ const App = () => {
           <Route element={<PrivateRouteInscription/>}>
             <Route path="inscription" element={<Inscription />} />
           </Route>
-                   
 
-          <Route path="marketing" element={<NoPage />} />
-          <Route path="stocks" element={<NoPage />} />
-          <Route path="droit" element={<NoPage />} />
-          <Route path="burgers" element={<NoPage />} />
+          <Route element={<PrivateRouteMarketing/>}>
+            <Route path="marketing" element={<NoPage />} />
+          </Route>  
+
+          <Route element={<PrivateRouteAdmin/>}>
+            <Route path="stocks" element={<NoPage />} />
+            <Route path="droit" element={<NoPage />} />
+            <Route path="products" element={<Products />} />
+          </Route>  
+
+          
           
           <Route path="*" element={<NoPage />} />
         </Route>

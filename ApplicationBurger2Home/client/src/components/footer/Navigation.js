@@ -22,7 +22,7 @@ const Navigation = () => {
             {(user.role === "admin") && (<>
                 <li className="linkFooter" id="navFooter5"> <Link to="/stocks" > {t('navigation.stock')} </Link> </li>
                 <li className="linkFooter" id="navFooter6"> <Link to="/droits" > {t('navigation.droit')} </Link> </li>
-                <li className="linkFooter" id="navFooter7"> <Link to="/burgers" > {t('navigation.burger')} </Link> </li>
+                <li className="linkFooter" id="navFooter7"> <Link to="/products" > {t('navigation.produits')} </Link> </li>
             </>)}
                 </ul>
         </nav>

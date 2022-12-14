@@ -66,13 +66,6 @@ const Connection = () => {
                     dispatch(open(openSnack))
 
                 })
-
-            // user.name = "nathan sépul";
-            // user.email = email;
-            // dispatch(login(user));
-            // openSnack.msg="Connexion réussie";
-            // openSnack.severity="success";
-            // dispatch(open(openSnack));
         }
 
         event.preventDefault();

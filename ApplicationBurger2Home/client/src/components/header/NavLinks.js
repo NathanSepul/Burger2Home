@@ -23,7 +23,7 @@ const NavLinks = ({ closeMenu }) => {
             {(user.role === "admin") && (<>
                 <li className="linkHeader" id="navHeader5"> <Link to="/stocks" onClick={closeMenu} > {t('navigation.stock')} </Link> </li>
                 <li className="linkHeader" id="navHeader6"> <Link to="/droits" onClick={closeMenu} > {t('navigation.droit')} </Link> </li>
-                <li className="linkHeader " id="navHeader7"> <Link to="/burgers" onClick={closeMenu} > {t('navigation.burger')} </Link> </li>
+                <li className="linkHeader " id="navHeader7"> <Link to="/products" onClick={closeMenu} > {t('navigation.produits')} </Link> </li>
             </>)}
         </ul>
     );

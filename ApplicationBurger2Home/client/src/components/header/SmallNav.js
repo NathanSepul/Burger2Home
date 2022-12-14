@@ -65,7 +65,7 @@ const SmallNav = ({ toggleDrawer }) => {
           <Divider />
           <ListItem className="linkSmallHeader" id="navSmallHeader6"> <Link to="/droits"  > {t('navigation.droit')} </Link> </ListItem>
           <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/burgers" > {t('navigation.burger')} </Link></ListItem>
+          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/products" > {t('navigation.produits')} </Link></ListItem>
           <Divider />
         </>)}
 
