@@ -12,13 +12,15 @@ import "./TabBasket.css"
 
 const TabBasket = ({ basket }) => {
     const [totalAmount, setTotalAmount] = useState(0);
+
     useEffect(() => {
         const temp = basket.basketLines.map((basketLine) =>
-            parseInt(basketLine.quantity) * parseFloat(basketLine.price)
+            basketLine.quantity * Math.round(basketLine.actualPrice*100)/100
         );
 
+        //somme de tout les elements un genre de boucle
         setTotalAmount(temp.reduce(
-            (accumulator, currentValue) => accumulator + currentValue, 0
+            (accumulator, currentValue) =>Math.round(( accumulator + currentValue)*100)/100, 0
         ));
 
 
@@ -32,7 +34,7 @@ const TabBasket = ({ basket }) => {
                         <TableRow>
                             <TableCell component="th" scope="row" >Produit</TableCell>
                             <TableCell align="left" sx={{ pl: "70px" }} component="th" scope="row">Quantité</TableCell>
-                            <TableCell align="center" component="th" scope="row">Total</TableCell>
+                            <TableCell align="center" component="th" scope="row">Prix</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

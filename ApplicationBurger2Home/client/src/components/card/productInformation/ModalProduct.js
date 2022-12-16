@@ -18,7 +18,7 @@ import AllergensDialog from "./AllergensDialog.js";
 import "./ModalProduct.css";
 
 const ModalProduct = ({ product }) => {
-    const [total, setTotal] = useState(product.actualPrice);
+    const [total, setTotal] = useState(Math.round(product.actualPrice*100)/100);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [buttonDisable, setDisable] = useState(false);
@@ -57,7 +57,9 @@ const ModalProduct = ({ product }) => {
             id:product.id,
             name:product.name, 
             quantity:quantity,
-            price:product.actualPrice,
+            currentPrice: Math.round(product.currentPrice*100)/100,
+            currentDiscount: product.currentDiscount,
+            actualPrice: Math.round(product.actualPrice*100)/100,
             url:product.imageUrl
         };
         dispatch(addToBasketRedux(localProduct));
@@ -77,7 +79,7 @@ const ModalProduct = ({ product }) => {
     }
 
     useEffect(() => {
-        handleSetTotal(product.actualPrice * parseInt(quantity))
+        handleSetTotal(Math.round(product.actualPrice*100)/100 * parseInt(quantity))
         
         quantity === 0 ? setDisable(true) : setDisable(false)
 
@@ -109,10 +111,10 @@ const ModalProduct = ({ product }) => {
                     </div>
 
                     {product.currentDiscount === 0 ?
-                        <div className="priceModal">{product.currentPrice}€</div> 
+                        <div className="priceModal">{Math.round(product.currentPrice*100)/100}€</div> 
                         :
                         <div className="priceModal">
-                            <span className="priceModalPromo">{product.currentPrice}€</span>
+                            <span className="priceModalPromo">{Math.round(product.currentPrice*100)/100}€</span>
                             <span className="priceDiscount">{Math.round(product.actualPrice * 100) / 100 }€</span>
                         </div>
                     }

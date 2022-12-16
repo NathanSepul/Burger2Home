@@ -19,7 +19,6 @@ const RowBasket = ({ basketLine, indexBl }) => {
   let min = 1;
   let max = 50;
   const dispatch = useDispatch();
-  const total = basketLine.quantity * basketLine.price;
 
   const handleSetQunatity = event => {
     if ( parseInt(event.target.value) <= max &&  parseInt(event.target.value) >= min) {
@@ -57,7 +56,13 @@ const RowBasket = ({ basketLine, indexBl }) => {
         <TableCell>
           <div className="itemProduct">
             <img className="imgBasket" src={basketLine.url} alt={basketLine.url} />
-            <span> {basketLine.name}</span>
+            <div>
+              <div> {basketLine.name}</div>
+              {basketLine.currentDiscount !== 0 &&(
+                <div>hors promo</div>
+              )}
+              
+            </div>
           </div>
         </TableCell>
 
@@ -88,7 +93,7 @@ const RowBasket = ({ basketLine, indexBl }) => {
 
         </TableCell>
 
-        <TableCell align="center"> {total}&nbsp;€ </TableCell>
+        <TableCell align="center"> {Math.round(basketLine.actualPrice*100)/100}€</TableCell>
         
       </TableRow>
 

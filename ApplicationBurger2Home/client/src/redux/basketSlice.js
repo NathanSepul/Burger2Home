@@ -23,7 +23,9 @@ export const basketSlice = createSlice({
                         id: action.payload.id,
                         name : action.payload.name,
                         quantity : action.payload.quantity,
-                        price : action.payload.price,
+                        currentPrice : action.payload.currentPrice,
+                        currentDiscount : action.payload.currentDiscount,
+                        actualPrice : action.payload.actualPrice,
                         url: action.payload.url,
                     };
     

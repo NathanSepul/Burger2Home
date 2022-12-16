@@ -7,42 +7,78 @@ import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRound
 
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
 import { useDispatch } from 'react-redux';
+import { Badge } from "@mui/material";
 
 import ModalProduct from "./ModalProduct.js";
 import "./ProductMiniature.css"
 
-const ProductMiniature = ({product,hadExtra}) => {
+const ProductMiniature = ({ product, hadExtra }) => {
 
     const dispatch = useDispatch();
-    const addToBasket = () =>{
 
-        const localProduct= {
-            id:product.id,
-            name:product.name, 
-            quantity:1,
-            price:product.currentPrice,
-            url:product.imageUrl
+    const badgeStyle = {
+        "& .MuiBadge-badge": {
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            fontSize: "0.9rem",
+        }
+    }
+
+    const addToBasket = () => {
+
+        const localProduct = {
+            id: product.id,
+            name: product.name,
+            quantity: 1,
+            currentPrice: Math.round(product.currentPrice*100)/100 ,
+            currentDiscount: product.currentDiscount,
+            actualPrice: Math.round(product.actualPrice*100)/100 ,
+            url: product.imageUrl
         };
-            
+
         dispatch(addToBasketRedux(localProduct));
     }
 
-    return (
-            <Card className="product" sx={{ minWidth:250, width:250, background:"transparent", boxShadow: "none"}}>
+    let content = () => {
+        return (
+            <Card className="product" sx={{ minWidth: 250, width: 250, background: "transparent", boxShadow: "none" }}>
 
-                <ModalProduct product={product} hadExtra={hadExtra}/>
+                <ModalProduct product={product} hadExtra={hadExtra} />
 
                 <CardContent className="contentCard">
                     <div>{product.name}</div>
-                    <div>{product.currentPrice} €</div>
+
+                    {product.currentDiscount === 0 ?
+                        <div className="priceMiniature">{Math.round(product.currentPrice*100)/100}€</div>
+                        :
+                        <div className="priceMiniature">
+                            <div className="priceMiniaturePromo">{Math.round(product.currentPrice*100)/100 }€</div>
+                            <div className="priceMiniatureDiscount">{Math.round(product.actualPrice * 100) / 100}€</div>
+                        </div>
+                    }
                     <div>
                         <IconButton onClick={addToBasket}>
                             <AddShoppingCartRoundedIcon fontSize="large" />
                         </IconButton>
-                     </div>
+                    </div>
                 </CardContent>
-               
             </Card>
+        );
+    }
+
+    return (
+        <>
+            {product.currentDiscount !== 0 ?
+                <Badge badgeContent={"-" + product.currentDiscount + "%"} color="primary" sx={badgeStyle} className="badgePromo">
+                    {content()}
+                </Badge>
+                :
+                <>
+                    {content()}
+                </>
+            }
+        </>
     );
 }
 
