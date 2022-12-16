@@ -10,15 +10,9 @@ const ToBasket = () => {
 
     return (
         <Link to="/basket" className="monPanier">
-            {(basketQuanttity >= 1) && (
-                <Badge badgeContent={basketQuanttity} color="primary">
-                    <ShoppingCartIcon fontSize="large" />
-                </Badge>
-            )}
-
-            {(basketQuanttity === 0) && (
+            <Badge badgeContent={basketQuanttity} color="primary">
                 <ShoppingCartIcon fontSize="large" />
-            )}
+            </Badge>
         </Link>
     );
 }

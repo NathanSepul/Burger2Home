@@ -1,15 +1,15 @@
-.product{
+.productAdmin{
     margin: 0;
     padding-bottom:10px
 }
 
-.productLis{
+.productList{
     width: 55%;
 }
 
 /* ecran inf à 767px*/
 @media screen and (max-width: 767px){
-    .productLis{
+    .productList{
         width: 90%;
         margin-right: auto;
         margin-left: auto;

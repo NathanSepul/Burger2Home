@@ -20,7 +20,7 @@ const ProductMiniature = ({product,hadExtra}) => {
             id:product.id,
             name:product.name, 
             quantity:1,
-            price:product.actualPrice,
+            price:product.currentPrice,
             url:product.imageUrl
         };
             
@@ -34,7 +34,7 @@ const ProductMiniature = ({product,hadExtra}) => {
 
                 <CardContent className="contentCard">
                     <div>{product.name}</div>
-                    <div>{product.actualPrice} €</div>
+                    <div>{product.currentPrice} €</div>
                     <div>
                         <IconButton onClick={addToBasket}>
                             <AddShoppingCartRoundedIcon fontSize="large" />

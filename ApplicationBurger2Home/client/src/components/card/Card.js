@@ -5,9 +5,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useTranslation } from 'react-i18next';
 
-import Drink from './Drink.js';
-import Burger from "./Burger.js";
-import SideBurger from './SideBurger.js';
+import Drink from './product/Drink.js';
+import Burger from './product/Burger.js';
+import SideBurger from './product/SideBurger.js';
 import "./Card.css";
 
 function TabPanel(props) {

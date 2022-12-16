@@ -1,10 +1,11 @@
 .list{
-    /* display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;  
+}
+
+.list .MuiBadge-badge{
+    transform: translateY(-5px) !important;
 }
 

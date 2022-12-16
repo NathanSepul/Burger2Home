@@ -45,6 +45,19 @@
     font-weight: 500;
     text-align: center;
     margin-bottom: 15px;
+    font-size: large;
+}
+
+.priceModalPromo{
+    text-decoration: line-through;
+    margin-right: 20px;
+    color: #a9a9a9;
+}
+
+.priceDiscount{
+    font-size: larger;
+    color: rgb(187, 2, 2);
+    font-weight: 600;
 }
 .contentModal{
     display: flex;
@@ -140,6 +153,7 @@
     justify-content: center;
     padding: 10px;
     border-radius: 10px;
+    margin-right: 10px;
 
 }
 .buttonsModalProduct button{
@@ -147,6 +161,7 @@
     font-size: 1rem;
     padding: 10px;
     border-radius: 10px;
+    margin-left: 10px;
    
 }
 

@@ -8,11 +8,14 @@ export const smallMenuSlice = createSlice({
   reducers: {
     setIsOpen: (state,action) => {
       state.value = action.payload
+    },
+    setClose: (state) =>{
+      state.value = false
     }
   }
 })
 
 
-export const {setIsOpen} = smallMenuSlice.actions
+export const {setIsOpen,setClose} = smallMenuSlice.actions
 
 export default smallMenuSlice.reducer

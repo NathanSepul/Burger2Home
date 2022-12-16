@@ -17,7 +17,7 @@ const Products = () => {
     const languageRedux = useSelector(state => state.language);
 
     useEffect(() => {
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false`)
+        axios.get(`/products`)
             .then((data) => {
                 setIsLoading(false);
                 setProducts(data.data);
@@ -28,11 +28,11 @@ const Products = () => {
     }, [languageRedux])
 
     return (
-        <main className='product'>
+        <main className='productAdmin'>
             <title>Burger2Home | {t('navigation.produits')}</title>
             <div className="title"><h1>Gestion des produits</h1></div>
             <div className="productContent">
-                <div className="productLis">
+                <div className="productList">
                     {isLoading  ? <Loding/> : <TabProducts products={products}/>}
                 </div>
 

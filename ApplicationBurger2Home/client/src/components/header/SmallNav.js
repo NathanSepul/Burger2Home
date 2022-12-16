@@ -12,7 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from "@mui/material";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setIsOpen } from '../../redux/smallMenuSlice.js';
+import { setClose } from '../../redux/smallMenuSlice.js';
 
 import Login from "../login/Login.js";
 import ToBasket from "./ToBasket.js";
@@ -27,14 +27,14 @@ const SmallNav = ({ toggleDrawer }) => {
   useEffect(() => {
     const changeWidth = () => {
       if (window.innerWidth > 767) {
-        dispatch(setIsOpen(false))
+        dispatch(setClose())
       }
     }
 
     window.addEventListener('resize', changeWidth)
 
     return () => {
-      window.removeEventListener('resize', changeWidth)
+      // window.removeEventListener('resize', changeWidth)
     }
   }, [dispatch])
 

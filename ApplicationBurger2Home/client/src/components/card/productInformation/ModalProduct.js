@@ -18,7 +18,7 @@ import AllergensDialog from "./AllergensDialog.js";
 import "./ModalProduct.css";
 
 const ModalProduct = ({ product }) => {
-    const [total, setTotal] = useState(product.price);
+    const [total, setTotal] = useState(product.actualPrice);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [buttonDisable, setDisable] = useState(false);
@@ -28,6 +28,9 @@ const ModalProduct = ({ product }) => {
     let min = 1;
     let max = 50;
 
+    const handleSetTotal = (amount) =>{
+        setTotal(Math.round(amount * 100) / 100);
+    }
     const handleSetQunatity = event => {
         if ( parseInt(event.target.value) <= max &&  parseInt(event.target.value) >= min) {
             setQuantity(event.target.value);
@@ -74,7 +77,7 @@ const ModalProduct = ({ product }) => {
     }
 
     useEffect(() => {
-        setTotal(product.actualPrice * parseInt(quantity))
+        handleSetTotal(product.actualPrice * parseInt(quantity))
         
         quantity === 0 ? setDisable(true) : setDisable(false)
 
@@ -104,7 +107,16 @@ const ModalProduct = ({ product }) => {
                         {product.name}
                         <AllergensDialog product={product} />
                     </div>
-                    <div className="priceModal">{product.price} €</div>
+
+                    {product.currentDiscount === 0 ?
+                        <div className="priceModal">{product.currentPrice}€</div> 
+                        :
+                        <div className="priceModal">
+                            <span className="priceModalPromo">{product.currentPrice}€</span>
+                            <span className="priceDiscount">{Math.round(product.actualPrice * 100) / 100 }€</span>
+                        </div>
+                    }
+                    
 
                     <div className="contentModal">
                         <img className="imageModal" src={product.imageUrl} alt={product.name} />

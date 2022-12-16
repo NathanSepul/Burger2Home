@@ -7,6 +7,7 @@
 }
 
 .globalCarte{
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
 }
@@ -29,5 +30,5 @@
     width: calc(100vw - 210px);
     min-height: calc(100vh - 300px);
     padding: 10px;
-    margin: 0 auto;
+    margin: 20 auto;
  }

@@ -6,14 +6,13 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch } from 'react-redux';
-import { open } from '../../redux/snackBarSlice.js';
-import ProductList from "./product/ProductList.js";
-import Loding from "../loding/Loding.js"
+import { open } from '../../../redux/snackBarSlice.js';
+import ProductList from "../productInformation/ProductList.js";
+import Loding from "../../loding/Loding.js"
 import axios from 'axios';
-import i18n from "i18next";
 import { useSelector} from 'react-redux';
 
-import "./Burger.css";
+import "./Product.css";
 
 const Burger = () => {
 
@@ -26,7 +25,7 @@ const Burger = () => {
     const dispatch = useDispatch();
     
     useEffect(() =>{
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=true`)
+        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false`)
          .then((data) => {
                     setIsLoading(false);
                     setBurgers(data.data);

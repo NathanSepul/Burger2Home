@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { open } from '../../redux/snackBarSlice.js';
-import ProductList from "./product/ProductList.js";
-import Loding from "../loding/Loding.js";
+import { open } from '../../../redux/snackBarSlice.js';
+import ProductList from "../productInformation/ProductList.js";
+import Loding from "../../loding/Loding.js";
+import "./Product.css";
+
 
 const SideBurger = () => {
     const [hasError, setHasError] = useState(false);
