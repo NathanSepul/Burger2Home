@@ -128,12 +128,13 @@ const ModalProduct = ({ product }) => {
                             <OutlinedInput
                                 className="addButton"
                                 sx={{ width: "120px", pl: "0px" }}
+                                disabled={!product.available}
                                 value={quantity}
                                 onKeyPress={onlyNumber}
                                 onChange={handleSetQunatity}
                                 startAdornment={
-                                    <InputAdornment position="start" sx={{ p: "0", ml: "-5px", mr: "-5px" }} >
-                                        <IconButton onClick={remove} sx={{ width: "40px" }}>
+                                    <InputAdornment position="start" sx={{ p: "0", ml: "-5px", mr: "-5px" }}  >
+                                        <IconButton onClick={remove} sx={{ width: "40px" }} disabled={!product.available}>
                                             <DeleteIcon sx={{ color: "black" }} />
                                         </IconButton>
                                     </InputAdornment>
@@ -141,13 +142,13 @@ const ModalProduct = ({ product }) => {
 
                                 endAdornment={
                                     <div className="arrowModal" >
-                                        <IconButton onClick={add} className="dropUp" color="none">
+                                        <IconButton onClick={add} className="dropUp" color="none" disabled={!product.available}>
                                             <ArrowDropUpIcon sx={{ color: "black" }} fontSize="medium" color="none" />
                                         </IconButton>
 
                                         <Divider />
 
-                                        <IconButton onClick={subtract} className="dropDown" color="none">
+                                        <IconButton onClick={subtract} className="dropDown" color="none" disabled={!product.available}>
                                             <ArrowDropDownIcon sx={{ color: "black" }} fontSize="medium" />
                                         </IconButton>
                                     </div>
@@ -157,7 +158,7 @@ const ModalProduct = ({ product }) => {
 
                         <div className="buttonsModalProduct">
                             <div className="totalDisplay">{total} €</div>
-                            <button type="button" disabled={buttonDisable} onClick={addToBasket}>Ajouter au panier</button>
+                            <button type="button" disabled={buttonDisable || !product.available} onClick={addToBasket}>Ajouter au panier</button>
                         </div>
                     </div>
 

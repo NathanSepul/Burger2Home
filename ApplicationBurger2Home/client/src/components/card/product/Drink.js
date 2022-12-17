@@ -18,7 +18,7 @@ const Burger = () => {
     const dispatch = useDispatch();
     
     useEffect(() =>{
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false`)
+        axios.get(`/products/families/3/products`)
          .then((data) => {
                     setIsLoading(false);
                     setDrinks(data.data);
@@ -26,7 +26,7 @@ const Burger = () => {
                 .catch(() => {
                     setHasError(true);
                 })
-    },[languageRedux])
+    },[])
 
     if (hasError) {
         openSnack.msg="Les données n'ont pas pu être chargée";
