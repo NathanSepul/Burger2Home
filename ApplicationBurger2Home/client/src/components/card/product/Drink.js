@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import ProductList from "../productInformation/ProductList.js";
 import Loding from "../../loding/Loding.js";
+import axios from 'axios';
+import { useSelector} from 'react-redux';
 import "./Product.css";
 
 
@@ -10,23 +12,21 @@ const Burger = () => {
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [drinks, setDrinks] = useState([]);
-
+    const languageRedux = useSelector(state => state.language);
+    
     const openSnack = {msg:"", severity:""};
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        setIsLoading(true);
-        fetch("./drinks.json")
-            .then(res => res.json())
-            .then((data) => {
-                setIsLoading(false);
-                setDrinks(data)
-            })
-            .catch(() => {
-                setHasError(true);
-            });
-
-    }, []);
+    
+    useEffect(() =>{
+        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false`)
+         .then((data) => {
+                    setIsLoading(false);
+                    setDrinks(data.data);
+                })
+                .catch(() => {
+                    setHasError(true);
+                })
+    },[languageRedux])
 
     if (hasError) {
         openSnack.msg="Les données n'ont pas pu être chargée";
