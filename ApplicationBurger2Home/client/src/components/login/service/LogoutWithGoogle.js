@@ -1,7 +1,7 @@
 import React from "react"
 import {googleLogout} from '@react-oauth/google';
 import { useDispatch } from 'react-redux';
-import { logout } from '../redux/userSlice.js';
+import { logout } from '../../../redux/userSlice.js';
 import "./Google.css"
 const LogoutWithGoogle = ()=>{
   const dispatch = useDispatch()

@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import { useDispatch } from 'react-redux';
-import { login,logout } from '../redux/userSlice.js';
+import { login,logout } from '../../../redux/userSlice.js';
 import "./Facebook.css";
 
 const LoginWithFacebook = () => {

@@ -14,8 +14,8 @@ import { login } from '../../redux/userSlice.js';
 import { open } from '../../redux/snackBarSlice.js';
 
 
-import LoginWithFacebook from '../../service/LoginWithFacebook.js';
-import LoginWithGoogle from '../../service/LoginWithGoogle.js';
+import LoginWithFacebook from './service/LoginWithFacebook.js';
+import LoginWithGoogle from './service/LoginWithGoogle.js';
 
 import axios from 'axios';
 import "./Connection.css";

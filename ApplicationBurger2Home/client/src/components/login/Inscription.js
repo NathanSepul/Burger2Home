@@ -11,8 +11,8 @@ import Button from "@mui/material/Button";
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice.js';
 
-import LoginWithFacebook from '../../service/LoginWithFacebook.js';
-import LoginWithGoogle from '../../service/LoginWithGoogle.js';
+import LoginWithFacebook from './service/LoginWithFacebook.js';
+import LoginWithGoogle from './service/LoginWithGoogle.js';
 import PasswordField from '../password/PasswordField.js';
 import "./Inscription.css";
 

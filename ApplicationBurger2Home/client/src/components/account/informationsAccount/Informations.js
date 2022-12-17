@@ -16,7 +16,7 @@ import { open } from '../../../redux/snackBarSlice.js';
 
 import Loding from "../../loding/Loding.js"
 import ModalChangePassword from '../../password/ModalChangePassword.js';
-import LogoutWithGoogle from "../../../service/LogoutWithGoogle.js"
+import LogoutWithGoogle from "../../login/service/LogoutWithGoogle.js"
 import "./Informations.css";
 
 const Informations = () => {
