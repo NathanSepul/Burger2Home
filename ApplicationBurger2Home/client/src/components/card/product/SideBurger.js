@@ -4,7 +4,7 @@ import { open } from '../../../redux/snackBarSlice.js';
 import ProductList from "../productInformation/ProductList.js";
 import Loding from "../../loding/Loding.js";
 import axios from 'axios';
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import "./Product.css";
 
 
@@ -13,24 +13,24 @@ const SideBurger = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [sides, setSides] = useState([]);
     const languageRedux = useSelector(state => state.language);
-    
-    const openSnack = {msg:"", severity:""};
+
+    const openSnack = { msg: "", severity: "" };
     const dispatch = useDispatch();
-    
-    useEffect(() =>{
-        axios.get(`/products/families/2/products`)
-         .then((data) => {
-                    setIsLoading(false);
-                    setSides(data.data);
-                })
-                .catch(() => {
-                    setHasError(true);
-                })
-    },[])
+
+    useEffect(() => {
+        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamilyId=2`)
+            .then((response) => {
+                setIsLoading(false);
+                setSides(response.data);
+            })
+            .catch(() => {
+                setHasError(true);
+            })
+    }, [languageRedux])
 
     if (hasError) {
-        openSnack.msg="Les données n'ont pas pu être chargée";
-        openSnack.severity="error";
+        openSnack.msg = "Les données n'ont pas pu être chargée";
+        openSnack.severity = "error";
         dispatch(open(openSnack))
     }
 
@@ -49,7 +49,7 @@ const SideBurger = () => {
                 </div>
 
                 <section className='produits'>
-                    <ProductList products={sides}/>
+                    <ProductList products={sides} />
                 </section>
             </div>
         );

@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
 import { useDispatch } from 'react-redux';
 import { Badge } from "@mui/material";
-import axios from 'axios';
 import ModalProduct from "./ModalProduct.js";
-import Loding from "../../loding/Loding.js";
 import "./ProductMiniature.css"
 
-const ProductMiniature = ({ produit, hadExtra }) => {
+const ProductMiniature = ({ product, hadExtra }) => {
 
-    const [product, setProduct] = useState("vide");
-    const [isLoading, setIsLoading] = useState(true);
-    useEffect(() => {
-
-        axios.get(`/products/summaries/${produit.id}?language=EN`)
-            .then((data) => {
-                setProduct(data.data);
-                setIsLoading(false);
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-    }, [])
 
     const dispatch = useDispatch();
 
@@ -62,7 +45,7 @@ const ProductMiniature = ({ produit, hadExtra }) => {
                 {!product.available && (
                     <span className="recommendation">Victime de son succes</span>
                 )}
-                
+
                 <ModalProduct product={product} hadExtra={hadExtra} />
 
                 <CardContent className="contentCard">
@@ -86,33 +69,25 @@ const ProductMiniature = ({ produit, hadExtra }) => {
         );
     }
 
-    if (isLoading) {
-        return (
-            <Card className="emptyCard">
-                <CircularProgress className="loaderIcon" sx={{ m: "auto" }} />
-            </Card>
-        );
-    }
 
-    else {
-        return (
-            <>
-                {product.currentDiscount !== 0 ?
-                    <>
-                        <Badge badgeContent={"-" + product.currentDiscount + "%"} color="primary" sx={badgeStyle} className="badgePromo">
-                            {content()}
-                        </Badge>
-                    </>
-
-                    :
-                    <>
+    return (
+        <>
+            {product.currentDiscount !== 0 ?
+                <>
+                    <Badge badgeContent={"-" + product.currentDiscount + "%"} color="primary" sx={badgeStyle} className="badgePromo">
                         {content()}
-                    </>
-                }
-            </>
+                    </Badge>
+                </>
 
-        );
-    }
+                :
+                <>
+                    {content()}
+                </>
+            }
+        </>
+
+    );
+
 }
 
 export default ProductMiniature;
