@@ -117,8 +117,8 @@
     }, 
 
     "carte":{
-        "burger":"Ours Burgers",
-        "Accompagnements":"Ours Burgers Side",
+        "burgers":"Ours Burgers",
+        "accompagnements":"Ours Burgers Side",
         "boissons":"Ours Drinks"
     },
 
