@@ -46,7 +46,7 @@ const Connection = () => {
             openSnack.severity = "info";
             dispatch(open(openSnack));
 
-            axios.get(`/users/2`)
+            axios.get(`/users/1`)
                 .then((data) => {
                     user.email = data.data.email;
                     user.lastName = data.data.lastname;
