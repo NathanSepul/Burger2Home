@@ -1,0 +1,35 @@
+.Name{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 30px;
+    padding-bottom: 10px;
+}
+
+.inputName{
+    width: 50%;
+}
+
+.Img{
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    padding-bottom: 10px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.imgForm{
+    width: 80px;
+    height: 80px;
+}
+
+.pathImg{
+    width: 100%;
+}
+
+.price{
+    width: 30% !important;
+    min-width: 100px !important;
+    max-width: 100px !important;
+}

@@ -12,8 +12,7 @@ const SelectFamilly = ({setFamillyId}) => {
     const languageRedux = useSelector(state => state.language);
 
     useEffect(()=>{
-        
-        axios.get(`/products/families/translations`)
+        axios.get(`/products/families/translations?language=${languageRedux.value}`)
             .then((res) => {
                 setIsLoading(false)
                 setListFamilly(res);

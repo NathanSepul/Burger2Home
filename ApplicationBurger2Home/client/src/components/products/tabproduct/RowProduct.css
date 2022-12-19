@@ -32,3 +32,7 @@
  .interligne{  
     height: 5px !important;
  }
+
+ .buttonTab{
+    cursor: pointer;
+ }

@@ -6,11 +6,14 @@ import TabProducts from "./tabproduct/TabProducts.js";
 import axios from 'axios';
 
 import SelectFamilly from "./filtre/SelectFamilly.js";
+import ProductForm from "./form/ProductForm.js"
 import "./Products.css"
 
 const Products = () => {
-
+    const initialState = {id:"",name:"",description:"",currentPrice:"",currentDiscount:"",imageUrl:"", ingredients:[], allergens:[]};
     const [products, setProducts] = useState([]);
+    const [productSelected, setProductSelected] = useState(initialState);
+
 
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -19,10 +22,9 @@ const Products = () => {
     const { t } = useTranslation();
     const languageRedux = useSelector(state => state.language);
 
-    
-
     useEffect(() => {
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamilyId=${famillyId}`)
+        setProductSelected(initialState)
+        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=${famillyId}`)
             .then((data) => {
                 setIsLoading(false);
                 setProducts(data.data);
@@ -46,7 +48,11 @@ const Products = () => {
             <div className="productContent">
 
                 <div className="productList">
-                    {isLoading ? <Loding /> : <TabProducts products={products} />}
+                    {isLoading ? <Loding /> : <TabProducts products={products} setProductSelected={setProductSelected}/>}
+                </div>
+
+                <div className="productForm">
+                    <ProductForm productSelected={productSelected}/>
                 </div>
 
                 {/* <div className="productForm">

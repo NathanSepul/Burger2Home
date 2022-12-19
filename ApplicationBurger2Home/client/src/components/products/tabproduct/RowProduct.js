@@ -12,14 +12,14 @@ import { updateQuantity,removeFromBasket } from '../../../redux/basketSlice.js';
 
 import "./RowProduct.css";
 
-const RowProduct = ({ product }) => {
+const RowProduct = ({ product, setProductSelected }) => {
 
   return (
     <React.Fragment>
 
-      <TableRow sx={{ backgroundColor: "#" }}>
+      <TableRow sx={{ backgroundColor: "#" }} >
 
-        <TableCell align='left'>
+        <TableCell align='left' onClick={()=>{setProductSelected(product)}} className="buttonTab">
           <div className="itemProduct">
             <img className="imgBasket" src={product.imageUrl}alt={product.imageUrl} />
           </div>

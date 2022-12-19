@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import RowBasket from "./RowProduct";
 import "./TabProducts.css"
 
-const TabProducts = ({ products }) => {
+const TabProducts = ({ products, setProductSelected }) => {
    
     return (
         <>
@@ -28,7 +28,7 @@ const TabProducts = ({ products }) => {
                     <TableBody>
 
                         {products.map((product) => (
-                                <RowBasket key={product.id} product={product}/>
+                                <RowBasket key={product.id} product={product} setProductSelected={setProductSelected}/>
                             ))}
                     </TableBody>
                 </Table>
