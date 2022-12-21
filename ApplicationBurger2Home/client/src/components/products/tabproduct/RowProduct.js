@@ -38,7 +38,7 @@ const RowProduct = ({ product, setProductSelected }) => {
         </TableCell>
 
         <TableCell align='left'>
-           <span> {product.available ? "disponible" : "Indisponible"} </span>
+           <span> {product.onMenu ? "disponible" : "Indisponible"} </span>
         </TableCell>
 
         

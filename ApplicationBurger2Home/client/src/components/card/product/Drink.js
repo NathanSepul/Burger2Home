@@ -18,7 +18,7 @@ const Burger = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=3`)
+        axios.get(`/products/summaries?language=${languageRedux.value}&mustBeOnMenu=true&availableProductsOnly=false&productFamily=3`)
             .then((response) => {
                 setIsLoading(false);
                 setDrinks(response.data);

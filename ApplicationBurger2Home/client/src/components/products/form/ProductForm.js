@@ -10,10 +10,12 @@ import axios from 'axios';
 
 import { useSelector } from 'react-redux';
 import "./ProductForm.css"
-const ProductForm = ({ productSelected }) => {
 
-    const [productEn, setPorductEn] = useState({ id: "", name: "", description: "", currentPrice: "", currentDiscount: "", imageUrl: "", ingredients: [], allergens: [] });
-    const [productFr, setProductFr] = useState({ id: "", name: "", description: "", currentPrice: "", currentDiscount: "", imageUrl: "", ingredients: [], allergens: [] });
+const ProductForm = ({ productSelected, setProductSelected }) => {
+    const initialState = { id: "", name: "", description: "", currentPrice: "", currentDiscount: "", imageUrl: "", ingredients: [], allergens: [], onMenu: false };
+
+    const [productEn, setProductEn] = useState(initialState);
+    const [productFr, setProductFr] = useState(initialState);
     const [isDisabled, setIsDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [errorPrice, setErrorPrice] = useState(false);
@@ -21,8 +23,7 @@ const ProductForm = ({ productSelected }) => {
 
     const [ingredrientsList, setIngredientsList] = useState();
     const [famillyList, setFamillyList] = useState();
-
-    ;
+    const [productOriginal, setPO] = useState(productSelected);
 
     useEffect(() => {
 
@@ -51,8 +52,8 @@ const ProductForm = ({ productSelected }) => {
             axios.all([requestOne, requestTwo])
                 .then(
                     axios.spread((...responses) => {
-                        setPorductEn(responses[0])
-                        setProductFr(responses[1])
+                        setProductEn(responses[0].data)
+                        setProductFr(responses[1].data)
                     })
                 )
                 .catch(e => {
@@ -60,36 +61,72 @@ const ProductForm = ({ productSelected }) => {
                 });
         }
 
-    }, [productSelected.id])
+    }, [productSelected])
 
     const changePrice = event => {
         if (!/^\d+(\.\d{1,2})?$/.test(event.target.value)) {
-            setIsDisabled(true)
+            setIsDisabled(true);
             setErrorPrice(true);
         }
         else {
             setIsDisabled(false)
             setErrorPrice(false);
+
+        }
+
+        setProductSelected({...productSelected,currentPrice:event.target.value})
+
+    }
+
+    const changeName = (lg,e) =>{
+        if(lg === "fr"){
+            setProductFr({...productFr,name: e.target.value})
+        }
+        else{
+            setProductEn({...productEn,name: e.target.value})
         }
     }
 
-    const isCheckedFamilly = () => {
-        // let isFound;
-
-        // if (productSelected.id !== "") {
-
-        //     isFound = productSelected.productFamilies.some(element => {
-        //         if (element === famillyId.productFamilyId) {
-        //             return true
-        //         }
-        //         return false
-        //     })
-        // }
-        return  true;
+    const changeImg = e =>{
+        setProductSelected({...productSelected,imageUrl:e.target.value})
     }
 
-    const handleChange = (event) => {
+    const isCheckedFamilly = (id) => {
+        let isFound = false;
 
+        if (productSelected.id !== "") {
+            for (let i = 0; i < productSelected.productFamilies.length; i++) {
+                if (productSelected.productFamilies[i] === id) {
+                    isFound = true;
+                    break;
+                }
+            }
+
+        }
+        return isFound;
+    }
+
+    const cancel = () => {
+        setProductSelected(initialState);
+        setProductEn(initialState);
+        setProductFr(initialState);
+    }
+
+
+    const handleChangeCheck = (event,famillyId) => {
+
+        let  tempArrays = productSelected.productFamilies
+
+        if(event.target.checked === true ){
+            tempArrays.push(famillyId)
+        }
+        else{
+            const index = tempArrays.indexOf(famillyId);
+            tempArrays.splice(index,1);
+        }
+
+        setProductSelected({...productSelected,productFamilies:tempArrays})
+   
     };
 
     return (
@@ -101,32 +138,28 @@ const ProductForm = ({ productSelected }) => {
             }}
         >
             <div className="Name">
-                <TextField required className="inputName" label="Name" variant="outlined" value={productEn.name} />
-                <TextField required className="inputName" label="Nom" variant="outlined" value={productFr.name} />
-            </div>
+                <TextField required className="inputName" label="Name" variant="outlined" value={productEn.name} onChange={e => changeName("En",e)}/>
+                <TextField required className="inputName" label="Nom" variant="outlined" value={productFr.name} onChange={e => changeName("fr",e)}/>
+            </div> 
 
             <div className="Img">
                 {productSelected.imageUrl !== "" && (
                     <img className="imgForm" src={productSelected.imageUrl} alt={productSelected.imageUrl} />
                 )}
-                <TextField required className="pathImg" label="Chemin" variant="outlined" value={productSelected.imageUrl} />
+                <TextField required className="pathImg" label="Chemin" variant="outlined" value={productSelected.imageUrl} onChange={changeImg}/>
             </div>
 
             <div className="FamillyCheckBox">
-            {(!isLoading) && (
+                {(!isLoading) && (
 
-                <FormGroup>
-                    {
-                    famillyList.data.map((familly) => {
-                            return <FormControlLabel key={familly.id} label={"dfgh"}
-                                control={<Checkbox key={familly.id} checked={isCheckedFamilly()} />}/>
-                            
-                           
-                        })
-                    }
-                        
-                </FormGroup>
-                    )}
+                    <FormGroup>
+                        {famillyList.data.map((familly) => {
+                            return <FormControlLabel key={familly.id} label={familly.name}
+                                control={<Checkbox key={familly.id} checked={isCheckedFamilly(familly.productFamilyId)} onChange={e => handleChangeCheck(e,familly.productFamilyId)} />} />
+                        })}
+
+                    </FormGroup>
+                )}
 
             </div>
 
@@ -135,13 +168,17 @@ const ProductForm = ({ productSelected }) => {
                 error={errorPrice}
                 value={productSelected.currentPrice}
                 // onKeyPress={onlyNumber}
-                // onChange={changePrice}
+                onChange={changePrice}
                 onBlur={changePrice}
                 endAdornment={"€"}
             />
 
             <br /><br />
-            <Button disabled={isDisabled} id="buttonValidation" variant="contained" type="submit">Ajouter</Button>
+            <div>
+                <span> <Button disabled={isDisabled} variant="contained" type="submit">Ajouter</Button></span>
+                <span>  <Button variant="contained" onClick={cancel}>Annuler</Button> </span>
+            </div>
+
         </Box>
     )
 }

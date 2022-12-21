@@ -10,10 +10,10 @@ import ProductForm from "./form/ProductForm.js"
 import "./Products.css"
 
 const Products = () => {
-    const initialState = {id:"",name:"",description:"",currentPrice:"",currentDiscount:"",imageUrl:"", ingredients:[], allergens:[]};
+    const initialState = {id:"",name:"",description:"",currentPrice:"",currentDiscount:"",imageUrl:"", ingredients:[], allergens:[], onMenu:false};
     const [products, setProducts] = useState([]);
     const [productSelected, setProductSelected] = useState(initialState);
-
+    
 
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +34,7 @@ const Products = () => {
             })
     }, [languageRedux, famillyId])
 
+   
     
 
     return (
@@ -42,7 +43,7 @@ const Products = () => {
             <div className="title"><h1>Gestion des produits</h1></div>
 
             <div className="productFiltre">
-                <SelectFamilly  setFamillyId={setFamillyId}/>
+                <SelectFamilly setFamillyId={setFamillyId}/>
             </div>
 
             <div className="productContent">
@@ -52,7 +53,7 @@ const Products = () => {
                 </div>
 
                 <div className="productForm">
-                    <ProductForm productSelected={productSelected}/>
+                    <ProductForm productSelected={productSelected} setProductSelected={setProductSelected}/>
                 </div>
 
                 {/* <div className="productForm">

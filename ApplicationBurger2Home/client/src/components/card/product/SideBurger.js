@@ -18,7 +18,7 @@ const SideBurger = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=2`)
+        axios.get(`/products/summaries?language=${languageRedux.value}&mustBeOnMenu=true&availableProductsOnly=false&productFamily=2`)
             .then((response) => {
                 setIsLoading(false);
                 setSides(response.data);
