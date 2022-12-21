@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux';
 import "./ProductForm.css"
 
 const ProductForm = ({ productSelected, setProductSelected }) => {
-    const initialState = { id: "", name: "", description: "", currentPrice: "", currentDiscount: "", imageUrl: "", ingredients: [], allergens: [], onMenu: false };
+    const initialState = { id: "", name: "", description: "", currentPrice: "", currentDiscount: "", imageUrl: "", ingredients: {},productFamilies:{}, allergens: {}, onMenu: false };
 
     const [productEn, setProductEn] = useState(initialState);
     const [productFr, setProductFr] = useState(initialState);
@@ -24,6 +24,8 @@ const ProductForm = ({ productSelected, setProductSelected }) => {
     const [ingredrientsList, setIngredientsList] = useState();
     const [famillyList, setFamillyList] = useState();
     const [productOriginal, setPO] = useState(productSelected);
+
+    const [updateProduct, setUpdateProduct]= useState({id:"",imageUrl:"",ingredients:[],productFamilies:[],onMenu:false})
 
     useEffect(() => {
 
@@ -63,6 +65,8 @@ const ProductForm = ({ productSelected, setProductSelected }) => {
 
     }, [productSelected])
 
+
+
     const changePrice = event => {
         if (!/^\d+(\.\d{1,2})?$/.test(event.target.value)) {
             setIsDisabled(true);
@@ -71,7 +75,6 @@ const ProductForm = ({ productSelected, setProductSelected }) => {
         else {
             setIsDisabled(false)
             setErrorPrice(false);
-
         }
 
         setProductSelected({...productSelected,currentPrice:event.target.value})
@@ -129,6 +132,17 @@ const ProductForm = ({ productSelected, setProductSelected }) => {
    
     };
 
+    const validationForm = e =>{
+
+        if(productSelected.id !== ""){
+
+        }
+        else{
+
+        }
+
+    }
+
     return (
         <Box
             // onSubmit={validationFormulaire}
@@ -175,8 +189,8 @@ const ProductForm = ({ productSelected, setProductSelected }) => {
 
             <br /><br />
             <div>
-                <span> <Button disabled={isDisabled} variant="contained" type="submit">Ajouter</Button></span>
-                <span>  <Button variant="contained" onClick={cancel}>Annuler</Button> </span>
+                <span> <Button disabled={isDisabled} variant="contained" type="submit" onClick={validationForm}>Ajouter</Button></span>
+                <span> <Button variant="contained" onClick={cancel}>Annuler</Button> </span>
             </div>
 
         </Box>
