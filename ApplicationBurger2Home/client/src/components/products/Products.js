@@ -10,7 +10,7 @@ import ProductForm from "./form/ProductForm.js"
 import "./Products.css"
 
 const Products = () => {
-    const initialState = {id:"",name:"",description:"",currentPrice:"",currentDiscount:"",imageUrl:"", ingredients:[], allergens:[], onMenu:false};
+    const initialState = {id:"",name:"",description:"",currentPrice:"",currentDiscount:"",imageUrl:"", ingredients:[],productFamilies: [], allergens:[], onMenu:false};
     const [products, setProducts] = useState([]);
     const [productSelected, setProductSelected] = useState(initialState);
     
