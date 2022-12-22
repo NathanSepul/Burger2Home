@@ -17,6 +17,7 @@
     padding-bottom: 10px;
     align-items: center;
     justify-content: space-between;
+    height: 90px;
 
 }
 .imgForm{
@@ -32,4 +33,18 @@
     width: 30% !important;
     min-width: 100px !important;
     max-width: 100px !important;
+}
+
+.buttonFormProduct{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    justify-content: right;
+}
+
+.bottomForm{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px !important;
 }
