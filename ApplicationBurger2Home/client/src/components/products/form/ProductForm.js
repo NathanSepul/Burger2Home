@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
@@ -13,25 +13,29 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import { useSelector } from 'react-redux';
+import { Buffer } from "buffer";
 import "./ProductForm.css"
 
 
 const ProductForm = ({ ps, setPS }) => {
-    const initialStatePS = { id: null, imageUrl: "", ingredients: [], productFamilies: [], allergens: [], onMenu: false };
+    const initialStatePS = { id: null, imageName: null, ingredients: [], productFamilies: [], onMenu: false };
     const initialStateFr = { id: null, description: "iii", name: "", language: { id: 2 }, productId: "" };
-    const initialStateEn = { id: null, description: "ooo", name: "", language: { id: 1} , productId: "" };
+    const initialStateEn = { id: null, description: "ooo", name: "", language: { id: 1 }, productId: "" };
     const initialStatePrice = { amount: "" }
+    const initialStateImg = null
     const initialStateError = { onError: false, msg: '' }
+
 
     const [productSelected, setProductSelected] = useState(initialStatePS);
     const [productEn, setProductEn] = useState(initialStateEn);
     const [productFr, setProductFr] = useState(initialStateFr);
     const [productPrice, setProductPrice] = useState(initialStatePrice);
-
+    const [productImg, setProductImg] = useState(initialStateImg);
+    const fileInput = useRef(null);
     const [isLoading, setIsLoading] = useState(true);
     const [errorNameFr, setErrorNameFr] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
     const [errorNameEn, setErrorNameEn] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
-    const [errorPath, setErrorPath] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
+    const [errorPath, setErrorPath] = useState({ onError: false, msg: 'LIl faut une image' });
     const [errorCheckBox, setErrorCheckBox] = useState({ onError: false, msg: 'Il faut choisir une case' })
     const [errorPrice, setErrorPrice] = useState({ onError: false, msg: 'La valeur ne respect pas les critères' });
 
@@ -39,7 +43,6 @@ const ProductForm = ({ ps, setPS }) => {
     const [famillyList, setFamillyList] = useState();
 
     const languageRedux = useSelector(state => state.language)
-
 
     useEffect(() => {
         const requestOne = axios.get(`/ingredients/translations?language=${languageRedux.value}`);
@@ -65,31 +68,39 @@ const ProductForm = ({ ps, setPS }) => {
         setErrorPath({ ...errorPath, onError: false });
         setErrorCheckBox({ ...errorCheckBox, onError: false });
         setErrorPrice({ ...errorPrice, onError: false });
+
         if (ps.id !== null) {
             const requestOne = axios.get(`/products/${ps.id}`);
-            const requestTwo = axios.get(`/products/summaries/${ps.id}?language=EN`);
-            const requestThree = axios.get(`/products/summaries/${ps.id}?language=FR`);
+            const requestThree = axios.get(`/products/${ps.id}/translations`);
             const requestFour = axios.get(`/products/${ps.id}/prices/current`);
+            const requestFive = axios.get(`/products/${ps.id}/image`,{responseType:'arraybuffer'});
 
-            axios.all([requestOne, requestTwo, requestThree, requestFour])
+            
+            axios.all([requestOne, requestThree, requestFour, requestFive])
                 .then(
                     axios.spread((...responses) => {
                         setProductSelected(responses[0].data);
 
                         let tempEn = productEn;
-                        tempEn.productId = responses[1].data.productId;
-                        tempEn.name = responses[1].data.name;
-                        tempEn.description = responses[1].data.description;
-
+                        tempEn.id = responses[1].data[0].id;
+                        tempEn.productId = responses[1].data[0].productId;
+                        tempEn.name = responses[1].data[1].name;
+                        tempEn.description = responses[1].data[0].description;
+                        
                         let tempFr = productFr;
-                        tempFr.productId = responses[2].data.productId;
-                        tempFr.name = responses[2].data.name;
-                        tempFr.description = responses[2].data.description;
+                        tempFr.id = responses[1].data[1].id;
+                        tempFr.productId = responses[1].data[1].productId;
+                        tempFr.name = responses[1].data[1].name;
+                        tempFr.description = responses[1].data[1].description;
 
                         setProductEn(tempEn)
                         setProductFr(tempFr)
 
-                        setProductPrice({ ...productPrice, amount: responses[3].data.amount })
+                        setProductPrice({ ...productPrice, amount: responses[2].data.amount })
+
+                        const imageBuffer = Buffer.from(responses[3].data, 'binary');
+                        const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
+                        setProductImg(imageString)
                     })
                 )
                 .catch(e => {
@@ -128,11 +139,24 @@ const ProductForm = ({ ps, setPS }) => {
     }
 
     const changeImg = e => {
-        if (e.target.value.replace(/\s+/g, '') !== "") {
-            setErrorPath({ onError: false, msg: "" })
-        }
+        const file = fileInput.current.files[0];
+        const reader = new FileReader();
 
-        setProductSelected({ ...productSelected, imageUrl: e.target.value })
+        reader.onloadend = () => {
+            console.log(reader.result)
+            setProductImg(reader.result )
+            
+        };
+
+        if (file !== undefined) {
+            reader.readAsDataURL(file);
+            setErrorPath({ onError: false, msg: "" })
+            console.log(productSelected)
+        }
+        else {
+            
+            setProductImg(null)
+        }
     }
 
     const isCheckedFamilly = (id) => {
@@ -155,6 +179,7 @@ const ProductForm = ({ ps, setPS }) => {
         setProductEn(initialStateEn);
         setProductFr(initialStateFr);
         setProductPrice(initialStatePrice);
+        setProductImg(initialStateImg);
     }
 
 
@@ -181,12 +206,6 @@ const ProductForm = ({ ps, setPS }) => {
 
         let isOK = true;
 
-        // console.log(productEn)
-        // console.log(productFr)
-        // console.log(productPrice)
-        // console.log(productSelected)
-
-
         if (productEn.name.replace(/\s+/g, '') === "") {
             setErrorNameEn({ ...errorNameEn, onError: true })
             isOK = false
@@ -197,9 +216,9 @@ const ProductForm = ({ ps, setPS }) => {
             isOK = false
         }
 
-
-        if (productSelected.imageUrl.replace(/\s+/g, '') === "") {
+        if (productImg === null) {
             setErrorPath({ ...errorPath, onError: true })
+            console.log("va te faire")
             isOK = false
         }
 
@@ -217,7 +236,6 @@ const ProductForm = ({ ps, setPS }) => {
     }
 
     const validationForm = async e => {
-
         if (!formIsOK()) {
             e.preventDefault();
             console.log("ca n'a pas du envoyer en théorie")
@@ -225,10 +243,8 @@ const ProductForm = ({ ps, setPS }) => {
         else {
 
             if (productSelected.id === null) {
-
                 axios.post(`/products`, productSelected)
-                    .then(res=> {
-                        alert(res)
+                    .then(res => {
                         let temp = productSelected;
                         temp.id = res.data.id;
                         setProductSelected(temp);
@@ -241,62 +257,73 @@ const ProductForm = ({ ps, setPS }) => {
                     .then(res => {
                         let prodtemp = productEn;
                         prodtemp.productId = productSelected.id;
-                        setProductFr(prodtemp)
-                        console.log(productEn.language)
+                        setProductEn(prodtemp)
                         return axios.post(`/products/translations`, productEn);
                     })
+
                     .then(res => {
                         let prodtemp = productFr;
                         prodtemp.productId = productSelected.id;
                         setProductFr(prodtemp)
-                        console.log(productFr.language)
                         return axios.post(`/products/translations`, productFr);
                     })
 
+                    .then(res => {
+                        const file = fileInput.current.files[0];
+                        const formData = new FormData();
+                        formData.append('image', file);
+                        return axios.post(`/products/${productSelected.id}/image`, formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        });
+                    })
+                    
                     .catch(error => {
                         alert(error.response.data)
-                        console.log(error.response.data)
+                        console.log(error)
                     });
 
-                // try {
-                //     const response1 = await axios.post(`/products`, productSelected)
-                //     const data1 = response1.data;
-                //     let temp = productSelected;
-                //     temp.id = data1.id
-                //     setProductSelected(temp)
-
-                //     let prodtemp = productFr;
-                //     prodtemp.productId = productSelected.id;
-                //     setProductFr(prodtemp)
-
-
-                //     const response2 = await axios.post(`/products/translations`, productFr)
-                //     const data2 = response2.data;
-
-                //     console.log("dfg");
-                //     alert(response2.status)
-
-                //     // const response3 = await axios.post(`/products/translations`, productEn)
-                //     // const data3 = response3.data;
-
-                //     let path = "/products/"+productSelected.id+"/prices/current";
-                //     let tempPrice = productPrice;
-                //     tempPrice.amount = Number(productPrice.amount);
-
-                //     const response4 = await axios.post(path,productPrice)
-                //     const data4 = response4.data;
-
-                //   } catch (error) {
-                //     alert(error)
-                //     console.error(error);
-                //   }
-
-                // axios.post('/products', productSelected)
-                //     .then(response => console.log(response))
             }
             else {
-                axios.put('/products', productSelected)
-                    .then(response => console.log(response))
+                axios.put(`/products`, productSelected)
+                .then(res => {
+                    let tempPrice = productPrice;
+                    tempPrice.amount = Number(productPrice.amount);
+
+                    return axios.post(`/products/${productSelected.id}/prices/current`, productPrice);
+                })
+
+                .then(res => {
+                    let prodtemp = productEn;
+                    prodtemp.productId = productSelected.id;
+                    setProductEn(prodtemp)
+                    return axios.put(`/products/translations`, productEn);
+                })
+
+                .then(res => {
+                    let prodtemp = productFr;
+                    prodtemp.productId = productSelected.id;
+                    setProductFr(prodtemp)
+                    return axios.put(`/products/translations`, productFr);
+                })
+
+                .then(res => {
+                    const file = fileInput.current.files[0];
+                    const formData = new FormData();
+                    formData.append('image', file);
+
+                    return axios.post(`/products/${productSelected.id}/image`, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                })
+                
+                .catch(error => {
+                    alert(error.response.data)
+                    console.log(error)
+                });
             }
         }
 
@@ -326,12 +353,12 @@ const ProductForm = ({ ps, setPS }) => {
                     className="inputName"
                     variant="outlined"
                     value={productEn.name}
-                    onChange={e => changeName("En", e)}
+                    onChange={e => changeName("fn", e)}
                     inputProps={{ maxLength: 100 }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end" >
-                                {/* {`${productEn.name.length}/${100}`} */}
+                                {`${productEn.name.length}/${100}`}
                             </InputAdornment>
                         ),
                     }} />
@@ -348,32 +375,17 @@ const ProductForm = ({ ps, setPS }) => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end" >
-                                {/* {`${productFr.name.length}/${255}`} */}
+                                {`${productFr.name.length}/${100}`}
                             </InputAdornment>
                         ),
                     }} />
             </div>
 
             <div className="Img">
-                {productSelected.imageUrl !== "" && (
-                    <img className="imgForm" src={productSelected.imageUrl} alt={productSelected.imageUrl} />
-                )}
-                <TextField label="Chemin"
-                    required
-                    error={errorPath.onError}
-                    helperText={errorInput(errorPath)}
-                    className="pathImg"
-                    variant="outlined"
-                    value={productSelected.imageUrl}
-                    onChange={changeImg}
-                    inputProps={{ maxLength: 255 }}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end" >
-                                {`${productSelected.imageUrl.length}/${255}`}
-                            </InputAdornment>
-                        ),
-                    }} />
+                
+                <img  className="imgForm" src={productImg} alt={productSelected.imageName}/>
+                
+                <input type="file" ref={fileInput} accept="image/jpeg" onChange={changeImg} />
             </div>
 
             <div className="FamillyCheckBox">

@@ -1,48 +1,58 @@
-import React,{useState,useEffect} from 'react';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import React, { useState, useEffect } from 'react';
+
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import { useDispatch } from 'react-redux';
-import { updateQuantity,removeFromBasket } from '../../../redux/basketSlice.js';
 
 import "./RowProduct.css";
+import axios from 'axios';
+import { Buffer } from "buffer";
 
 const RowProduct = ({ product, setProductSelected }) => {
 
+  const [localImg, setLocalImg] = useState(null);
+
+  useEffect(() => {
+    axios.get(`/products/${product.id}/image`, { responseType: 'arraybuffer' })
+      .then(res => {
+        const imageBuffer = Buffer.from(res.data, 'binary');
+        const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
+        setLocalImg(imageString)
+      })
+      .catch(e => {
+        console.error(e);
+      })
+      
+
+  },[])
   return (
     <React.Fragment>
 
       <TableRow sx={{ backgroundColor: "#" }} >
 
-        <TableCell align='left' onClick={()=>{setProductSelected(product)}} className="buttonTab">
+        <TableCell align='left' onClick={() => { setProductSelected(product) }} className="buttonTab">
           <div className="itemProduct">
-            <img className="imgBasket" src={product.imageUrl}alt={product.imageUrl} />
+            <img className="imgBasket" src={localImg} alt={product.imageName} />
           </div>
         </TableCell>
 
         <TableCell align='left'>
-            <span> {product.name}</span>
+          <span> {product.name}</span>
         </TableCell>
 
         <TableCell align='left'>
-            <span> {product.description}</span>
+          <span> {product.description}</span>
         </TableCell>
 
         <TableCell align='left'>
-            <span> {product.currentPrice}</span>
+          <span> {product.currentPrice}</span>
         </TableCell>
 
         <TableCell align='left'>
-           <span> {product.onMenu ? "disponible" : "Indisponible"} </span>
+          <span> {product.onMenu ? "disponible" : "Indisponible"} </span>
         </TableCell>
 
-        
-        
+
+
       </TableRow>
 
       {/* <TableRow className="interligne">

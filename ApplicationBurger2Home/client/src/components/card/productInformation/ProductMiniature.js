@@ -51,7 +51,7 @@ const ProductMiniature = ({ product, hadExtra }) => {
                 <CardContent className="contentCard">
                     <div>{product.name}</div>
 
-                    {product.currentDiscount === 0 ?
+                    {product.currentDiscount === null ?
                         <div className="priceMiniature">{Math.round(product.currentPrice * 100) / 100}€</div>
                         :
                         <div className="priceMiniature">
@@ -72,7 +72,7 @@ const ProductMiniature = ({ product, hadExtra }) => {
 
     return (
         <>
-            {product.currentDiscount !== 0 ?
+            {product.currentDiscount !== null ?
                 <>
                     <Badge badgeContent={"-" + product.currentDiscount + "%"} color="primary" sx={badgeStyle} className="badgePromo">
                         {content()}

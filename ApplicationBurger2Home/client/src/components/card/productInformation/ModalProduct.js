@@ -13,29 +13,44 @@ import Divider from '@mui/material/Divider';
 
 import { useDispatch } from 'react-redux';
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
+import { Buffer } from "buffer";
+import axios from 'axios';
 
 import AllergensDialog from "./AllergensDialog.js";
 import "./ModalProduct.css";
 
 const ModalProduct = ({ product }) => {
-    const [total, setTotal] = useState(Math.round(product.actualPrice*100)/100);
+    const [total, setTotal] = useState(Math.round(product.actualPrice * 100) / 100);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [buttonDisable, setDisable] = useState(false);
+    const [localImg, setLocalImg] = useState(null);
+
+    useEffect(() => {
+        axios.get(`/products/${product.id}/image`, { responseType: 'arraybuffer' })
+            .then(res => {
+                const imageBuffer = Buffer.from(res.data, 'binary');
+                const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
+                setLocalImg(imageString)
+            })
+            .catch(e => {
+                console.error(e);
+            })
+    }, [])
 
     const dispatch = useDispatch();
 
     let min = 1;
     let max = 50;
 
-    const handleSetTotal = (amount) =>{
+    const handleSetTotal = (amount) => {
         setTotal(Math.round(amount * 100) / 100);
     }
     const handleSetQunatity = event => {
-        if ( parseInt(event.target.value) <= max &&  parseInt(event.target.value) >= min) {
+        if (parseInt(event.target.value) <= max && parseInt(event.target.value) >= min) {
             setQuantity(event.target.value);
         }
-        else{
+        else {
             setQuantity(0);
         }
     }
@@ -51,16 +66,16 @@ const ModalProduct = ({ product }) => {
         setOpenModal(false);
     }
 
-    const addToBasket = () =>{
+    const addToBasket = () => {
 
-        const localProduct= {
-            id:product.id,
-            name:product.name, 
-            quantity:quantity,
-            currentPrice: Math.round(product.currentPrice*100)/100,
+        const localProduct = {
+            id: product.id,
+            name: product.name,
+            quantity: quantity,
+            currentPrice: Math.round(product.currentPrice * 100) / 100,
             currentDiscount: product.currentDiscount,
-            actualPrice: Math.round(product.actualPrice*100)/100,
-            url:product.imageUrl
+            actualPrice: Math.round(product.actualPrice * 100) / 100,
+            url: product.imageUrl
         };
         dispatch(addToBasketRedux(localProduct));
         setOpenModal(false);
@@ -79,8 +94,8 @@ const ModalProduct = ({ product }) => {
     }
 
     useEffect(() => {
-        handleSetTotal(Math.round(product.actualPrice*100)/100 * parseInt(quantity))
-        
+        handleSetTotal(Math.round(product.actualPrice * 100) / 100 * parseInt(quantity))
+
         quantity === 0 ? setDisable(true) : setDisable(false)
 
     }, [quantity, product.actualPrice])
@@ -92,7 +107,7 @@ const ModalProduct = ({ product }) => {
                 onClick={() => setOpenModal(true)}
                 component="img"
                 height="250"
-                src={product.imageUrl}
+                src={localImg}
                 alt={product.name}
             />
 
@@ -110,18 +125,18 @@ const ModalProduct = ({ product }) => {
                         <AllergensDialog product={product} />
                     </div>
 
-                    {product.currentDiscount === 0 ?
-                        <div className="priceModal">{Math.round(product.currentPrice*100)/100}€</div> 
+                    {product.currentDiscount === null ?
+                        <div className="priceModal">{Math.round(product.currentPrice * 100) / 100}€</div>
                         :
                         <div className="priceModal">
-                            <span className="priceModalPromo">{Math.round(product.currentPrice*100)/100}€</span>
-                            <span className="priceDiscount">{Math.round(product.actualPrice * 100) / 100 }€</span>
+                            <span className="priceModalPromo">{Math.round(product.currentPrice * 100) / 100}€</span>
+                            <span className="priceDiscount">{Math.round(product.actualPrice * 100) / 100}€</span>
                         </div>
                     }
-                    
+
 
                     <div className="contentModal">
-                        <img className="imageModal" src={product.imageUrl} alt={product.name} />
+                        <img className="imageModal" src={localImg} alt={product.name} />
                         <p className="descriptionModal">{product.description}</p>
 
                         <div className="add">
