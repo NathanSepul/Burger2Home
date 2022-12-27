@@ -14,6 +14,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import { useSelector } from 'react-redux';
 import { Buffer } from "buffer";
+import { useTranslation } from 'react-i18next';
 
 import IngredientsTransfert from "./IngredientsTransfert.js";
 import "./ProductForm.css"
@@ -47,6 +48,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
     const [errroIngredients, setErrorIngredients] = useState({ onError: false, msg: 'Il faut au moins un ingrédient' });
 
     const languageRedux = useSelector(state => state.language)
+    const { t } = useTranslation();
 
     useEffect(() => {
         axios.get(`/products/families/translations?language=${languageRedux.value}`)
@@ -400,7 +402,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     variant="outlined"
                     value={productFr.name}
                     onChange={e => changeName("fr", e)}
-                    inputProps={{ maxLength: 255 }}
+                    inputProps={{ maxLength: 100 }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end" >
@@ -433,13 +435,13 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
             </div>
             <div className="Img">
                 <img className="imgForm" src={productImg.img} alt={productSelected.imageName} />
-                <input type="file" ref={fileInput} accept="image/jpeg" onChange={changeImg} />
+                <input type="file" ref={fileInput} accept="image/jpeg" onChange={changeImg}/>
             </div>
 
 
 
             <div className="bottomForm">
-                <FormControlLabel label={productSelected.onMenu ? "Disponble" : "Indisponible"}
+                <FormControlLabel label={productSelected.onMenu ? t('gestionProduit.form.disponible') : t('gestionProduit.form.indisponible')}
                     control={<Switch checked={productSelected.onMenu}
                         onChange={handleChangeOnMenu}
                     />} />
@@ -464,7 +466,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
             </div>
 
             <div className="FamillyCheckBox">
-                    <FormLabel sx={{color:"black"}} className="titreCheck">Famille du produit</FormLabel>
+                    <FormLabel sx={{color:"black"}} className="titreCheck">{t('gestionProduit.form.famille')}</FormLabel>
 
                 {(!isLoading) && (
                     <FormControl
@@ -488,15 +490,16 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
             </div>
 
             <div className="ingredientTransfertList">
-                <label className="ingredientTitle">List des ingrédients</label>
+                <label className="ingredientTitle">{t('gestionProduit.form.ingredient')}</label>
                 <IngredientsTransfert ps={productSelected} setIngredientList={setIngredientList}/>
             </div>
 
             <div className="buttonFormProduct">
                 <Button variant="contained" type="" onClick={validationForm}>
-                    {productSelected.id === null ? "Ajouter" : "Modifier"}
+                    {productSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
                 </Button>
-                <Button variant="contained" onClick={cancel}>Annuler</Button>
+                <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')}
+                </Button>
             </div>
 
         </Box>

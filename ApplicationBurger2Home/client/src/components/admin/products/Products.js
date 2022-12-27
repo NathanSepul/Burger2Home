@@ -44,7 +44,7 @@ const Products = () => {
     return (
         <main className='productAdmin'>
             <title>Burger2Home | {t('navigation.produits')}</title>
-            <div className="title"><h1>Gestion des produits</h1></div>
+            <div className="title"><h1>{t('gestionProduit.titre')}</h1></div>
 
             <div className="productFiltre">
                 <SelectFamilly setFamillyId={setFamillyId} />

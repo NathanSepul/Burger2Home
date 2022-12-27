@@ -8,12 +8,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import RowProduct from "./RowProduct";
+import { useTranslation } from 'react-i18next';
+
 import "./TabProducts.css"
 
 const TabProducts = ({ products, setProductSelected }) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
-    const column = ["Nom", "Description", "Prix", "Status" ]
+    const { t } = useTranslation();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -33,10 +35,10 @@ const TabProducts = ({ products, setProductSelected }) => {
                     <TableHead>
                         <TableRow>
                             <TableCell component="th" scope="row" align="left" ></TableCell>
-                            <TableCell component="th" scope="row" align="left" >Nom</TableCell>
-                            <TableCell component="th" scope="row" align="left" >description</TableCell>
-                            <TableCell component="th" scope="row" align="left" >currentPrice</TableCell>
-                            <TableCell component="th" scope="row" align="left" >status</TableCell>
+                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.nom')}</TableCell>
+                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.description')}</TableCell>
+                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.prixActuelle')}</TableCell>
+                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.status')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -59,7 +61,7 @@ const TabProducts = ({ products, setProductSelected }) => {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                labelRowsPerPage="products per page"
+                labelRowsPerPage={t('gestionProduit.tab.label1')}
             />
         </>
     );

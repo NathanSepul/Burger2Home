@@ -6,10 +6,12 @@ import TableRow from '@mui/material/TableRow';
 import "./RowProduct.css";
 import axios from 'axios';
 import { Buffer } from "buffer";
+import { useTranslation } from 'react-i18next';
 
 const RowProduct = ({ product, setProductSelected }) => {
 
   const [localImg, setLocalImg] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     axios.get(`/products/${product.id}/image`, { responseType: 'arraybuffer' })
@@ -48,7 +50,7 @@ const RowProduct = ({ product, setProductSelected }) => {
         </TableCell>
 
         <TableCell align='left'>
-          <span> {product.onMenu ? "disponible" : "Indisponible"} </span>
+          <span> {product.onMenu ? t('gestionProduit.form.disponible') : t('gestionProduit.form.indisponible')} </span>
         </TableCell>
 
 

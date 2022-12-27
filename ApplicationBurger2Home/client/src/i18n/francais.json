@@ -11,7 +11,9 @@
         "marketing" :"Marketing",
         "stock":"Stocks",
         "droit":"Droits",
-        "produits":"Produits"
+        "produits":"Produits",
+        "allergenes":"Allergènes",
+        "ingredients":"Ingrédients"
     },
 
     "footer":{
@@ -127,6 +129,32 @@
 
     "panier":{
         "titre":"Mon panier"
+    },
+
+    "gestionProduit":{
+        "titre":"Gestion des produits",
+        "form":{
+            "disponible":"Disponible",
+            "indisponible":"Indisponible",
+            "famille":"Famille du produit",
+            "ingredient":"Liste des ingrédients",
+            "inclus":"Inclus",
+            "exclus":"Exclus"
+        },
+        "tab":{
+            "nom":"Nom",
+            "description":"Description",
+            "prixActuelle":"Prix Actuel",
+            "status":"Status",
+            "label1":"produit par page"
+        }
+    },
+
+    "admin":{
+        "ajouter":"Ajouter",
+        "modifier":"Modifier",
+        "annuler":"Annuler",
+        "nettoyer":"Nettoyer"
     }
 
    

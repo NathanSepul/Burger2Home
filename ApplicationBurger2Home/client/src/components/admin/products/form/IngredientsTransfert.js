@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -29,7 +31,7 @@ const IngredientsTransfert = ({ ps, setIngredientList }) => {
     const [outside, setOutside] = useState([]);
     const [inside, setInside] = useState([initialState]);
 
-
+    const { t } = useTranslation();
 
     useEffect(() => {
         axios.get(`/ingredients/translations?language=${languageRedux.value}`)
@@ -171,7 +173,7 @@ const IngredientsTransfert = ({ ps, setIngredientList }) => {
             {(!isLoading) && (
 
                 <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{mt:"1px"}}>
-                    <Grid item>{customList(outside, "exclus")}</Grid>
+                    <Grid item>{customList(outside, t('gestionProduit.form.exclus'))}</Grid>
 
                     <Grid item>
                         <Grid container direction="column" alignItems="center">
@@ -221,7 +223,7 @@ const IngredientsTransfert = ({ ps, setIngredientList }) => {
                         </Grid>
                     </Grid>
 
-                    <Grid item>{customList(inside,"inclus")}</Grid>
+                    <Grid item>{customList(inside, t('gestionProduit.form.inclus'))}</Grid>
 
                 </Grid>
 

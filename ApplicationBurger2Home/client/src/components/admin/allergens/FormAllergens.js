@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import InputAdornment from '@mui/material/InputAdornment';
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 
 const FormAllergens = ({ AS, setAS, setReloadList }) => {
@@ -23,7 +23,6 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
 
     useEffect(() => {
         if (AS.id !== null) {
-            // console.log(AS)
 
             axios.get(`/allergens/${AS.id}/translations`)
                 .then(res => {

@@ -12,7 +12,9 @@
         "marketing" :"Marketing",
         "stock":"Stocks",
         "droit":"Right",
-        "produits":"Products"
+        "produits":"Products",
+        "allergenes":"Allergens",
+        "ingredients":"Ingrédients"
     },
 
     "footer":{
@@ -128,6 +130,32 @@
 
     "panier":{
         "titre":"My Basket"
+    },
+
+    "gestionProduit":{
+        "titre":"Product management",
+        "form":{
+            "disponible":"Avaible",
+            "indisponible":"Unaviable",
+            "famille":"Product family",
+            "ingredient":"List of ingredients",
+            "inclus":"Inclued",
+            "exclus":"Exclued"
+        },
+        "tab":{
+            "nom":"Name",
+            "description":"Description",
+            "prixActuelle":"Current Price",
+            "status":"Status",
+            "label1":"products per page"
+        }
+    },
+
+    "admin":{
+        "ajouter":"Add",
+        "modifier":"Update",
+        "annuler":"Cancel",
+        "nettoyer":"Clear"
     }
 
    

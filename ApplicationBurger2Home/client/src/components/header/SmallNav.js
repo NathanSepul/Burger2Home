@@ -61,11 +61,15 @@ const SmallNav = ({ toggleDrawer }) => {
           )}
 
         {(user.role === "admin") && (<>
-          <ListItem className="linkSmallHeader" id="navSmallHeader5"> <Link to="/stocks" > {t('navigation.stock')} </Link> </ListItem>
+          <ListItem className="linkSmallHeader" id="navSmallHeader5"> <Link to="/admin/stocks" > {t('navigation.stock')} </Link> </ListItem>
           <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader6"> <Link to="/droits"  > {t('navigation.droit')} </Link> </ListItem>
+          <ListItem className="linkSmallHeader" id="navSmallHeader6"> <Link to="/admin/droits"  > {t('navigation.droit')} </Link> </ListItem>
           <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/products" > {t('navigation.produits')} </Link></ListItem>
+          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/admin/products" > {t('navigation.produits')} </Link></ListItem>
+          <Divider />
+          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/admin/ingredients" > {t('navigation.allergenes')} </Link></ListItem>
+          <Divider />
+          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/admin/allergens" > {t('navigation.ingredients')} </Link></ListItem>
           <Divider />
         </>)}
 
