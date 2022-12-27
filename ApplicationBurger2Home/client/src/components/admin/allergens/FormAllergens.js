@@ -86,9 +86,18 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
                         let tempLg = allergenFr;
                         tempLg.allergenId = allergenSelected.id;
                         setAllergenFr(tempLg);
+
+                        let tradTemp = allergenEn;
+                        tradTemp.id = res.data.id;
+                        setAllergenEn(tradTemp)
+
                         return axios.post(`/allergens/translations`, allergenFr);
                     })
                     .then(res => {
+                        let tradTemp = allergenFr;
+                        tradTemp.id = res.data.id;
+                        setAllergenFr(tradTemp)
+
                         setReloadList(true)
                         openSnack.msg = "l'allergene est ajouté";
                         openSnack.severity = "info";

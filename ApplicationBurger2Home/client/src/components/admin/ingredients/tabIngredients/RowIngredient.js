@@ -16,9 +16,9 @@ const RowIngredient = ({ ingredient, setIngredientSelected }) => {
   return (
     <>
 
-      <TableRow  hover   onClick={() => set(ingredient)  }>
+      <TableRow  hover >
 
-        <TableCell align='left'>
+        <TableCell align='left' onClick={() => set(ingredient) }>
           <span> {ingredient.name}</span>
         </TableCell>
 

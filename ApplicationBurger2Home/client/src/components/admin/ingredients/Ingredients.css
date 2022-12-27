@@ -13,3 +13,11 @@
 .ingredientForm{
     width: 35vw !important;
 }
+
+.checkBoxGroupFam{
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+   
+}

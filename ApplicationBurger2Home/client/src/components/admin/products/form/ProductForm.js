@@ -64,8 +64,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
 
     useEffect(() => {
        cancel()
-       console.log("form")
-       console.log(ps)
+      
         if (ps.id !== null) {
             
             const requestOne = axios.get(`/products/${ps.id}`);
@@ -197,15 +196,6 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
     }
     
     const handleChangeCheck = (event, famillyId) => {
-        // let tempArrays = productSelected.productFamilies;
-        // tempArrays[0] = famillyId
-        // if (event.target.checked === true) {
-        //     tempArrays.push(famillyId);
-        // }
-        // else {
-        //     const index = tempArrays.indexOf(famillyId);
-        //     tempArrays.splice(index, 1);
-        // }
         setErrorCheckBox({ onError: false, msg: "" })
         setProductSelected({ ...productSelected, productFamilies: [{ id: famillyId }] })
 
@@ -220,31 +210,26 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
         let isOK = true;
 
         if (productEn.name.replace(/\s+/g, '') === "") {
-            console.log("error En Name")
             setErrorNameEn({ ...errorNameEn, onError: true })
             isOK = false
         }
 
         if (productFr.name.replace(/\s+/g, '') === "") {
-            console.log("error Fr Name")
             setErrorNameFr({ ...errorNameFr, onError: true })
             isOK = false
         }
 
         if (productImg.img === null && productImg.toLoad === false) {
-            console.log("error file")
             setErrorPath({ ...errorPath, onError: true })
             isOK = false
         }
 
         if (errorPrice.onError || productPrice.amount.toString().replace(/\s+/g, '') === "") {
-            console.log("error amount")
             setErrorPrice({ ...errorPrice, onError: true })
             isOK = false
         }
 
         if (ingredientList.length === 0) {
-            console.log("error ingredient")
             setErrorIngredients({ ...errroIngredients, onError: true })
             isOK = false
         }
@@ -257,7 +242,6 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
         }
 
         if (productSelected.productFamilies.length === 0) {
-            console.log("error Familly")
             setErrorCheckBox({ ...errorCheckBox, onError: true })
             isOK = false
         }
@@ -268,11 +252,10 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
     const validationForm = async e => {
         if (!formIsOK()) {
             e.preventDefault();
-            console.log("ca n'a pas du envoyer en théorie")
         }
         else {
-            console.log(productSelected)
 
+            console.log(productSelected)
             if (productSelected.id === null) {
                 axios.post(`/products`, productSelected)
                     .then(res => {
@@ -293,6 +276,10 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     })
 
                     .then(res => {
+                        let tempTrad = productEn
+                        tempTrad.id = res.data.id;
+                        setProductEn(tempTrad)
+
                         let prodtemp = productFr;
                         prodtemp.productId = productSelected.id;
                         setProductFr(prodtemp)
@@ -300,6 +287,9 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     })
 
                     .then(res => {
+                        let tempTrad = productFr
+                        tempTrad.id = res.data.id;
+                        setProductFr(tempTrad)
 
                         const file = fileInput.current.files[0];
                         const formData = new FormData();
@@ -312,13 +302,16 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                         });
                     })
 
+                    .then(res =>{
+                        setReloadList(true)
+                    })
+
                     .catch(error => {
                         console.log(error)
                     });
 
             }
             else {
-                console.log(productSelected)
 
                 axios.put(`/products`, productSelected)
                     .then(res => {
@@ -343,7 +336,6 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     })
 
                     .then(res => {
-                        // console.log(imageToLoad)
                         if(productImg.toLoad){
                             const file = fileInput.current.files[0];
                             const formData = new FormData();

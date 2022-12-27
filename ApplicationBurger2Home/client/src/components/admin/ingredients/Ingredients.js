@@ -6,9 +6,10 @@ import FormIngredient from "./FormIngredient";
 import "./Ingredients.css"
 const Ingredients = () =>{
 
-    const initialState = { id: null, allergens: [] };
+    const initialState = { id: null };
     const [ingredients, setIngredients] = useState([]);
     const [ingredientsSelected, setIngredientsSelected] = useState(initialState);
+    const [reloadList,setReloadList] = useState(false)
     
     // eslint-disable-next-line
     const [hasError, setHasError] = useState(false);
@@ -22,12 +23,12 @@ const Ingredients = () =>{
             .then((data) => {
                 setIsLoading(false);
                 setIngredients(data.data);
-                console.log(data.data)
+                setReloadList(false)
             })
             .catch(() => {
                 setHasError(true);
             })
-    }, [languageRedux.value])
+    }, [languageRedux.value, reloadList])
 
     return (
         <main className='IngredientAdmin'>
@@ -39,7 +40,7 @@ const Ingredients = () =>{
                     <TabIngredients ingredients={ingredients} setIngredientSelected={setIngredientsSelected}/>
                 </div>
                 <div className="ingredientForm">
-                    <FormIngredient IS={ingredientsSelected} setIS={setIngredientsSelected}/>
+                    <FormIngredient IS={ingredientsSelected} setIS={setIngredientsSelected} setReloadList={setReloadList}/>
                 </div>
             </div>
 

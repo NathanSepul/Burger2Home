@@ -24,7 +24,7 @@ const Products = () => {
     const languageRedux = useSelector(state => state.language);
 
     useEffect(() => {
-        setIsLoading(true);
+        // setIsLoading(true);
         axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=${famillyId}`)
             .then((data) => {
                 setIsLoading(false);
