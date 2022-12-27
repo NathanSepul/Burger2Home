@@ -11,6 +11,7 @@ import Inscription from "./components/login/Inscription.js";
 import Basket from "./components/basket/Basket.js";
 import Products from "./components/admin/products/Products.js";
 import Ingredients from "./components/admin/ingredients/Ingredients.js";
+import Allergens from "./components/admin/allergens/Allergens";
 
 import NoPage from './components/NoPage.js';
 
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="admin/droit" element={<NoPage />} />
             <Route path="admin/products" element={<Products />} />
             <Route path="admin/ingredients" element={<Ingredients />} />
+            <Route path="admin/allergens" element={<Allergens />} />
           </Route>  
 
           
