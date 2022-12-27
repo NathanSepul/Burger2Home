@@ -25,9 +25,9 @@ const RowProduct = ({ product, setProductSelected }) => {
 
   },[])
   return (
-    <React.Fragment>
+    <>
 
-      <TableRow sx={{ backgroundColor: "#" }} >
+      <TableRow sx={{ backgroundColor: "#" }}  hover >
 
         <TableCell align='left' onClick={() => { setProductSelected(product) }} className="buttonTab">
           <div className="itemProduct">
@@ -57,7 +57,7 @@ const RowProduct = ({ product, setProductSelected }) => {
 
       {/* <TableRow className="interligne">
       </TableRow> */}
-    </React.Fragment>
+    </>
   );
 
 

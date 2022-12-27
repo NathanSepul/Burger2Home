@@ -10,32 +10,36 @@ import ProductForm from "./form/ProductForm.js"
 import "./Products.css"
 
 const Products = () => {
-    const initialState = {id:null,currentPrice:"",imageName:null, ingredients:[],productFamilies: [], onMenu:false};
+    const initialState = { id: null, currentPrice: "", imageName: null, ingredients: [], productFamilies: [], onMenu: false };
     const [products, setProducts] = useState([]);
     const [productSelected, setProductSelected] = useState(initialState);
-    
+    const [reloadList, setReloadList] = useState(false);
 
+    // eslint-disable-next-line
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    
+
     const [famillyId, setFamillyId] = useState("");
     const { t } = useTranslation();
     const languageRedux = useSelector(state => state.language);
 
     useEffect(() => {
-        setProductSelected(initialState)
+        setIsLoading(true);
         axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=${famillyId}`)
             .then((data) => {
                 setIsLoading(false);
                 setProducts(data.data);
+                setReloadList(false)
             })
             .catch(() => {
                 setHasError(true);
-            })
-    }, [languageRedux, famillyId])
+                setReloadList(false)
 
-   
-    
+            })
+    }, [languageRedux.value, reloadList, famillyId])
+
+  
+
 
     return (
         <main className='productAdmin'>
@@ -43,17 +47,17 @@ const Products = () => {
             <div className="title"><h1>Gestion des produits</h1></div>
 
             <div className="productFiltre">
-                <SelectFamilly setFamillyId={setFamillyId}/>
+                <SelectFamilly setFamillyId={setFamillyId} />
             </div>
 
             <div className="productContent">
 
                 <div className="productList">
-                    {isLoading ? <Loding /> : <TabProducts products={products} setProductSelected={setProductSelected}/>}
+                    {isLoading ? <Loding /> : <TabProducts products={products} setProductSelected={setProductSelected} />}
                 </div>
 
                 <div className="productForm">
-                    <ProductForm ps={productSelected} setPS={setProductSelected}/>
+                    <ProductForm ps={productSelected} setPS={setProductSelected} setReloadList={setReloadList} realoadList={reloadList}/>
                 </div>
 
                 {/* <div className="productForm">

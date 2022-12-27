@@ -1,12 +1,12 @@
-.Name{
+.Name, .Description{
     display: flex;
     flex-direction: row;
     justify-content: left;
     gap: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
 }
 
-.inputName{
+.inputName, .inputDescriptionFr, .inputDescriptionEn{
     width: 50%;
 }
 
@@ -30,13 +30,28 @@
     width: 100%;
 }
 
+.inputPrice{
+    text-align: right;
+}
 .price{
     width: 30% !important;
     min-width: 100px !important;
     max-width: 100px !important;
 }
 
+
+.FamillyCheckBox{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.checkBoxGroupFam{
+    width: 100%;
+    justify-content: center;
+}
 .buttonFormProduct{
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
     gap:20px;
@@ -48,4 +63,11 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 20px !important;
+}
+
+.ingredientTitle{
+    /* margin-bottom: 5px !important; */
+}
+
+.ingredientTitleColumn{
 }

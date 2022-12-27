@@ -42,9 +42,9 @@ const App = () => {
           </Route>  
 
           <Route element={<PrivateRouteAdmin/>}>
-            <Route path="stocks" element={<NoPage />} />
-            <Route path="droit" element={<NoPage />} />
-            <Route path="products" element={<Products />} />
+            <Route path="admin/stocks" element={<NoPage />} />
+            <Route path="admin/droit" element={<NoPage />} />
+            <Route path="admin/products" element={<Products />} />
           </Route>  
 
           
