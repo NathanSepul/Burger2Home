@@ -10,7 +10,7 @@ const Allergens = () =>{
     const initialState = { id: null, allergens: [] };
     const [allergens, setAllergens] = useState([]);
     const [allergenSelected, setAllergenSelected] = useState(initialState);
-    
+    const [reloadList,setReloadList] = useState(false)
     // eslint-disable-next-line
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -23,12 +23,12 @@ const Allergens = () =>{
             .then((data) => {
                 setIsLoading(false);
                 setAllergens(data.data);
-                console.log(data.data)
+                setReloadList(false)
             })
             .catch(() => {
                 setHasError(true);
             })
-    }, [languageRedux.value])
+    }, [languageRedux.value,reloadList])
 
     return (
         <main className='IngredientAdmin'>
@@ -40,7 +40,7 @@ const Allergens = () =>{
                     <TabAllergen allergens={allergens} setAllergenSelected={setAllergenSelected}/>
                 </div>
                 <div className="ingredientForm">
-                    <FormAllergens AS={allergenSelected} setAS={setAllergenSelected}/>
+                    <FormAllergens AS={allergenSelected} setAS={setAllergenSelected} setReloadList={setReloadList}/>
                 </div>
             </div>
 
