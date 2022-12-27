@@ -26,6 +26,7 @@ const RowProduct = ({ product, setProductSelected }) => {
       
 
   },[])
+  
   return (
     <>
 
