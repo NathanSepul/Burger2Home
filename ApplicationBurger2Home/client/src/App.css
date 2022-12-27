@@ -7,10 +7,14 @@
 }
 
 body{
+    overflow-y: auto;
+    overflow-x:hidden !important;
+    
+    /* width: 100vw; */
     max-width: 1600px;
     background: linear-gradient(0deg, rgba(5, 5, 5, 0.2), rgba(5, 5, 5, 0.2)), url("/public/picture/backgroundHeader.jpg");
-
 }
+
 
 
 /* ecran supd à 767px*/

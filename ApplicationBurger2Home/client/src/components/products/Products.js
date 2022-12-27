@@ -56,9 +56,9 @@ const Products = () => {
                     {isLoading ? <Loding /> : <TabProducts products={products} setProductSelected={setProductSelected} />}
                 </div>
 
-                {/* <div className="productForm">
+                <div className="productForm">
                     <ProductForm ps={productSelected} setPS={setProductSelected} setReloadList={setReloadList} realoadList={reloadList}/>
-                </div> */}
+                </div>
 
             </div>
 
