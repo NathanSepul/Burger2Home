@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-
+import MenuAdmin from './MenuAdmin'; 
 import './NavLinks.css'
 
 const NavLinks = ({ closeMenu }) => {
@@ -21,10 +21,10 @@ const NavLinks = ({ closeMenu }) => {
             )}
 
             {(user.role === "admin") && (<>
-                <li className="linkHeader" id="navHeader5"> <Link to="/admin/stocks" onClick={closeMenu} > {t('navigation.stock')} </Link> </li>
-                <li className="linkHeader" id="navHeader6"> <Link to="/admin/droits" onClick={closeMenu} > {t('navigation.droit')} </Link> </li>
-                <li className="linkHeader " id="navHeader7"> <Link to="/admin/products" onClick={closeMenu} > {t('navigation.produits')} </Link> </li>
+                {<  MenuAdmin closeMenu={closeMenu}/>}
             </>)}
+
+          
         </ul>
     );
 }

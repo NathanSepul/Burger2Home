@@ -1,0 +1,13 @@
+.linkMenu{
+    text-decoration: none;
+}
+
+.linkAdmin a{
+    text-decoration: none;
+    color: black;
+}
+
+.linkMenu:hover, .linkAdmin a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}

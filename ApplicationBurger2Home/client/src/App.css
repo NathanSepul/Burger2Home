@@ -1,7 +1,7 @@
 *{
     max-width: 1600px;
-    margin: 0px;                /*marge exterieur   */
-    padding: 0px;               /*marge interieur */  
+    margin: 0px;                
+    padding: 0px;               
     box-sizing: border-box;  
     font-family: 'https://fonts.googleapis.com/css?family=Roboto',sans-serif;
 }

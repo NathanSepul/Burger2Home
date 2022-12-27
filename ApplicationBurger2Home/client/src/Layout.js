@@ -1,6 +1,6 @@
 import React from "react";
 import {Outlet} from "react-router-dom";
-import Navbar from "./components/header/Header.js";
+import Header from "./components/header/Header.js";
 import Footer from "./components/footer/Footer.js";
 import Snackbar from '@mui/material/Snackbar';
 import { close } from './redux/snackBarSlice.js';
@@ -23,7 +23,7 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar />
+      <Header />
 
       <Snackbar
         open={snackBar.isOpen}
