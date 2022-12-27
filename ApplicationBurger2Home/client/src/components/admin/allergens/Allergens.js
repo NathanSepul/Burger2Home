@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import TabAllergen from "./tabAllergens/TabAllergen.js";
 import FormAllergens from "./FormAllergens.js";
+import { useTranslation } from 'react-i18next';
+
 // import "./Ingredients.css"
 
 const Allergens = () =>{
@@ -16,6 +18,7 @@ const Allergens = () =>{
     const [isLoading, setIsLoading] = useState(true);
 
     const languageRedux = useSelector(state => state.language);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setIsLoading(true);
@@ -32,8 +35,8 @@ const Allergens = () =>{
 
     return (
         <main className='IngredientAdmin'>
-            <title>Burger2Home | Allergens</title>
-            <div className="title"><h1>Gestion des Allergennes</h1></div>
+            <title>Burger2Home | {t('navigation.allergenes')}</title>
+            <div className="title"><h1>{t('gestionAllergenes.titre')}</h1></div>
 
             <div className="ingredientContent">
                 <div className="ingredientList">

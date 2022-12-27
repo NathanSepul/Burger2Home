@@ -6,6 +6,7 @@ import axios from 'axios';
 import InputAdornment from '@mui/material/InputAdornment';
 import {useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
+import { useTranslation } from 'react-i18next';
 
 const FormAllergens = ({ AS, setAS, setReloadList }) => {
 
@@ -19,6 +20,7 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
     const [allergenFr, setAllergenFr] = useState(initialStateFr);
 
     const openSnack = { msg: "", severity: "" }
+    const { t } = useTranslation();
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -180,11 +182,9 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
 
             <div className="buttonFormProduct">
                 <Button variant="contained" type="" onClick={validationForm}>
-                    {allergenSelected.id === null ? "Ajouter" : "Modifier"}
+                    {allergenSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
                 </Button>
-                <Button variant="contained" onClick={cancel}>
-                    {allergenSelected.id === null ? "Annuler" : "Nettoyer"}
-                </Button>
+                <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')} </Button>
             </div>
 
         </Box>

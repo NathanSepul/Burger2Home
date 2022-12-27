@@ -9,11 +9,13 @@ import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
 import RowAllergen from "./RowAllergen";
 import "./TabAllergen.css";
-import { Container } from "@mui/system";
+import { useTranslation } from 'react-i18next';
 
 const TabAllergen = ({ allergens, setAllergenSelected }) => {
+    
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const { t } = useTranslation();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -55,7 +57,7 @@ const TabAllergen = ({ allergens, setAllergenSelected }) => {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                labelRowsPerPage="allergens per page"
+                labelRowsPerPage={t("gestionAllergenes.tab.label1")}
             />
         </>
 

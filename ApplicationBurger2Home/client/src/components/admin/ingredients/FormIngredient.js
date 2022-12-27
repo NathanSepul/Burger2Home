@@ -11,6 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
 import { useSelector, useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
+import { useTranslation } from 'react-i18next';
 
 const FormIngredient = ({IS, setIS, setReloadList}) => {
 
@@ -29,6 +30,8 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
 
     const languageRedux = useSelector(state => state.language)
     const openSnack = { msg: "", severity: "" }
+    const { t } = useTranslation();
+
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -130,12 +133,6 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
     }
 
     const validationForm = async e => {
-
-        console.log(ingredientFr)
-        console.log(ingredientEn)
-        console.log(ingredientSelected)
-
-
         if (!isOKForm()) {
             openSnack.msg = "Le formulaires n'est pas completé correctement";
             openSnack.severity = "error";
@@ -257,7 +254,7 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
 
 
             <div className="FamillyCheckBox">
-                <FormLabel sx={{ color: "black" }} className="titreCheck">Ingredient</FormLabel>
+                <FormLabel sx={{ color: "black" }} className="titreCheck">{t('gestionIngredient.allergenes')}</FormLabel>
 
                 {(!isLoading) && (
                     <FormControl
@@ -284,10 +281,10 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
             </div>
 
             <div className="buttonFormProduct">
-                <Button variant="contained" type="" onClick={e =>validationForm(e)}>
-                    {ingredientSelected.id === null ? "Ajouter" : "Modifier"}
+                <Button variant="contained" type="" onClick={validationForm}>
+                    {ingredientSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
                 </Button>
-                <Button variant="contained" onClick={cancel}>Annuler</Button>
+                <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')} </Button>
             </div>
 
         </Box>

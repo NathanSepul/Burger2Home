@@ -3,9 +3,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import TabIngredients from "./tabIngredients/TabIngredients";
 import FormIngredient from "./FormIngredient";
-import "./Ingredients.css"
-const Ingredients = () =>{
+import { useTranslation } from 'react-i18next';
 
+import "./Ingredients.css"
+
+const Ingredients = () =>{
+    const { t } = useTranslation();
     const initialState = { id: null };
     const [ingredients, setIngredients] = useState([]);
     const [ingredientsSelected, setIngredientsSelected] = useState(initialState);
@@ -32,8 +35,8 @@ const Ingredients = () =>{
 
     return (
         <main className='IngredientAdmin'>
-            <title>Burger2Home | Ingredient</title>
-            <div className="title"><h1>Gestion des Ingrédients</h1></div>
+            <title>Burger2Home |{t('navigation.ingredients')}</title>
+            <div className="title"><h1>{t('gestionIngredient.titre')}</h1></div>
 
             <div className="ingredientContent">
                 <div className="ingredientList">

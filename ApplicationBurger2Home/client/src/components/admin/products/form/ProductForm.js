@@ -498,8 +498,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                 <Button variant="contained" type="" onClick={validationForm}>
                     {productSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
                 </Button>
-                <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')}
-                </Button>
+                <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')} </Button>
             </div>
 
         </Box>

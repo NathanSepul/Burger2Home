@@ -151,6 +151,23 @@
         }
     },
 
+    "gestionIngredient":{
+        "titre":"Ingredient management",
+        "allergenes": "Allergens",
+        "tab":{
+            "nom":"Name",
+            "label1":"ingredients per page"
+        }
+    },
+
+    "gestionAllergenes":{
+        "titre":"Allergens management",
+        "tab":{
+            "nom":"Name",
+            "label1":"allergens par page"
+        }
+    },
+
     "admin":{
         "ajouter":"Add",
         "modifier":"Update",

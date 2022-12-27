@@ -7,13 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TablePagination from '@mui/material/TablePagination';
+import { useTranslation } from 'react-i18next';
+
 import RowIngredient from "./RowIngredient";
-import "./TabProducts.css";
-import { Container } from "@mui/system";
+import "./TabIngredients.css";
 
 const TabIngredients = ({ ingredients, setIngredientSelected }) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const { t } = useTranslation();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -32,7 +34,7 @@ const TabIngredients = ({ ingredients, setIngredientSelected }) => {
                 <Table aria-label="collapsible table" stickyHeader>
                     <TableHead>
                         <TableRow>
-                            <TableCell component="th" scope="row" align="left" >Nom</TableCell>
+                            <TableCell component="th" scope="row" align="left" >{t('gestionIngredient.tab.nom')}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -55,7 +57,7 @@ const TabIngredients = ({ ingredients, setIngredientSelected }) => {
                 page={page}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
-                labelRowsPerPage="ingredients per page"
+                labelRowsPerPage={t('gestionIngredient.tab.label1')}
             />
         </>
 
