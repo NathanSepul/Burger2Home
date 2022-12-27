@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import Loding from "../loding/Loding.js"
+import Loding from "../../loding/Loding.js"
 import TabProducts from "./tabproduct/TabProducts.js";
 import axios from 'axios';
 

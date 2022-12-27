@@ -1,0 +1,15 @@
+.ingredientContent{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.ingredientList{
+    width: 35vw !important;
+}
+
+.ingredientForm{
+    width: 35vw !important;
+}
