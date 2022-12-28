@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const basketSlice = createSlice({
     name: 'basket',
       initialState: {   basketLines:[ ],
-                        quantity:0},
+                        quantity:0
+                    },
                     // {id:null, name:"", quantity:null, price:null}
     reducers: {
 
@@ -11,7 +12,7 @@ export const basketSlice = createSlice({
 
                 let alreadyInside = false
                 state.basketLines.forEach( (bl) => {
-                    if(bl.id === action.payload.id) {
+                    if(bl.productId === action.payload.productId) {
                         bl.quantity = parseInt(bl.quantity) + parseInt(action.payload.quantity)
                         alreadyInside = true;
                         return state;
@@ -20,13 +21,10 @@ export const basketSlice = createSlice({
                 
                 if(!alreadyInside){
                     const bl = {
-                        id: action.payload.id,
-                        name : action.payload.name,
+                        id:null,
+                        basketId:null,
+                        productId: action.payload.productId,
                         quantity : action.payload.quantity,
-                        currentPrice : action.payload.currentPrice,
-                        currentDiscount : action.payload.currentDiscount,
-                        actualPrice : action.payload.actualPrice,
-                        url: action.payload.url,
                     };
     
                     state.quantity = state.quantity + 1;

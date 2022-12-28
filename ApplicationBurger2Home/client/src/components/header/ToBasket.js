@@ -6,11 +6,16 @@ import { Link } from "react-router-dom";
 
 
 const ToBasket = () => {
-    const basketQuanttity = useSelector(state => state.basket.quantity)
+
+    let userConnected = useSelector(state => state.user.isConnected);
+    let basketQuantityConnected = useSelector(state => state.user.basketSize) ;
+    let basketQuantityDisconnected= useSelector(state => state.basket.quantity)
+
+    
 
     return (
         <Link to="/basket" className="monPanier">
-            <Badge badgeContent={basketQuanttity} color="primary">
+            <Badge badgeContent={userConnected ? basketQuantityConnected : basketQuantityDisconnected} color="primary">
                 <ShoppingCartIcon fontSize="large" />
             </Badge>
         </Link>

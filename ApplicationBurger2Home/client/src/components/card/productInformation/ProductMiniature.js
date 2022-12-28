@@ -5,13 +5,15 @@ import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
-import { useDispatch } from 'react-redux';
+import {addToBasketUser} from '../../../redux/userSlice.js'
+import { useDispatch,useSelector } from 'react-redux';
 import { Badge } from "@mui/material";
 import ModalProduct from "./ModalProduct.js";
 import "./ProductMiniature.css"
 
 const ProductMiniature = ({ product, hadExtra }) => {
 
+    let userConnected = useSelector(state => state.user.isConnected);
 
     const dispatch = useDispatch();
 
@@ -26,17 +28,12 @@ const ProductMiniature = ({ product, hadExtra }) => {
 
     const addToBasket = () => {
 
-        const localProduct = {
-            id: product.id,
-            name: product.name,
+        const basketLine = {
+            productId: product.id,
             quantity: 1,
-            currentPrice: Math.round(product.currentPrice * 100) / 100,
-            currentDiscount: product.currentDiscount,
-            actualPrice: Math.round(product.actualPrice * 100) / 100,
-            url: product.imageUrl
         };
 
-        dispatch(addToBasketRedux(localProduct));
+        userConnected  ? dispatch(addToBasketUser(basketLine)) :  dispatch(addToBasketRedux(basketLine));
     }
 
     let content = () => {

@@ -68,16 +68,11 @@ const ModalProduct = ({ product }) => {
 
     const addToBasket = () => {
 
-        const localProduct = {
-            id: product.id,
-            name: product.name,
+        const basketLine = {
+            productId: product.id,
             quantity: quantity,
-            currentPrice: Math.round(product.currentPrice * 100) / 100,
-            currentDiscount: product.currentDiscount,
-            actualPrice: Math.round(product.actualPrice * 100) / 100,
-            url: product.imageUrl
         };
-        dispatch(addToBasketRedux(localProduct));
+        dispatch(addToBasketRedux(basketLine));
         setOpenModal(false);
 
     }

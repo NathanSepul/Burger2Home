@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider';
 import { Link } from "react-router-dom";
 
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/userSlice.js';
+import { login, loginBasket } from '../../redux/userSlice.js';
 import { open } from '../../redux/snackBarSlice.js';
 
 
@@ -25,6 +25,7 @@ const Connection = () => {
     const [pwd, setPwd] = useState("");
 
     const user = { provider: "local", email: "", lastName: "", firstName: "", role: "" }
+    const basketInformation = { basket:null,size:0}
     const openSnack = { msg: "", severity: "" }
     const dispatch = useDispatch()
 
@@ -45,13 +46,13 @@ const Connection = () => {
             openSnack.msg = "Tentative de connexion en cours";
             openSnack.severity = "info";
             dispatch(open(openSnack));
-
-            axios.get(`/users/1`)
-                .then((data) => {
-                    user.email = data.data.email;
-                    user.lastName = data.data.lastname;
-                    user.firstName = data.data.firstname
-                    user.role = data.data.role.name;
+const id = 4
+            axios.get(`/users/${id}`)
+                .then((res) => {
+                    user.email = res.data.email;
+                    user.lastName = res.data.lastname;
+                    user.firstName = res.data.firstname
+                    user.role = res.data.role.name;
                     user.birthday = "01/07/1998";
                     dispatch(login(user));
 
@@ -59,6 +60,12 @@ const Connection = () => {
                     openSnack.severity = "success";
                     dispatch(open(openSnack));
 
+                    return axios.get(`/users/${id}/basket`)
+                })
+                .then((res)=>{
+                    basketInformation.basket = res.data;
+                    basketInformation.size = res.data.basketLines.length
+                    dispatch(loginBasket(basketInformation))
                 })
                 .catch(() => {
                     openSnack.msg = "La connection a échoué";
