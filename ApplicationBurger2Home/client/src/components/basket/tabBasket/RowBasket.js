@@ -16,7 +16,7 @@ import {updateQt, removeBasketLine} from '../../../redux/userSlice.js';
 import "./RowBasket.css";
 import axios from 'axios';
 
-const RowBasket = ({ basketLine, indexBl, isConnected }) => {
+const RowBasket = ({ basketLine, indexBl, isConnected, setBill, bill }) => {
 
 
   const dispatch = useDispatch();
@@ -34,7 +34,11 @@ const RowBasket = ({ basketLine, indexBl, isConnected }) => {
     axios.get(`products/summaries/${basketLine.productId}?language=EN`)
       .then(res => {
         setProduct(res.data)
-
+        
+        let tempB = bill;
+        tempB = Math.round((bill + (Math.round(res.data.actualPrice*100)/100 * basketLine.amount))*100) /100
+        setBill(tempB);
+        
         return axios.get(`/products/${basketLine.productId}/image`, { responseType: 'arraybuffer' })
       })
       .then(res => {
@@ -49,8 +53,10 @@ const RowBasket = ({ basketLine, indexBl, isConnected }) => {
 
   useEffect(() => {
 
-    isConnected ? dispatch(updateQt(newValue)) :  dispatch(updateQuantity(newValue))
-
+    if(!isLoading){
+      isConnected ? dispatch(updateQt(newValue)) :  dispatch(updateQuantity(newValue))
+    }
+    
   }, [newValue.newQuantity])
 
   const handleSetQunatity = event => {

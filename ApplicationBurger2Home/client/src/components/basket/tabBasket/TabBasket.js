@@ -13,6 +13,8 @@ import RowBasket from "./RowBasket.js";
 import "./TabBasket.css"
 
 const TabBasket = ({ basket, isConnected }) => {
+    const [bill, setBill] = useState(0);
+
     const [totalAmount, setTotalAmount] = useState(0);
     const { t } = useTranslation();
 
@@ -44,7 +46,7 @@ const TabBasket = ({ basket, isConnected }) => {
                     <TableBody>
                         {basket.basketLines.length !== 0 ? (
                             basket.basketLines.map((basketLine) => (
-                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} isConnected={isConnected}/>
+                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} isConnected={isConnected} setBill={setBill} bill={bill}/>
                             ))
                         ) : (
                             <TableRow className="emptyBasket">
@@ -68,7 +70,7 @@ const TabBasket = ({ basket, isConnected }) => {
                     </div>
 
                     <div>
-                        {totalAmount}&nbsp;€
+                        {bill}&nbsp;€
                     </div>
                 </div>
             </div>
