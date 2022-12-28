@@ -47,45 +47,31 @@ export const userSlice = createSlice({
       return state
     },
 
-    addToBasketUser: (state, action) => {
+    updateBasket: (state, action) => {
+      state.basket = action.payload.basket;
+      state.basketSize = action.payload.size;
 
-      let alreadyInside = false
+      return state
+    },
 
-      state.basket.basketLines.forEach((bl) => {
+    updateQt: (state, action) => {
 
-        if (bl.productId === action.payload.productId) {
-          bl.amount = parseInt(bl.amount) + parseInt(action.payload.quantity)
-          alreadyInside = true;
+      let index = action.payload.index
+      state.basket.basketLines[index].amount = action.payload.newQuantity
 
-          axios.put(`/basketLines`,bl)
-            .then(res => console.log(res))
-            .catch(e => console.log(e))
-        }
-      })
+      axios.put(`/basketLines`, state.basket.basketLines[index])
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
 
-      if (!alreadyInside) {
-        const bl = {
-          id: null,
-          basketId: state.basket.id,
-          productId: action.payload.productId,
-          amount: action.payload.quantity,
-        };
+    },
 
-        axios.post(`/basketLines`,bl)
-          .then(res =>{
-            console.log("new")
-            console.log(res.data)
-            // state.basketSize = state.basketSize + 1;
-            state.basket.basketLines.push(bl);
-          })
-          .then(() => console.log("hhhh"))
-          .catch(e => console.log(e))
-      }
-
+    addToBasketUser:(state, action) =>{
+      state.basket.basketLines.push(action.payload.bl);
+      state.basketSize = state.basketSize + 1;
     }
   }
 })
 
-export const { login, logout, loginBasket, addToBasketUser } = userSlice.actions
+export const { login, logout, loginBasket,addToBasketUser, updateQt, updateBasket } = userSlice.actions
 
 export default userSlice.reducer

@@ -19,7 +19,7 @@ import axios from 'axios';
 import AllergensDialog from "./AllergensDialog.js";
 import "./ModalProduct.css";
 
-const ModalProduct = ({ product }) => {
+const ModalProduct = ({ product, updateBasketLine, isConnected }) => {
     const [total, setTotal] = useState(Math.round(product.actualPrice * 100) / 100);
     const [openModal, setOpenModal] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -72,9 +72,12 @@ const ModalProduct = ({ product }) => {
             productId: product.id,
             quantity: quantity,
         };
-        dispatch(addToBasketRedux(basketLine));
-        setOpenModal(false);
 
+        isConnected  ?  updateBasketLine(basketLine) : dispatch(addToBasketRedux(basketLine));
+
+
+        setOpenModal(false);
+ setQuantity(1);
     }
     const remove = () => {
         setQuantity(min);

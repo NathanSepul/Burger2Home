@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import { addToBasketRedux } from '../../../redux/basketSlice.js';
-import {addToBasketUser} from '../../../redux/userSlice.js'
+import {updateQt, addToBasketUser} from "../../../redux/userSlice.js"
 import { useDispatch,useSelector } from 'react-redux';
 import { Badge } from "@mui/material";
 import ModalProduct from "./ModalProduct.js";
+import axios from 'axios';
+
 import "./ProductMiniature.css"
 
-const ProductMiniature = ({ product, hadExtra }) => {
+const ProductMiniature = ({ product }) => {
 
     let userConnected = useSelector(state => state.user.isConnected);
+    let basket = useSelector(state => state.user.basket);
+    let basketSize = useSelector(state => state.user.basketSize);
 
     const dispatch = useDispatch();
 
@@ -26,14 +30,49 @@ const ProductMiniature = ({ product, hadExtra }) => {
         }
     }
 
-    const addToBasket = () => {
+    const updateBasketLine = (basketLine) =>{
+
+        let alreadyInside = false
+        
+        for(let i=0; i<basket.basketLines.length; i++){
+            if(basket.basketLines[i].productId === basketLine.productId){
+                alreadyInside = true;
+                let qt =  parseInt(basket.basketLines[i].amount) + parseInt(basketLine.quantity)
+                dispatch(updateQt({index:i,newQuantity:qt}))
+                break;
+            }
+        }
+    
+        if (!alreadyInside) {
+            let bl = {
+              id: null,
+              basketId: basket.id,
+              productId: basketLine.productId,
+              amount: basketLine.quantity,
+            };
+
+    
+            axios.post(`/basketLines`, bl)
+              .then(res => {
+                dispatch(addToBasketUser({bl:res.data}))
+              })
+              .catch(e => {
+                console.log(e);
+              })
+    
+    
+          }
+    
+    }
+    
+    const toBasket = () => {
 
         const basketLine = {
             productId: product.id,
             quantity: 1,
         };
 
-        userConnected  ? dispatch(addToBasketUser(basketLine)) :  dispatch(addToBasketRedux(basketLine));
+        userConnected  ?  updateBasketLine(basketLine) :  dispatch(addToBasketRedux(basketLine));
     }
 
     let content = () => {
@@ -43,7 +82,7 @@ const ProductMiniature = ({ product, hadExtra }) => {
                     <span className="recommendation">Victime de son succes</span>
                 )}
 
-                <ModalProduct product={product} hadExtra={hadExtra} />
+                <ModalProduct product={product} updateBasketLine={updateBasketLine} isConnected={userConnected}/>
 
                 <CardContent className="contentCard">
                     <div>{product.name}</div>
@@ -57,7 +96,7 @@ const ProductMiniature = ({ product, hadExtra }) => {
                         </div>
                     }
                     <div>
-                        <IconButton onClick={addToBasket} disabled={!product.available}>
+                        <IconButton onClick={toBasket} disabled={!product.available}>
                             <AddShoppingCartRoundedIcon fontSize="large" />
                         </IconButton>
                     </div>

@@ -15,10 +15,31 @@ import Allergens from "./components/admin/allergens/Allergens";
 
 import NoPage from './components/NoPage.js';
 
-import {PrivateRouteCompte,PrivateRouteConnection, PrivateRouteInscription,PrivateRouteAdmin,PrivateRouteMarketing} from "./PrivateRoute";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginBasket } from './redux/userSlice.js';
+import axios from 'axios';
+
+import { PrivateRouteCompte, PrivateRouteConnection, PrivateRouteInscription, PrivateRouteAdmin, PrivateRouteMarketing } from "./PrivateRoute";
 
 
 const App = () => {
+
+  const userConnected = useSelector(state => state.user.isConnected)
+  const dispatch = useDispatch();
+
+  const id = 4
+  if (userConnected) {
+    axios.get(`/users/${id}/basket`)
+      .then((res) => {
+        const basketInformation = { basket:null,size:0}
+        basketInformation.basket = res.data;
+        basketInformation.size = res.data.basketLines.length
+        dispatch(loginBasket(basketInformation))
+      })
+      .catch(e => console.log(e))
+  }
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -28,32 +49,32 @@ const App = () => {
           <Route path="concept" element={<Concept />} />
           <Route path="basket" element={<Basket />} />
 
-          <Route element={<PrivateRouteCompte/>}>
+          <Route element={<PrivateRouteCompte />}>
             <Route path="compte" element={<Account />} />
           </Route>
 
-          <Route element={<PrivateRouteConnection/>}>
+          <Route element={<PrivateRouteConnection />}>
             <Route path="connection" element={<Connection />} />
           </Route>
 
-          <Route element={<PrivateRouteInscription/>}>
+          <Route element={<PrivateRouteInscription />}>
             <Route path="inscription" element={<Inscription />} />
           </Route>
 
-          <Route element={<PrivateRouteMarketing/>}>
+          <Route element={<PrivateRouteMarketing />}>
             <Route path="marketing" element={<NoPage />} />
-          </Route>  
+          </Route>
 
-          <Route element={<PrivateRouteAdmin/>}>
+          <Route element={<PrivateRouteAdmin />}>
             <Route path="admin/stocks" element={<NoPage />} />
             <Route path="admin/droit" element={<NoPage />} />
             <Route path="admin/products" element={<Products />} />
             <Route path="admin/ingredients" element={<Ingredients />} />
             <Route path="admin/allergens" element={<Allergens />} />
-          </Route>  
+          </Route>
 
-          
-          
+
+
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
