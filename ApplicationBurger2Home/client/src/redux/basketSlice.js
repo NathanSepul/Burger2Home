@@ -11,9 +11,10 @@ export const basketSlice = createSlice({
         addToBasketRedux: (state, action) => {
 
                 let alreadyInside = false
+
                 state.basketLines.forEach( (bl) => {
                     if(bl.productId === action.payload.productId) {
-                        bl.quantity = parseInt(bl.quantity) + parseInt(action.payload.quantity)
+                        bl.amount = parseInt(bl.amount) + parseInt(action.payload.quantity)
                         alreadyInside = true;
                         return state;
                     }
@@ -24,7 +25,7 @@ export const basketSlice = createSlice({
                         id:null,
                         basketId:null,
                         productId: action.payload.productId,
-                        quantity : action.payload.quantity,
+                        amount : action.payload.quantity,
                     };
     
                     state.quantity = state.quantity + 1;
@@ -36,7 +37,7 @@ export const basketSlice = createSlice({
 
         updateQuantity:(state,action) =>{
             // console.log(state.basketLines[action.payload.index])
-            state.basketLines[action.payload.index].quantity =  action.payload.quantity;
+            state.basketLines[action.payload.index].amount =  action.payload.newQuantity;
             return state;
         },
 

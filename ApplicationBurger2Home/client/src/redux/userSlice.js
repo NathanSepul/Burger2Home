@@ -65,13 +65,24 @@ export const userSlice = createSlice({
 
     },
 
-    addToBasketUser:(state, action) =>{
+    addToBasketUser: (state, action) => {
       state.basket.basketLines.push(action.payload.bl);
       state.basketSize = state.basketSize + 1;
-    }
+    },
+
+    removeBasketLine: (state, action) => {
+      let idBL = state.basket.basketLines[action.payload].id
+      state.basket.basketLines = [
+        ...state.basket.basketLines.slice(0, action.payload),
+        ...state.basket.basketLines.slice(action.payload + 1)];
+      state.basketSize = state.basketSize - 1;
+      axios.delete(`/basketLines/${idBL}`)
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
+    },
   }
 })
 
-export const { login, logout, loginBasket,addToBasketUser, updateQt, updateBasket } = userSlice.actions
+export const { login, logout, loginBasket, addToBasketUser, updateQt, updateBasket, removeBasketLine } = userSlice.actions
 
 export default userSlice.reducer

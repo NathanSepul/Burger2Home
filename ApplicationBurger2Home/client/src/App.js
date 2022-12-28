@@ -33,6 +33,7 @@ const App = () => {
       .then((res) => {
         const basketInformation = { basket:null,size:0}
         basketInformation.basket = res.data;
+        basketInformation.basket.basketLines = basketInformation.basket.basketLines.sort((a, b) => (a.id > b.id ? 1 : -1));
         basketInformation.size = res.data.basketLines.length
         dispatch(loginBasket(basketInformation))
       })

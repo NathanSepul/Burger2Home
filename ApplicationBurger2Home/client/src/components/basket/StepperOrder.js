@@ -12,9 +12,9 @@ import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
 import Address from "./address/Address.js";
 
-const steps = ['Résumé', 'Votre adresse', 'Vérification', 'Payement'];
+const steps = ['Résumé', 'Payement', 'Vérification', 'Votre adresse'];
 
-const StepperOrder = ({ basket }) => {
+const StepperOrder = ({ basket, isConnected }) => {
 
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
@@ -62,47 +62,51 @@ const StepperOrder = ({ basket }) => {
 
           <Box sx={{ flex: '1 1 auto' }} />
 
-          {activeStep < steps.length - 2 &&(
+          {activeStep < steps.length - 2 && (
             <Button onClick={handleNext}>
               Suivant<ArrowForwardIosRoundedIcon />
             </Button>
           )}
 
-          {activeStep === steps.length - 2 &&(
+          {activeStep === steps.length - 2 && (
             <Button onClick={handleNext}>
               Confirmer
             </Button>
           )}
 
-          
+
 
         </Box>
 
         <div className="stepper" >
           {activeStep === 0 && (
             <div className="basket">
-              <TabBasket basket={basket} />
+              <TabBasket basket={basket} isConnected={isConnected} />
             </div>
           )}
 
           {activeStep === steps.length - 3 && (
-            <div className="adresse">
-              <Address/>
+            <div className="payment">
+              <Payement />
             </div>
           )}
+
+
 
           {activeStep === steps.length - 2 && (
             <div className="resume">
               on verifie le résumé
-              
+
             </div>
           )}
 
           {activeStep === steps.length - 1 && (
-            <div className="payment">
-              <Payement/>
+            <div className="adresse">
+              <Address />
             </div>
           )}
+
+
         </div>
         {/* zone du bas avec les boutons */}
 

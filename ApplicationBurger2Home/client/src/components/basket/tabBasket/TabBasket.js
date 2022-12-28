@@ -6,12 +6,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 
 import RowBasket from "./RowBasket.js";
 import "./TabBasket.css"
 
-const TabBasket = ({ basket }) => {
+const TabBasket = ({ basket, isConnected }) => {
     const [totalAmount, setTotalAmount] = useState(0);
+    const { t } = useTranslation();
+
 
     useEffect(() => {
         const temp = basket.basketLines.map((basketLine) =>
@@ -20,7 +24,7 @@ const TabBasket = ({ basket }) => {
 
         //somme de tout les elements un genre de boucle
         setTotalAmount(temp.reduce(
-            (accumulator, currentValue) =>Math.round(( accumulator + currentValue)*100)/100, 0
+            (accumulator, currentValue) => Math.round(( accumulator + currentValue)*100)/100, 0
         ));
 
 
@@ -38,14 +42,17 @@ const TabBasket = ({ basket }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-
-                        {basket.quantity !== 0 ? (
+                        {basket.basketLines.length !== 0 ? (
                             basket.basketLines.map((basketLine) => (
-                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} />
+                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} isConnected={isConnected}/>
                             ))
                         ) : (
                             <TableRow className="emptyBasket">
-                                <TableCell align="center" colSpan="3" >Votre panier est vide consulter notre carte pour manger beaucoups</TableCell>
+                                <TableCell align="center" colSpan="3" >
+                                    Votre panier est vide consulter notre&nbsp;
+                                    <Link to="/carte">carte</Link>
+                                    &nbsp;pour manger beaucoups
+                                </TableCell>
                             </TableRow>
                         )}
 
