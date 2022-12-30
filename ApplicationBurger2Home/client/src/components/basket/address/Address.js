@@ -11,60 +11,96 @@ import Typography from '@mui/material/Typography';
 
 import "./Address.css";
 
-const Address = ({ address, setAddress, handleNext }) => {
+const Address = ({ address, setAddress, handleNext, order, setOrder }) => {
 
   const user = useSelector(state => state.user)
   const [addressList, setAddressList] = useState([])
   const [isLoading, setIsloading] = useState(true)
-  
-  const initialState = { id: null, city: "", zipcode:"", street: "", number:"", extension:"", note: "", userId: user.id, active: "true" };
+
+  const initialState = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: user.id, active: "true" };
 
   const { t } = useTranslation();
 
   useEffect(() => {
-    axios.get(`/users/${user.id}/addresses?mustBeActive=true`)
-      .then(res => {
 
+    axios.get(`/users/${user.id}/orders`)
+      .then(res => {
+        let tempOrd = res.data.filter(ord => { return ord.status === "waiting_for_payment" })
+        tempOrd.length === 0 ? setOrder({ ...order, userId: user.id }) : setOrder(tempOrd[0]);
+
+        return axios.get(`/users/${user.id}/addresses?mustBeActive=true`)
+      })
+      .then(res => {
         if (res.data.length !== 0) {
           setAddressList(res.data);
         }
         else {
           setAddress({ ...address, userId: user.id })
         }
+
         setIsloading(false)
       })
+
       .catch(e => console.log(e))
-  },[user.id])
+  }, [user.id])
+
+  useEffect(() => {
+
+    if (order.addressId != null && addressList.length !== 0) {
+      let tempAd = addressList.filter(addr => { return addr.id === order.addressId })
+      setAddress(tempAd[0]);
+    }
+
+  }, [addressList])
+
+  const changeAddrHandler = (e) => {
+    const addr = addressList.filter(add => { return add.id === parseInt(e.target.value) })
+    addr.length === 0 ? setAddress(initialState) : setAddress(addr[0])
+  }
 
   const validationForm = () => {
 
-    if(address.id === null){
-      axios.post(`/addresses`,address)
-      .then(res =>{
-        setAddress(res.data);
-        console.log(res)
-      })
-      .catch(e => console.log(e))
+    if (address.id === null) {
+      axios.post(`/addresses`, address)
+        .then(res => {
+          setAddress(res.data);
+
+          let orderT = order;
+          orderT.addressId = res.data.id
+          setOrder(orderT)
+
+          if (order.id === null) {
+            return axios.get(`/orders/create-order?basketIdentifier=${user.basket.id}&addressIdentifier=${res.data.id}`)
+          }
+          else {
+            return axios.put(`/orders`, order)
+          }
+        })
+
+        .then(res => setOrder(res.data))
+        .catch(e => console.log(e))
     }
-    else{
-      axios.put(`/addresses`,address)
-      .then(res =>{
-        console.log(res)
-      })
-      .catch(e => console.log(e))
+    else {
+      axios.put(`/addresses`, address)
+        .then(res => {
+          let orderT = order;
+          orderT.addressId = res.data.id
+          setOrder(orderT)
+
+          if (order.id === null) {
+            return axios.get(`/orders/create-order?basketIdentifier=${user.basket.id}&addressIdentifier=${res.data.id}`)
+          }
+          else {
+            return axios.put(`/orders`, order)
+          }
+        })
+        .then(res => setOrder(res.data))
+        .catch(e => console.log(e))
     }
 
     handleNext()
   }
 
-  const cancel = () =>{
-    setAddress(initialState)
-  }
-
-  const changeAddrHandler = (e) => {
-    const addr = addressList.filter(add => {return add.id === parseInt(e.target.value) })
-    addr.length === 0 ? setAddress(initialState): setAddress(addr[0])
-  }
 
   if (!isLoading) {
     return (
@@ -77,12 +113,12 @@ const Address = ({ address, setAddress, handleNext }) => {
         }}
       >
 
-<Box>
-  <select onChange={changeAddrHandler}>
-        <option value=''>Choisissez une adresse</option>
-        {addressList.map(addr => <option key={addr.id} value={addr.id}>{addr.street}</option>)}
-  </select>
-</Box>
+        <Box>
+          <select onChange={changeAddrHandler} defaultValue={order.addressId || ''}>
+            <option value=''>Choisissez une adresse</option>
+            {addressList.map(addr => <option key={addr.id} value={addr.id}>{addr.street}</option>)}
+          </select>
+        </Box>
         <div className="lineAddresse">
           <Typography variant="h6">
             {user.firstName}
@@ -97,9 +133,10 @@ const Address = ({ address, setAddress, handleNext }) => {
 
         <div className="lineAddresse">
           <TextField label="Boite"
+            placeholder='ex: 2'
             className="box"
             // error={errorExt.onError}
-            value={address.extension || ''}
+            // value={address.extension || ''}
             onChange={e => setAddress({ ...address, extension: e.target.value })}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
           />
@@ -110,7 +147,7 @@ const Address = ({ address, setAddress, handleNext }) => {
           <TextField label="Numéro"
             className="number"
             required
-            helperText="exemple : 123"
+            placeholder='ex: 25'
             value={address.number}
             onChange={e => setAddress({ ...address, number: e.target.value })}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
@@ -119,10 +156,11 @@ const Address = ({ address, setAddress, handleNext }) => {
 
           <TextField label="Rue"
             required
+            placeholder='ex: Rue de Lens-St-Remy'
             className="street"
             variant="outlined"
             value={address.street}
-            onChange={e =>  setAddress({ ...address, street: e.target.value })}
+            onChange={e => setAddress({ ...address, street: e.target.value })}
             inputProps={{ maxLength: 45 }}
             InputProps={{
               endAdornment: (
@@ -137,6 +175,7 @@ const Address = ({ address, setAddress, handleNext }) => {
         <div className="lineAddresse">
 
           <TextField label="Code Postal"
+            placeholder='ex: 4260'
             className="zip"
             required
             value={address.zipcode}
@@ -146,10 +185,11 @@ const Address = ({ address, setAddress, handleNext }) => {
 
           <TextField label="Ville"
             required
+            placeholder='ex: Braives'
             className="city"
             variant="outlined"
             value={address.city}
-            onChange={e =>  setAddress({ ...address, city: e.target.value })}
+            onChange={e => setAddress({ ...address, city: e.target.value })}
             inputProps={{ maxLength: 45 }}
             InputProps={{
               endAdornment: (
@@ -163,10 +203,15 @@ const Address = ({ address, setAddress, handleNext }) => {
 
         <div className="lineAddresse">
           <TextField label="Note"
+            placeholder='ex: Sonnez à la porte bleu'
             className="note"
             variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            multiline
             value={address.note}
-            onChange={e =>  setAddress({ ...address, note: e.target.value })}
+            onChange={e => setAddress({ ...address, note: e.target.value })}
             inputProps={{ maxLength: 255 }}
             InputProps={{
               endAdornment: (
@@ -180,11 +225,8 @@ const Address = ({ address, setAddress, handleNext }) => {
 
         <div className="buttonAddressForm">
           <Button variant="contained" type="submit">
-            {address.id === null ? "ajouter et continuer" : "modifer et continuer" }
+            {address.id === null ? "continuer" : "continuer"}
           </Button>
-          {address.id !== null &&(
-            <Button variant="contained" onClick={cancel}> nouvelle addresse </Button>
-          )}
         </div>
       </Box>
     );

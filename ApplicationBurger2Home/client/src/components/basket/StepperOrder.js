@@ -12,14 +12,17 @@ import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
 import Address from "./address/Address.js";
 
-const steps = ['Résumé', 'Payement', 'Vérification', 'Votre adresse'];
+const steps = ['Résumé', 'Votre adresse', 'Vérification', 'Payement'];
 
 const StepperOrder = ({ basket, isConnected }) => {
 
-  const initialState = { id: null, city: "", zipcode:"", street: "", number:"", extension:"", note: "", userId: null, active: "true" };
-  const navigate = useNavigate();
+  const initialStateAddress = { id: null, city: "", zipcode:"", street: "", number:"", extension:null, note: "", userId: null, active: "true" };
+  const initialStateOrder = {id:null, userId:null, creditCardId:null, addressId:null, orderDate:"",orderLines:[], status:"", paymentIntent:""}
   const [activeStep, setActiveStep] = useState(0);
-  const [address, setAddress] = useState(initialState)
+  const [address, setAddress] = useState(initialStateAddress)
+  const [order, setOrder]=useState(initialStateOrder)
+  const navigate = useNavigate();
+
   const handleNext = () => {
 
     if (activeStep !== steps.length - 1) {
@@ -99,7 +102,7 @@ const StepperOrder = ({ basket, isConnected }) => {
 
           {activeStep === steps.length - 3 && (
             <div className="adresse">
-              <Address address={address} setAddress={setAddress} handleNext={handleNext} />
+              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder}/>
             </div>
 
           )}

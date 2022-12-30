@@ -1,5 +1,5 @@
 .formAddress{
-   width: 50vw;
+   width: 70vw;
    margin-right : auto;
    margin-left : auto;
    margin-bottom: 30px;
@@ -37,12 +37,11 @@
 
 /* ecran inf à 767px*/
 @media screen and (max-width: 767px){
-    .city, .street{
-        width: 30% !important;
-        min-width: none !important;
 
-    }
-    .lineAddresse{
-        gap: 10px;
-    }
+    .formAddress{
+        width: 100vw;
+        padding-right: 50px;
+        padding-left: 50px;
+        
+     }
 }
