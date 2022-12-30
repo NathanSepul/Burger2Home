@@ -24,7 +24,7 @@ const Connection = () => {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
 
-    const user = { provider: "local", email: "", lastName: "", firstName: "", role: "" }
+    const user = { provider: "local", email: "", lastName: "", firstName: "", role: "", id:null }
     const basketInformation = { basket:null,size:0}
     const openSnack = { msg: "", severity: "" }
     const dispatch = useDispatch()
@@ -49,11 +49,15 @@ const Connection = () => {
 const id = 4
             axios.get(`/users/${id}`)
                 .then((res) => {
+                    console.log(res);
+                    user.id= res.data.id;
                     user.email = res.data.email;
                     user.lastName = res.data.lastname;
                     user.firstName = res.data.firstname
                     user.role = res.data.role.name;
                     user.birthday = "01/07/1998";
+                    console.log(user);
+
                     dispatch(login(user));
 
                     openSnack.msg = "Connexion réussie";

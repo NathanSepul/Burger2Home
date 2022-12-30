@@ -5,6 +5,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     isConnected: false,
+    id:null,
     provider: "",
     email: "",
     firstName: "",
@@ -18,6 +19,7 @@ export const userSlice = createSlice({
     login: (state, action) => {
       return state = {
         isConnected: true,
+        id:action.payload.id,
         provider: action.payload.provider,
         email: action.payload.email,
         firstName: action.payload.firstName,
@@ -30,6 +32,7 @@ export const userSlice = createSlice({
     logout: state => {
       return state = {
         isConnected: false,
+        id:null,
         provider: "",
         email: "",
         firstName: "",

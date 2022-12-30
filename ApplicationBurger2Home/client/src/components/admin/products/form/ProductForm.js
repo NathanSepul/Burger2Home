@@ -42,9 +42,9 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
 
     const [errorNameFr, setErrorNameFr] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
     const [errorNameEn, setErrorNameEn] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
-    const [errorPath, setErrorPath] = useState({ onError: false, msg: 'LIl faut une image' });
+    const [errorPath, setErrorPath] = useState({ onError: false, msg: 'Il faut une image' });
     const [errorCheckBox, setErrorCheckBox] = useState({ onError: false, msg: 'Il faut choisir une case' })
-    const [errorPrice, setErrorPrice] = useState({ onError: false, msg: 'La valeur ne respect pas les critères' });
+    const [errorPrice, setErrorPrice] = useState({ onError: false, msg: 'La valeur ne respecte pas les critères' });
     const [errroIngredients, setErrorIngredients] = useState({ onError: false, msg: 'Il faut au moins un ingrédient' });
 
     const languageRedux = useSelector(state => state.language)

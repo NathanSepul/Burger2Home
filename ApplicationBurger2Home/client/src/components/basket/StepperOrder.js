@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -16,9 +16,10 @@ const steps = ['Résumé', 'Payement', 'Vérification', 'Votre adresse'];
 
 const StepperOrder = ({ basket, isConnected }) => {
 
+  const initialState = { id: null, city: "", zipcode:"", street: "", number:"", extension:"", note: "", userId: null, active: "true" };
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
-
+  const [address, setAddress] = useState(initialState)
   const handleNext = () => {
 
     if (activeStep !== steps.length - 1) {
@@ -34,6 +35,11 @@ const StepperOrder = ({ basket, isConnected }) => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+
+
+
+
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -62,11 +68,17 @@ const StepperOrder = ({ basket, isConnected }) => {
 
           <Box sx={{ flex: '1 1 auto' }} />
 
-          {activeStep < steps.length - 2 && (
-            <Button onClick={handleNext}>
+          {(activeStep === 0) && (
+            <Button onClick={handleNext} disabled={!isConnected}>
               Suivant<ArrowForwardIosRoundedIcon />
             </Button>
           )}
+
+          {/* {activeStep === 1 && (
+            <Button onClick={handleNext} disabled={nextAddrDisable}>
+              Suivannnnt<ArrowForwardIosRoundedIcon />
+            </Button>
+          )} */}
 
           {activeStep === steps.length - 2 && (
             <Button onClick={handleNext}>
@@ -86,9 +98,10 @@ const StepperOrder = ({ basket, isConnected }) => {
           )}
 
           {activeStep === steps.length - 3 && (
-            <div className="payment">
-              <Payement />
+            <div className="adresse">
+              <Address address={address} setAddress={setAddress} handleNext={handleNext} />
             </div>
+
           )}
 
 
@@ -101,8 +114,9 @@ const StepperOrder = ({ basket, isConnected }) => {
           )}
 
           {activeStep === steps.length - 1 && (
-            <div className="adresse">
-              <Address />
+
+            <div className="payment">
+              <Payement />
             </div>
           )}
 

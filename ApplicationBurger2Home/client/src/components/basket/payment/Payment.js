@@ -3,6 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js"
 import PaymentForm from "./PaymentForm.js"
 import Loding from "../../loding/Loding.js"
+import axios from "axios";
 
 
 const Payment = () => {
@@ -18,8 +19,9 @@ const Payment = () => {
     let options  = {clientSecret,appearance}
     
     useEffect(() => {
-        fetch("/config").then(async (r) => {
-          const { publishableKey } = await r.json();
+        axios.get("/keys/stripe")
+        .then( r => {
+          const { publishableKey } =  r.json();
           setStripePromise(loadStripe(publishableKey));
         });
       }, []);

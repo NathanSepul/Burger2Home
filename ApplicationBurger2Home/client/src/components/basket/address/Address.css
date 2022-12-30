@@ -1,0 +1,48 @@
+.formAddress{
+   width: 50vw;
+   margin-right : auto;
+   margin-left : auto;
+   margin-bottom: 30px;
+   display: flex;
+   flex-direction: column;
+   gap:20px;
+}
+.lineAddresse{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 30px;
+    width: 100%;
+}
+
+.city, .street{
+    width: calc(80% - 30px);
+    min-width: 300px !important;
+}
+
+.number, .zip, .box{
+    width: 20%;
+    min-width: 100px !important;
+    font-size: small !important;
+}
+
+.note{
+    width: calc(100%);
+}
+.buttonAddressForm{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: right;
+    gap: 10px
+}
+
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+    .city, .street{
+        width: 30% !important;
+        min-width: none !important;
+
+    }
+    .lineAddresse{
+        gap: 10px;
+    }
+}
