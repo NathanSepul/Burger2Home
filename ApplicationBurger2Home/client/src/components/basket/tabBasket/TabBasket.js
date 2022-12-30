@@ -13,15 +13,15 @@ import RowBasket from "./RowBasket.js";
 import "./TabBasket.css"
 
 const TabBasket = ({ basket, isConnected }) => {
-    const [bill, setBill] = useState(0);
+    const [listAmount, setListAmount] = useState([]);
 
     const [totalAmount, setTotalAmount] = useState(0);
     const { t } = useTranslation();
 
 
     useEffect(() => {
-        const temp = basket.basketLines.map((basketLine) =>
-            basketLine.quantity * Math.round(basketLine.actualPrice*100)/100
+        const temp = listAmount.map((el) =>
+            el.qt * Math.round(el.price*100)/100
         );
 
         //somme de tout les elements un genre de boucle
@@ -29,8 +29,10 @@ const TabBasket = ({ basket, isConnected }) => {
             (accumulator, currentValue) => Math.round(( accumulator + currentValue)*100)/100, 0
         ));
 
+        console.log("on m'appel ?")
+        console.log(listAmount);
 
-    }, [basket])
+    }, [listAmount])
 
     return (
         <div className="contentBasket">
@@ -46,7 +48,7 @@ const TabBasket = ({ basket, isConnected }) => {
                     <TableBody>
                         {basket.basketLines.length !== 0 ? (
                             basket.basketLines.map((basketLine) => (
-                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} isConnected={isConnected} setBill={setBill} bill={bill}/>
+                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} isConnected={isConnected} setListAmount={setListAmount} listAmount={listAmount}/>
                             ))
                         ) : (
                             <TableRow className="emptyBasket">
@@ -70,7 +72,7 @@ const TabBasket = ({ basket, isConnected }) => {
                     </div>
 
                     <div>
-                        {bill}&nbsp;€
+                        {totalAmount}&nbsp;€
                     </div>
                 </div>
             </div>

@@ -11,12 +11,12 @@ import { Buffer } from "buffer";
 import { useDispatch } from 'react-redux';
 
 import { updateQuantity, removeFromBasket } from '../../../redux/basketSlice.js';
-import {updateQt, removeBasketLine} from '../../../redux/userSlice.js';
+import { updateQt, removeBasketLine } from '../../../redux/userSlice.js';
 
 import "./RowBasket.css";
 import axios from 'axios';
 
-const RowBasket = ({ basketLine, indexBl, isConnected, setBill, bill }) => {
+const RowBasket = ({ basketLine, indexBl, isConnected, listAmount, setListAmount }) => {
 
 
   const dispatch = useDispatch();
@@ -34,11 +34,19 @@ const RowBasket = ({ basketLine, indexBl, isConnected, setBill, bill }) => {
     axios.get(`products/summaries/${basketLine.productId}?language=EN`)
       .then(res => {
         setProduct(res.data)
+
+        let tempList = listAmount;
+        let index = tempList.findIndex((el) => el.idBL === basketLine.id)
         
-        let tempB = bill;
-        tempB = Math.round((bill + (Math.round(res.data.actualPrice*100)/100 * basketLine.amount))*100) /100
-        setBill(tempB);
-        
+        if(index === -1){
+          tempList.push({price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id })
+        }
+        else{
+          tempList[index] = {price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id }
+        }
+
+        setListAmount(tempList)
+
         return axios.get(`/products/${basketLine.productId}/image`, { responseType: 'arraybuffer' })
       })
       .then(res => {
@@ -53,10 +61,22 @@ const RowBasket = ({ basketLine, indexBl, isConnected, setBill, bill }) => {
 
   useEffect(() => {
 
-    if(!isLoading){
-      isConnected ? dispatch(updateQt(newValue)) :  dispatch(updateQuantity(newValue))
-    }
+    if (!isLoading) {
+      isConnected ? dispatch(updateQt(newValue)) : dispatch(updateQuantity(newValue))
+      
+      let tempList = listAmount;
+      
+      let index = tempList.findIndex((el) => el.idBL === basketLine.id)
+      if(index === -1){
+        tempList.push({ price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id })
+      }
+      else{
+        tempList[index] = {price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id }
+      }
     
+      setListAmount(tempList)
+    }
+
   }, [newValue.newQuantity])
 
   const handleSetQunatity = event => {
@@ -72,10 +92,10 @@ const RowBasket = ({ basketLine, indexBl, isConnected, setBill, bill }) => {
   }
 
   const remove = () => {
-    isConnected ? dispatch(removeBasketLine(indexBl)) :  dispatch(removeFromBasket(indexBl))
+    isConnected ? dispatch(removeBasketLine(indexBl)) : dispatch(removeFromBasket(indexBl))
   }
 
-    
+
   const add = () => {
     if (parseInt(newValue.newQuantity) + 1 <= max) {
       setNewValue({ ...newValue, newQuantity: parseInt(newValue.newQuantity) + 1 })
