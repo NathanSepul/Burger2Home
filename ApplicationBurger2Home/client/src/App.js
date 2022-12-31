@@ -19,7 +19,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginBasket } from './redux/userSlice.js';
 import axios from 'axios';
 
-import { PrivateRouteCompte, PrivateRouteConnection, PrivateRouteInscription, PrivateRouteAdmin, PrivateRouteMarketing } from "./PrivateRoute";
+import {  PrivateRouteCompte, 
+          PrivateRouteConnection, 
+          PrivateRouteInscription, 
+          PrivateRouteAdmin, 
+          PrivateRouteMarketing,
+          PrivateRouteEmploye } from "./PrivateRoute";
 
 
 const App = () => {
@@ -67,9 +72,13 @@ useEffect(()=>{
             <Route path="marketing" element={<NoPage />} />
           </Route>
 
+          <Route element ={<PrivateRouteEmploye/>}>
+            <Route path="admin/stock" element={<NoPage />} />
+          </Route>
+
           <Route element={<PrivateRouteAdmin />}>
             <Route path="admin/stocks" element={<NoPage />} />
-            <Route path="admin/droit" element={<NoPage />} />
+            <Route path="admin/role" element={<NoPage />} />
             <Route path="admin/products" element={<Products />} />
             <Route path="admin/ingredients" element={<Ingredients />} />
             <Route path="admin/allergens" element={<Allergens />} />

@@ -46,33 +46,35 @@ const SmallNav = ({ toggleDrawer }) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List className="linksSmallHeader">
-        <ListItem className="linkSmallHeader" id="navSmallHeader1"> <Link to="/" > {t('navigation.accueil')} </Link> </ListItem>
+        <ListItem className="linkSmallHeader" > <Link to="/" > {t('navigation.accueil')} </Link> </ListItem>
         <Divider />
-        <ListItem className="linkSmallHeader" id="navSmallHeader2"> <Link to="/carte" > {t('navigation.carte')} </Link> </ListItem>
+        <ListItem className="linkSmallHeader"> <Link to="/carte" > {t('navigation.carte')} </Link> </ListItem>
         <Divider />
-        <ListItem className="linkSmallHeader" id="navSmallHeader3"> <Link to="/concept" > {t('navigation.concept')} </Link> </ListItem>
+        <ListItem className="linkSmallHeader"> <Link to="/concept" > {t('navigation.concept')} </Link> </ListItem>
         <Divider />
 
         {(user.role === "marketing") &&
           (<>
-            <ListItem className="linkSmallHeader" id="navSmallHeader4"> <Link to="/marketing" > {t('navigation.marketing')} </Link> </ListItem>
+            <ListItem className="linkSmallHeader"> <Link to="/marketing" > {t('navigation.marketing')} </Link> </ListItem>
             <Divider />
           </>
           )}
 
         {(user.role === "admin") && (<>
-          <ListItem className="linkSmallHeader" id="navSmallHeader5"> <Link to="/admin/stocks" > {t('navigation.stock')} </Link> </ListItem>
+          <ListItem className="linkSmallHeader"> <Link to="/admin/droits"  > {t('navigation.droit')} </Link> </ListItem>
           <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader6"> <Link to="/admin/droits"  > {t('navigation.droit')} </Link> </ListItem>
+          <ListItem className="linkSmallHeader"> <Link to="/admin/products" > {t('navigation.produits')} </Link></ListItem>
           <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/admin/products" > {t('navigation.produits')} </Link></ListItem>
+          <ListItem className="linkSmallHeader"> <Link to="/admin/ingredients" > {t('navigation.allergenes')} </Link></ListItem>
           <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/admin/ingredients" > {t('navigation.allergenes')} </Link></ListItem>
-          <Divider />
-          <ListItem className="linkSmallHeader" id="navSmallHeader7"> <Link to="/admin/allergens" > {t('navigation.ingredients')} </Link></ListItem>
+          <ListItem className="linkSmallHeader"> <Link to="/admin/allergens" > {t('navigation.ingredients')} </Link></ListItem>
           <Divider />
         </>)}
 
+        {(user.role === "employee")} && (<>
+          <ListItem className="linkSmallHeader"> <Link to="/admin/stocks" > {t('navigation.stock')} </Link> </ListItem>
+          <Divider />
+        </>)
 
       </List>
     </Box>
