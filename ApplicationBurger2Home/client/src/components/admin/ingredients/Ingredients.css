@@ -1,14 +1,3 @@
-
-
-.checkBoxGroupFam{
-    padding-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-   
-}
-
-
 .IngredientAdmin{
     margin: 0;
     padding-bottom:10px

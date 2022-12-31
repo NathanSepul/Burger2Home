@@ -120,7 +120,9 @@ const ModalProduct = ({ product, updateBasketLine, isConnected }) => {
 
                     <div className="titreModal">
                         {product.name}
-                        <AllergensDialog product={product} />
+                        {product.allergens.length !== 0 &&(
+                            <AllergensDialog product={product} />
+                        )}
                     </div>
 
                     {product.currentDiscount === null ?

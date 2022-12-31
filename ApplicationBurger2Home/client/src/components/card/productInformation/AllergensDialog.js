@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import Dialog from '@mui/material/Dialog';
@@ -15,7 +15,7 @@ import "./AllergensDialog.css";
 const AllergensDialog = ({ product }) => {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = useState(false);
-    const [allergens, setAllergen] = useState([]);
+    const [allergens, setAllergen] = useState(product.allergens);
 
 
     return (
@@ -35,15 +35,11 @@ const AllergensDialog = ({ product }) => {
                     {t('produits.allergenes')}
                 </DialogTitle>
                 <DialogContent>
-                        <ul>
-                            {product.allergens.forEach(element => {
-                                 <li> {element} </li>
-                            })
-                            // ;(allergene => (
-                            //     <li key={allergene.id}> {allergene.name} </li>
-                            // ))
-                            }
-                        </ul>
+                    <ul>
+                        {allergens.map(element => {
+                            return <li key={element}> {element} </li>
+                        })}
+                    </ul>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setOpenDialog(false)}>ok</Button>
