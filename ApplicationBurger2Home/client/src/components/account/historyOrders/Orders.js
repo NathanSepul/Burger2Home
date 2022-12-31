@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 
 import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
-import Loding from "../../loding/Loding.js"
+import Loading from "../../loading/Loading.js"
 import Row from "./Row.js";
 import "./Orders.css";
 
@@ -49,7 +49,7 @@ const Orders = () => {
     }
 
     if (isLoading) {
-        return <Loding />;
+        return <Loading />;
     }
 
     return (

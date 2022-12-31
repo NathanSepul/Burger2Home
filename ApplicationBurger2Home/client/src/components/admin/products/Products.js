@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import Loding from "../../loding/Loding.js"
+import Loading from "../../loading/Loading.js"
 import TabProducts from "./tabproduct/TabProducts.js";
 import axios from 'axios';
 
@@ -53,7 +53,7 @@ const Products = () => {
             <div className="productContent">
 
                 <div className="productList">
-                    {isLoading ? <Loding /> : <TabProducts products={products} setProductSelected={setProductSelected} />}
+                    {isLoading ? <Loading /> : <TabProducts products={products} setProductSelected={setProductSelected} />}
                 </div>
 
                 <div className="productForm">

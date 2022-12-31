@@ -14,7 +14,7 @@ import { useSelector} from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 
-import Loding from "../../loding/Loding.js"
+import Loading from "../../loading/Loading.js"
 import ModalChangePassword from '../../password/ModalChangePassword.js';
 import LogoutWithGoogle from "../../login/service/LogoutWithGoogle.js"
 import "./Informations.css";
@@ -80,7 +80,7 @@ const Informations = () => {
     }
 
     if (isLoading) {
-        return <Loding />;
+        return <Loading />;
     }
 
 

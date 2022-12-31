@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import ProductList from "../productInformation/ProductList.js";
-import Loding from "../../loding/Loding.js"
+import Loading from "../../loading/Loading.js"
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -43,7 +43,7 @@ const Burger = () => {
     }
 
     if (isLoading) {
-        return <Loding />;
+        return <Loading />;
     }
 
     else {

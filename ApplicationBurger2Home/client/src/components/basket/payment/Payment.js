@@ -5,7 +5,7 @@ import {
   CardElement,
 } from "@stripe/react-stripe-js"
 import PaymentForm from "./PaymentForm.js"
-import Loding from "../../loding/Loding.js"
+import Loading from "../../loading/Loading.js"
 import axios from "axios";
 
 
@@ -47,7 +47,7 @@ const Payment = ({ order }) => {
       <Elements stripe={stripePromise}>
         <PaymentForm order={order} />
       </Elements>
-      {/* ) : (<Loding />)} */}
+      {/* ) : (<Loading />)} */}
     </>
   );
 }

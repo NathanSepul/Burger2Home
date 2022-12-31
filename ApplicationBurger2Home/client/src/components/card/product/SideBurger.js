@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import ProductList from "../productInformation/ProductList.js";
-import Loding from "../../loding/Loding.js";
+import Loading from "../../loading/Loading.js";
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import "./Product.css";
@@ -36,7 +36,7 @@ const SideBurger = () => {
     }
 
     if (isLoading) {
-        return <Loding />;
+        return <Loading />;
     }
 
     else {

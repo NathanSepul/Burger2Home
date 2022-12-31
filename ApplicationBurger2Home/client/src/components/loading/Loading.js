@@ -1,9 +1,9 @@
 import React from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import "./Loding.css"
+import "./Loading.css"
 
-const Loding = () => {
+const Loading = () => {
     return (
         <Box className="loader" sx={{ display: 'flex', justifyContent:"center",   minHeight: "calc(100vh - 300px)"}}>
             <CircularProgress className="loaderIcon"/>
@@ -11,4 +11,4 @@ const Loding = () => {
     );
 }
 
-export default Loding
+export default Loading
