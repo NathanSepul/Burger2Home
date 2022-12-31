@@ -25,9 +25,10 @@ const Products = () => {
     useEffect(() => {
         // setIsLoading(true);
         axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=${famillyId}`)
-            .then((data) => {
+            .then((res) => {
                 setIsLoading(false);
-                setProducts(data.data);
+                let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
+                setProducts(temp);
                 setReloadList(false)
             })
             .catch((e) => {

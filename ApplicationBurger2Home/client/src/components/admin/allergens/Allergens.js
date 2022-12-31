@@ -23,9 +23,10 @@ const Allergens = () =>{
     useEffect(() => {
         setIsLoading(true);
         axios.get(`/allergens/translations?language=${languageRedux.value}`)
-            .then((data) => {
+            .then((res) => {
                 setIsLoading(false);
-                setAllergens(data.data);
+                let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
+                setAllergens(temp);
                 setReloadList(false)
             })
             .catch(() => {

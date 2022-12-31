@@ -177,7 +177,7 @@ const FormIngredient = ({ IS, setIS, setReloadList }) => {
                 })
                 .then(res => {
                     setReloadList(true)
-                    openSnack.msg = "l'ingrédient est ajouté";
+                    openSnack.msg = "l'ingrédient est modifié";
                     openSnack.severity = "info";
                     dispatch(open(openSnack))
                 })

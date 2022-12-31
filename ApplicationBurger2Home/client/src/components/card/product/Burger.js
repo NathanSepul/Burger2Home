@@ -26,9 +26,10 @@ const Burger = () => {
 
     useEffect(() => {
         axios.get(`/products/summaries?language=${languageRedux.value}&mustBeOnMenu=true&availableProductsOnly=false&productFamily=1`)
-            .then((response) => {
+            .then((res) => {
                 setIsLoading(false);
-                setBurgers(response.data);
+                let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
+                setBurgers(temp);
             })
             .catch(() => {
                 setHasError(true);

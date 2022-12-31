@@ -22,9 +22,10 @@ const Ingredients = () =>{
     useEffect(() => {
         setIsLoading(true);
         axios.get(`/ingredients/translations?language=${languageRedux.value}`)
-            .then((data) => {
+            .then((res) => {
                 setIsLoading(false);
-                setIngredients(data.data);
+                let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
+                setIngredients(temp);
                 setReloadList(false)
             })
             .catch((e) => {

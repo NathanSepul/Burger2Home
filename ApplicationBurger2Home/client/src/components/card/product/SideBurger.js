@@ -19,9 +19,10 @@ const SideBurger = () => {
 
     useEffect(() => {
         axios.get(`/products/summaries?language=${languageRedux.value}&mustBeOnMenu=true&availableProductsOnly=false&productFamily=2`)
-            .then((response) => {
+            .then((res) => {
                 setIsLoading(false);
-                setSides(response.data);
+                let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
+                setSides(temp);
             })
             .catch(() => {
                 setHasError(true);
