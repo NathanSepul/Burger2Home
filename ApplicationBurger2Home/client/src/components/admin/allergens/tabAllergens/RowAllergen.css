@@ -1,4 +1,4 @@
-.itemProduct{
+/* .itemProduct{
     display: flex;
     flex-direction: row;
 }
@@ -17,7 +17,6 @@
     background-color: #D68910;
     padding: 5px;
     max-width: 150px !important;
-    /* text-align: center; */
 }
 
 .addButtonBasket input{
@@ -26,7 +25,6 @@
     text-align: center;
     border-radius: 3px;
     width: 40px !important;
-    /* min-width: 0px; */
  }
 
  .interligne{  
@@ -35,4 +33,4 @@
 
  .buttonTab{
     cursor: pointer;
- }
+ } */

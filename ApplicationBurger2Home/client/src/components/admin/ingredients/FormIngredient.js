@@ -65,6 +65,8 @@ const FormIngredient = ({ IS, setIS, setReloadList }) => {
 
     }, [IS.id])
 
+ 
+
     const cancel = () => {
         setIS({ id: null })
         setIngredientFr(initialStateFr)
@@ -146,8 +148,21 @@ const FormIngredient = ({ IS, setIS, setReloadList }) => {
                 .then(res => {
                     let tradTemp = ingredientFr;
                     tradTemp.id = res.data.id;
-                    setIngredientFr(tradTemp)
-                    const stocInitial = { id: null, ingredientId: ingredientSelected.id, amount: 0 }
+
+
+                    const date = new Date
+                    const year = date.getFullYear();
+                    const month = `0${date.getMonth() + 1}`.slice(-2);
+                    const day = `0${date.getDate()}`.slice(-2);
+                    const hours = `0${date.getHours()}`.slice(-2);
+                    const minutes = `0${date.getMinutes()}`.slice(-2);
+                    const seconds = `0${date.getSeconds()}`.slice(-2);
+
+                    const strDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+
+                    setIngredientFr(tradTemp);
+
+                    const stocInitial = { id: null, ingredientId: ingredientSelected.id, amount: 0, creationDate:strDate}
                     return axios.post(`/stocks`, stocInitial);
 
                 })

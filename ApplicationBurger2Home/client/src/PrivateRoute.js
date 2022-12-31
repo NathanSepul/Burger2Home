@@ -14,10 +14,7 @@ import { open } from './redux/snackBarSlice.js';
 
 export const PrivateRouteCompte = () => {
     const user = useSelector(state => state.user)
-    const openSnack = { msg: "La page que vous essayé de joindre n'existe pas", severity: "warning" }
-    const dispatch = useDispatch()
-    dispatch(open(openSnack))
-
+    
     return (
         user.isConnected ? <Outlet /> : <Connection />
     );

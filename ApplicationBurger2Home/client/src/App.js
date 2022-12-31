@@ -12,6 +12,7 @@ import Basket from "./components/basket/Basket.js";
 import Products from "./components/admin/products/Products.js";
 import Ingredients from "./components/admin/ingredients/Ingredients.js";
 import Allergens from "./components/admin/allergens/Allergens";
+import Stocks from "./components/stocks/Stocks.js";
 
 import NoPage from './components/NoPage.js';
 
@@ -73,11 +74,10 @@ useEffect(()=>{
           </Route>
 
           <Route element ={<PrivateRouteEmploye/>}>
-            <Route path="admin/stock" element={<NoPage />} />
+            <Route path="admin/stock" element={<Stocks />} />
           </Route>
 
           <Route element={<PrivateRouteAdmin />}>
-            <Route path="admin/stocks" element={<NoPage />} />
             <Route path="admin/role" element={<NoPage />} />
             <Route path="admin/products" element={<Products />} />
             <Route path="admin/ingredients" element={<Ingredients />} />

@@ -5,7 +5,6 @@ import TabAllergen from "./tabAllergens/TabAllergen.js";
 import FormAllergens from "./FormAllergens.js";
 import { useTranslation } from 'react-i18next';
 
-// import "./Ingredients.css"
 
 const Allergens = () =>{
 

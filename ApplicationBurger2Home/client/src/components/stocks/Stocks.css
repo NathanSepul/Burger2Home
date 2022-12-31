@@ -1,0 +1,32 @@
+.StockAdmin{
+    margin: 0;
+    padding-bottom:10px
+}
+
+.stocksContente{
+    width: 60vw;
+    margin: 0 auto;
+   
+}
+
+
+
+
+.stockTab th{
+    text-decoration: underline;
+    font-size: medium;
+    font-weight:500;
+}
+
+.stockTab{
+    padding: 10px 100px;
+}
+@media screen and (max-width: 970px){
+    .stockTab{
+        padding: initial
+    }
+    .stocksContente{
+        width: 90vw;
+    }
+}
+
