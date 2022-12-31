@@ -145,7 +145,7 @@
         "tab":{
             "nom":"Name",
             "description":"Description",
-            "prixActuelle":"Current Price",
+            "prix":"Price",
             "status":"Status",
             "label1":"products per page"
         }

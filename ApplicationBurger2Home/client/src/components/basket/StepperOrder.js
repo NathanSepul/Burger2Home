@@ -119,7 +119,7 @@ const StepperOrder = ({ basket, isConnected }) => {
           {activeStep === steps.length - 1 && (
 
             <div className="payment">
-              <Payement />
+              {/* <Payement order={order}/> */}
             </div>
           )}
 

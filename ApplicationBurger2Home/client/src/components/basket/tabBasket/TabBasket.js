@@ -13,14 +13,14 @@ import RowBasket from "./RowBasket.js";
 import "./TabBasket.css"
 
 const TabBasket = ({ basket, isConnected }) => {
-    const [listAmount, setListAmount] = useState([]);
+    const [listAmount, setListAmount] = useState({tabVa:[],use:0, totalAmount:0});
 
     const [totalAmount, setTotalAmount] = useState(0);
     const { t } = useTranslation();
 
 
     useEffect(() => {
-        const temp = listAmount.map((el) =>
+        const temp = listAmount.tabVa.map((el) =>
             el.qt * Math.round(el.price*100)/100
         );
 
@@ -29,10 +29,8 @@ const TabBasket = ({ basket, isConnected }) => {
             (accumulator, currentValue) => Math.round(( accumulator + currentValue)*100)/100, 0
         ));
 
-        console.log("on m'appel ?")
-        console.log(listAmount);
-
-    }, [listAmount])
+console.log(listAmount);
+    }, [listAmount.use])
 
     return (
         <div className="contentBasket">

@@ -15,7 +15,6 @@ const Ingredients = () =>{
     const [reloadList,setReloadList] = useState(false)
     
     // eslint-disable-next-line
-    const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     const languageRedux = useSelector(state => state.language);
@@ -28,8 +27,8 @@ const Ingredients = () =>{
                 setIngredients(data.data);
                 setReloadList(false)
             })
-            .catch(() => {
-                setHasError(true);
+            .catch((e) => {
+                console.log(e)
             })
     }, [languageRedux.value, reloadList])
 

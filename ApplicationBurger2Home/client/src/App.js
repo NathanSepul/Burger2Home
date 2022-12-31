@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/home/Home.js";
@@ -24,12 +24,13 @@ import { PrivateRouteCompte, PrivateRouteConnection, PrivateRouteInscription, Pr
 
 const App = () => {
 
-  const userConnected = useSelector(state => state.user.isConnected)
+  const user = useSelector(state => state.user)
   const dispatch = useDispatch();
 
-  const id = 4
-  if (userConnected) {
-    axios.get(`/users/${id}/basket`)
+
+useEffect(()=>{
+  if (user.isConnected) {
+    axios.get(`/users/${user.id}/basket`)
       .then((res) => {
         const basketInformation = { basket:null,size:0}
         basketInformation.basket = res.data;
@@ -39,7 +40,7 @@ const App = () => {
       })
       .catch(e => console.log(e))
   }
-
+},[]) 
 
   return (
     <BrowserRouter>

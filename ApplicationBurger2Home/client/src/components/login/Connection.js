@@ -46,7 +46,7 @@ const Connection = () => {
             openSnack.msg = "Tentative de connexion en cours";
             openSnack.severity = "info";
             dispatch(open(openSnack));
-const id = 4
+const id = 1
             axios.get(`/users/${id}`)
                 .then((res) => {
                     console.log(res);
@@ -64,7 +64,7 @@ const id = 4
                     openSnack.severity = "success";
                     dispatch(open(openSnack));
 
-                    return axios.get(`/users/${id}/basket`)
+                    return axios.get(`/users/${res.data.id}/basket`)
                 })
                 .then((res)=>{
                     basketInformation.basket = res.data;

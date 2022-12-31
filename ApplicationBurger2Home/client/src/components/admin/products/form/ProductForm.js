@@ -12,20 +12,21 @@ import axios from 'axios';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Buffer } from "buffer";
 import { useTranslation } from 'react-i18next';
+import { open } from '../../../../redux/snackBarSlice.js';
 
 import IngredientsTransfert from "./IngredientsTransfert.js";
 import "./ProductForm.css"
 
 
-const ProductForm = ({ ps, setPS, setReloadList}) => {
+const ProductForm = ({ ps, setPS, setReloadList }) => {
     const initialStatePS = { id: null, imageName: null, ingredients: [], productFamilies: [], onMenu: false };
     const initialStateFr = { id: null, description: "", name: "", language: { id: 2 }, productId: "" };
     const initialStateEn = { id: null, description: "", name: "", language: { id: 1 }, productId: "" };
     const initialStatePrice = { amount: "" }
-    const initialStateImg = {img:null, toLoad:false}
+    const initialStateImg = { img: null, toLoad: false }
 
     const [productSelected, setProductSelected] = useState(initialStatePS);
     const [productEn, setProductEn] = useState(initialStateEn);
@@ -37,43 +38,35 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
 
     const fileInput = useRef(null);
 
-
     const [isLoading, setIsLoading] = useState(true);
 
-    const [errorNameFr, setErrorNameFr] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
-    const [errorNameEn, setErrorNameEn] = useState({ onError: false, msg: 'Le champ ne peut être vide' });
-    const [errorPath, setErrorPath] = useState({ onError: false, msg: 'Il faut une image' });
-    const [errorCheckBox, setErrorCheckBox] = useState({ onError: false, msg: 'Il faut choisir une case' })
-    const [errorPrice, setErrorPrice] = useState({ onError: false, msg: 'La valeur ne respecte pas les critères' });
-    const [errroIngredients, setErrorIngredients] = useState({ onError: false, msg: 'Il faut au moins un ingrédient' });
-
     const languageRedux = useSelector(state => state.language)
+    const dispatch = useDispatch();
+    const openSnack = { msg: "", severity: "" }
+
     const { t } = useTranslation();
 
     useEffect(() => {
         axios.get(`/products/families/translations?language=${languageRedux.value}`)
-            .then( res =>{
-                    setFamillyList(res)
-                    setIsLoading(false)
+            .then(res => {
+                setFamillyList(res)
+                setIsLoading(false)
             })
             .catch(e => {
                 console.error(e);
             });
 
     }, [languageRedux])
-   
-    
+
+
 
     useEffect(() => {
-       cancel()
-      
+        cancel()
         if (ps.id !== null) {
-            
             const requestOne = axios.get(`/products/${ps.id}`);
             const requestThree = axios.get(`/products/${ps.id}/translations`);
             const requestFour = axios.get(`/products/${ps.id}/prices/current`);
             const requestFive = axios.get(`/products/${ps.id}/image`, { responseType: 'arraybuffer' });
-
 
             axios.all([requestOne, requestThree, requestFour, requestFive])
                 .then(
@@ -99,8 +92,8 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
 
                         const imageBuffer = Buffer.from(responses[3].data, 'binary');
                         const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
-                       
-                        setProductImg({img:imageString, toLoad:false})
+
+                        setProductImg({ img: imageString, toLoad: false })
 
                     })
                 )
@@ -108,7 +101,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     console.error(e);
                 });
         }
-// eslint-disable-next-line
+        // eslint-disable-next-line
     }, [ps.id])
 
 
@@ -121,46 +114,27 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
         setProductImg(initialStateImg);
         setIngredientList([])
 
-        setErrorNameFr({ ...errorNameFr, onError: false });
-        setErrorNameEn({ ...errorNameEn, onError: false });
-        setErrorPath({ ...errorPath, onError: false });
-        setErrorCheckBox({ ...errorCheckBox, onError: false });
-        setErrorPrice({ ...errorPrice, onError: false });
         fileInput.current.value = null;
     }
 
-    const changePrice = event => {
-        if (!/^\d+(\.\d{1,2})?$/.test(event.target.value)) {
-            setErrorPrice({ onError: true, msg: "La valeur entrée n'est pas reconnue" });
+
+    const firstToCapitalLetter = (lg, field, e) => {
+
+        const firstLetter = e.target.value.charAt(0).toUpperCase();
+        const restOfString = e.target.value.slice(1);
+        const capitalizedString = firstLetter + restOfString;
+
+        if (lg === "fr" && field === "name") {
+            setProductFr({ ...productFr, name: capitalizedString })
+        }
+        else if (lg === "en" && field === "name") {
+            setProductEn({ ...productEn, name: capitalizedString })
+        }
+        else if (lg === "fr" && field === "desc") {
+            setProductFr({ ...productFr, description: capitalizedString })
         }
         else {
-            setErrorPrice({ ...errorPrice, onError: false });
-        }
-
-        setProductPrice({ ...productPrice, amount: event.target.value })
-
-    }
-
-    const changeName = (lg, e) => {
-
-        if (e.target.value.replace(/\s+/g, '') !== "") {
-            lg === "fr" ? setErrorNameFr({ onError: false, msg: "" }) : setErrorNameEn({ onError: false, msg: "" })
-        }
-
-        if (lg === "fr") {
-            setProductFr({ ...productFr, name: e.target.value })
-        }
-        else {
-            setProductEn({ ...productEn, name: e.target.value })
-        }
-    }
-
-    const changeDescription = (lg, e) => {
-        if (lg === "fr") {
-            setProductFr({ ...productFr, description: e.target.value })
-        }
-        else {
-            setProductEn({ ...productEn, description: e.target.value })
+            setProductEn({ ...productEn, description: capitalizedString })
         }
     }
 
@@ -170,13 +144,11 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-            setProductImg({img :reader.result, toLoad:true})
-
+            setProductImg({ img: reader.result, toLoad: true })
         };
 
         if (file !== undefined) {
             reader.readAsDataURL(file);
-            setErrorPath({ onError: false, msg: "" })
         }
         else {
             setProductImg(initialStateImg)
@@ -196,11 +168,9 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
         }
         return isFound;
     }
-    
-    const handleChangeCheck = (event, famillyId) => {
-        setErrorCheckBox({ onError: false, msg: "" })
-        setProductSelected({ ...productSelected, productFamilies: [{ id: famillyId }] })
 
+    const handleChangeCheck = (event, famillyId) => {
+        setProductSelected({ ...productSelected, productFamilies: [{ id: famillyId }] })
     }
 
     const handleChangeOnMenu = e => {
@@ -210,54 +180,39 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
     const formIsOK = () => {
 
         let isOK = true;
-
-        if (productEn.name.replace(/\s+/g, '') === "") {
-            setErrorNameEn({ ...errorNameEn, onError: true })
-            isOK = false
-        }
-
-        if (productFr.name.replace(/\s+/g, '') === "") {
-            setErrorNameFr({ ...errorNameFr, onError: true })
-            isOK = false
-        }
+        let msgImg = "";
+        let msgFam = ""
 
         if (productImg.img === null && productImg.toLoad === false) {
-            setErrorPath({ ...errorPath, onError: true })
+            msgImg = "Veuillez selectionnr une image"
             isOK = false
-        }
-
-        if (errorPrice.onError || productPrice.amount.toString().replace(/\s+/g, '') === "") {
-            setErrorPrice({ ...errorPrice, onError: true })
-            isOK = false
-        }
-
-        if (ingredientList.length === 0) {
-            setErrorIngredients({ ...errroIngredients, onError: true })
-            isOK = false
-        }
-        else{
-            
-            const temp = productSelected;
-            temp.ingredients = ingredientList
-            setProductSelected(temp)
-            setErrorIngredients({ ...errroIngredients, onError: false })
         }
 
         if (productSelected.productFamilies.length === 0) {
-            setErrorCheckBox({ ...errorCheckBox, onError: true })
+            msgFam = "Veuillez selectionnr une famille"
+
             isOK = false
         }
 
+        const temp = productSelected;
+        temp.ingredients = ingredientList
+        setProductSelected(temp)
+
+        openSnack.msg = <>  
+                            <p>{msgImg}</p> 
+                            <p>{msgFam}</p>
+                        </>
         return isOK;
     }
 
     const validationForm = async e => {
         if (!formIsOK()) {
+            openSnack.severity = "warning";
+            dispatch(open(openSnack))
             e.preventDefault();
         }
         else {
 
-            console.log(productSelected)
             if (productSelected.id === null) {
                 axios.post(`/products`, productSelected)
                     .then(res => {
@@ -304,7 +259,8 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                         });
                     })
 
-                    .then(res =>{
+                    .then(res => {
+                        console.log("hhhhhh")
                         setReloadList(true)
                     })
 
@@ -338,7 +294,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     })
 
                     .then(res => {
-                        if(productImg.toLoad){
+                        if (productImg.toLoad) {
                             const file = fileInput.current.files[0];
                             const formData = new FormData();
                             formData.append('image', file);
@@ -350,7 +306,8 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                         }
                     })
 
-                    .then(res =>{
+                    .then(res => {
+                        console.log("up")
                         setReloadList(true)
                     })
 
@@ -372,6 +329,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
     return (
         <Box
             component='form'
+            onSubmit={validationForm}
             sx={{
                 '& > :not(style)': { m: "auto", width: "100%" },
             }}
@@ -379,12 +337,10 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
             <div className="Name">
                 <TextField label="Name"
                     required
-                    error={errorNameEn.onError}
-                    helperText={errorInput(errorNameEn)}
                     className="inputName"
                     variant="outlined"
                     value={productEn.name}
-                    onChange={e => changeName("en", e)}
+                    onChange={e => firstToCapitalLetter("en", "name", e)}
                     inputProps={{ maxLength: 100 }}
                     InputProps={{
                         endAdornment: (
@@ -396,12 +352,10 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
 
                 <TextField label="Nom"
                     required
-                    error={errorNameFr.onError}
-                    helperText={errorInput(errorNameFr)}
                     className="inputName"
                     variant="outlined"
                     value={productFr.name}
-                    onChange={e => changeName("fr", e)}
+                    onChange={e => firstToCapitalLetter("fr", "name", e)}
                     inputProps={{ maxLength: 100 }}
                     InputProps={{
                         endAdornment: (
@@ -418,7 +372,7 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     className="inputDescriptionEn"
                     variant="outlined"
                     value={productEn.description}
-                    onChange={e => changeDescription("en", e)}
+                    onChange={e => firstToCapitalLetter("en", "desc", e)}
                     multiline
                     maxRows={4}
                 />
@@ -428,50 +382,51 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                     className="inputDescriptionFr"
                     variant="outlined"
                     value={productFr.description}
-                    onChange={e => changeDescription("fr", e)}
+                    onChange={e => firstToCapitalLetter("fr", "desc", e)}
                     multiline
                     maxRows={4}
                 />
             </div>
+
             <div className="Img">
-                <img className="imgForm" src={productImg.img} alt={productSelected.imageName} />
-                <input type="file" ref={fileInput} accept="image/jpeg" onChange={changeImg}/>
+                {productImg.img === null && productImg.toLoad === false ?
+                    <img className="imgForm"  />
+
+                    :
+                    <img className="imgForm" src={productImg.img} alt={productSelected.imageName} />
+                }
+                <input type="file" ref={fileInput} accept="image/jpeg" onChange={changeImg} />
             </div>
 
 
 
-            <div className="bottomForm">
-                <FormControlLabel label={productSelected.onMenu ? t('gestionProduit.form.disponible') : t('gestionProduit.form.indisponible')}
-                    control={<Switch checked={productSelected.onMenu}
-                        onChange={handleChangeOnMenu}
-                    />} />
-                <div className="inputPrice">
-                    <OutlinedInput
-                        className="price"
-                        error={errorPrice.onError}
-                        value={productPrice.amount}
-                        onChange={changePrice}
-                        onBlur={changePrice}
-                        endAdornment={"€"}
-                    />
+            <div className="PriceAndSwitch">
+                <FormControlLabel
+                    label={productSelected.onMenu ? t('gestionProduit.form.disponible') : t('gestionProduit.form.indisponible')}
+                    control={<Switch checked={productSelected.onMenu} onChange={handleChangeOnMenu} />}
+                />
 
-                    {errorPrice.onError && (
-                        <div>
-                            <FormHelperText sx={{ color: "rgb(210,48,47)" }}>{errorPrice.msg}</FormHelperText>
-                        </div>
-                    )}
-                </div>
+                <TextField label="Prix"
+                    required
+                    placeholder='ex: 2.1'
+                    className="price"
+                    value={productPrice.amount || ''}
+                    onChange={e => setProductPrice({ ...productPrice, amount: e.target.value })}
+                    inputProps={{ inputMode: 'decimal', pattern: '^\\d+(\\.\\d{1,2})?$' }}
 
-
+                    InputProps={{
+                        endAdornment: (<InputAdornment position="end" > € </InputAdornment>),
+                    }} />
             </div>
+
+
 
             <div className="FamillyCheckBox">
-                    <FormLabel sx={{color:"black"}} className="titreCheck">{t('gestionProduit.form.famille')}</FormLabel>
+                <FormLabel sx={{ color: "black" }} className="titreCheck">{t('gestionProduit.form.famille')}</FormLabel>
 
                 {(!isLoading) && (
                     <FormControl
                         required
-                        error={errorCheckBox.onError}
                         component="fieldset"
                     >
                         <FormGroup row className="checkBoxGroupFam">
@@ -484,19 +439,17 @@ const ProductForm = ({ ps, setPS, setReloadList}) => {
                         </FormGroup>
                     </FormControl>
                 )}
-                {errorCheckBox.onError && (
-                    <FormHelperText sx={{ color: "rgb(210,48,47)", textAlign:"center" }}>{errorCheckBox.msg}</FormHelperText>
-                )}
+
             </div>
 
             <div className="ingredientTransfertList">
                 <label className="ingredientTitle">{t('gestionProduit.form.ingredient')}</label>
-                <IngredientsTransfert ps={productSelected} setIngredientList={setIngredientList}/>
+                <IngredientsTransfert ps={productSelected} setIngredientList={setIngredientList} />
             </div>
 
-            <div className="buttonFormProduct">
-                <Button variant="contained" type="" onClick={validationForm}>
-                    {productSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
+            <div className="bottomForm">
+                <Button variant="contained" type="submit">
+                    {productSelected.id === null ? t('admin.ajouter') : t('admin.modifier')}
                 </Button>
                 <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')} </Button>
             </div>

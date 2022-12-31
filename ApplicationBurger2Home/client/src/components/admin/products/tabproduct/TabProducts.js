@@ -36,8 +36,7 @@ const TabProducts = ({ products, setProductSelected }) => {
                         <TableRow>
                             <TableCell component="th" scope="row" align="left" ></TableCell>
                             <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.nom')}</TableCell>
-                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.description')}</TableCell>
-                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.prixActuelle')}</TableCell>
+                            <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.prix')}</TableCell>
                             <TableCell component="th" scope="row" align="left" >{t('gestionProduit.tab.status')}</TableCell>
                         </TableRow>
                     </TableHead>

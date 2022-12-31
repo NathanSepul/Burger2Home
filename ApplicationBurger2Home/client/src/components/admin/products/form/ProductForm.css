@@ -30,10 +30,9 @@
     width: 100%;
 }
 
-.inputPrice{
-    text-align: right;
-}
+
 .price{
+    text-align: right;
     width: 30% !important;
     min-width: 100px !important;
     max-width: 100px !important;
@@ -49,19 +48,23 @@
 .checkBoxGroupFam{
     width: 100%;
     justify-content: center;
+    margin-bottom: 20px;
 }
-.buttonFormProduct{
+.PriceAndSwitch{
     padding-top: 20px;
     display: flex;
     flex-direction: row;
     gap:20px;
-    justify-content: right;
+    justify-content:space-between;
+    padding-bottom: 20px;
 }
 
 .bottomForm{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: right;
+    gap:20px;
     margin-bottom: 20px !important;
-}
+    margin-top: 20px !important;
 
+}

@@ -172,7 +172,7 @@ const IngredientsTransfert = ({ ps, setIngredientList }) => {
         <>
             {(!isLoading) && (
 
-                <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{mt:"1px"}}>
+                <Grid container spacing={2} justifyContent="center" alignItems="center" sx={{mt:"1px"}} className="ingredientTransfert">
                     <Grid item>{customList(outside, t('gestionProduit.form.exclus'))}</Grid>
 
                     <Grid item>

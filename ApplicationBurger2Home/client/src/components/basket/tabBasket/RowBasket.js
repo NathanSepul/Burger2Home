@@ -36,15 +36,15 @@ const RowBasket = ({ basketLine, indexBl, isConnected, listAmount, setListAmount
         setProduct(res.data)
 
         let tempList = listAmount;
-        let index = tempList.findIndex((el) => el.idBL === basketLine.id)
+        let index = tempList.tabVa.findIndex((el) => el.idBL === basketLine.id)
         
         if(index === -1){
-          tempList.push({price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id })
+          tempList.tabVa.push({price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id })
         }
         else{
-          tempList[index] = {price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id }
+          tempList.tabVa[index] = {price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id }
         }
-
+        tempList.use = tempList.use + 1
         setListAmount(tempList)
 
         return axios.get(`/products/${basketLine.productId}/image`, { responseType: 'arraybuffer' })
@@ -66,13 +66,15 @@ const RowBasket = ({ basketLine, indexBl, isConnected, listAmount, setListAmount
       
       let tempList = listAmount;
       
-      let index = tempList.findIndex((el) => el.idBL === basketLine.id)
+      let index = tempList.tabVa.findIndex((el) => el.idBL === basketLine.id)
+     
       if(index === -1){
-        tempList.push({ price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id })
+        tempList.tabVa.push({ price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id })
       }
       else{
-        tempList[index] = {price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id }
+        tempList.tabVa[index] = {price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id }
       }
+      tempList.use = tempList.use + 1
     
       setListAmount(tempList)
     }

@@ -16,7 +16,6 @@ const Products = () => {
     const [reloadList, setReloadList] = useState(false);
 
     // eslint-disable-next-line
-    const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     const [famillyId, setFamillyId] = useState("");
@@ -31,8 +30,8 @@ const Products = () => {
                 setProducts(data.data);
                 setReloadList(false)
             })
-            .catch(() => {
-                setHasError(true);
+            .catch((e) => {
+                console.log(e)
                 setReloadList(false)
 
             })

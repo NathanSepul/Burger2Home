@@ -34,15 +34,15 @@ const Allergens = () =>{
     }, [languageRedux.value,reloadList])
 
     return (
-        <main className='IngredientAdmin'>
+        <main className='allergenAdmin'>
             <title>Burger2Home | {t('navigation.allergenes')}</title>
             <div className="title"><h1>{t('gestionAllergenes.titre')}</h1></div>
 
-            <div className="ingredientContent">
-                <div className="ingredientList">
+            <div className="allergenContent">
+                <div className="allergentList">
                     <TabAllergen allergens={allergens} setAllergenSelected={setAllergenSelected}/>
                 </div>
-                <div className="ingredientForm">
+                <div className="allergentForm">
                     <FormAllergens AS={allergenSelected} setAS={setAllergenSelected} setReloadList={setReloadList}/>
                 </div>
             </div>

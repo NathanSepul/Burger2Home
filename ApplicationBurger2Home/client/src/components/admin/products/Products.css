@@ -4,28 +4,36 @@
 }
 
 .productList{
-    width: 55%;
+    width: calc(45vw - 5px);
 }
 
 .productContent{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap:10px;
-    padding:20px
+    padding:10px
 }
 
 .productForm{
-    width: 45%;
+    width: calc(50vw - 5px);
 }
 
 
 /* ecran inf à 767px*/
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1000px){
     .productList{
         width: 90%;
         margin-right: auto;
         margin-left: auto;
     }
+
+    .productForm{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
     
     .productContent{
         display: flex;

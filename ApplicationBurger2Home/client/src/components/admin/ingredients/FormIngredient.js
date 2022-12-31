@@ -13,9 +13,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import { useTranslation } from 'react-i18next';
 
-const FormIngredient = ({IS, setIS, setReloadList}) => {
+const FormIngredient = ({ IS, setIS, setReloadList }) => {
 
-    const initialState = { id: null, allergens:[]};
+    const initialState = { id: null, allergens: [] };
     const initialStateEn = { id: null, name: "", allergenId: null, language: { id: 1 } };
     const initialStateFr = { id: null, name: "", allergenId: null, language: { id: 2 } };
 
@@ -25,7 +25,6 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
     const [allergens, setAllergens] = useState([]);
 
     // eslint-disable-next-line
-    const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     const languageRedux = useSelector(state => state.language)
@@ -34,44 +33,45 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
 
     const dispatch = useDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsLoading(true)
         axios.get(`/allergens/translations?language=${languageRedux.value}`)
-        .then(res =>{
-            setAllergens(res)
-            setIsLoading(false);
-        })
-        .catch(() => {
-            setHasError(true);
-        })
+            .then(res => {
+                setAllergens(res)
+                setIsLoading(false);
+            })
+            .catch((e) => {
+                console.log(e)
+            })
 
-    },[languageRedux.value])
+    }, [languageRedux.value])
 
     useEffect(() => {
         if (IS.id !== null) {
             const requestOne = axios.get(`/ingredients/${IS.id}/translations`);
-            const requestTwo  = axios.get(`/ingredients/${IS.id}`);
-            axios.all([requestOne,requestTwo])
-                .then(axios.spread((...responses)  => {
+            const requestTwo = axios.get(`/ingredients/${IS.id}`);
+            axios.all([requestOne, requestTwo])
+                .then(axios.spread((...responses) => {
 
-                    setIngredientEn({id: responses[0].data[0].id,name: responses[0].data[0].name,ingredientId:responses[0].data[0].ingredientId, language: { id: 1 } });
-                    setIngredientFr({id: responses[0].data[1].id,name: responses[0].data[1].name,ingredientId:responses[0].data[1].ingredientId, language: { id: 2 } });
-                    setIngredientSelected({id :responses[1].data.id,allergens:responses[1].data.allergens});
-                    })
+                    setIngredientEn({ id: responses[0].data[0].id, name: responses[0].data[0].name, ingredientId: responses[0].data[0].ingredientId, language: { id: 1 } });
+                    setIngredientFr({ id: responses[0].data[1].id, name: responses[0].data[1].name, ingredientId: responses[0].data[1].ingredientId, language: { id: 2 } });
+                    setIngredientSelected({ id: responses[1].data.id, allergens: responses[1].data.allergens });
+                })
                 )
-                .catch(() => {
-                    setHasError(true);
+                .catch((e) => {
+                    console.log(e)
                 })
         }
 
     }, [IS.id])
 
-    const cancel = () =>{
-        setIS({id:null})
+    const cancel = () => {
+        setIS({ id: null })
         setIngredientFr(initialStateFr)
         setIngredientEn(initialStateEn)
         setIngredientSelected(initialState)
     }
+
 
     const isCheckedAllergen = (id) => {
         let isFound = false;
@@ -90,103 +90,84 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
     const handleChangeCheck = (event, allergeneId) => {
 
         let temp = ingredientSelected.allergens;
-       
+
         if (event.target.checked === true) {
-            temp.push({id:allergeneId});
+            temp.push({ id: allergeneId });
         }
         else {
             const index = temp.indexOf(allergeneId);
             temp.splice(index, 1);
         }
 
-        setIngredientSelected({...ingredientSelected,allergens:temp});
-      
+        setIngredientSelected({ ...ingredientSelected, allergens: temp });
+
     }
 
-    const changeName = (lg, e) => {
+    const firstToCapitalLetter = (lg, e) => {
 
         const firstLetter = e.target.value.charAt(0).toUpperCase();
         const restOfString = e.target.value.slice(1);
         const capitalizedString = firstLetter + restOfString;
 
         if (lg === "fr") {
-            
+
             setIngredientFr({ ...ingredientFr, name: capitalizedString })
         }
         else {
-            setIngredientEn({ ...ingredientEn, name:capitalizedString })
+            setIngredientEn({ ...ingredientEn, name: capitalizedString })
         }
-    }
-
-    const isOKForm = () =>{
-        let isOK = true;
-
-        if(ingredientEn.name.replace(/\s+/g, '') === "" || ingredientFr.name.replace(/\s+/g, '') === ""){
-            isOK = false
-        }
-
-        if(ingredientSelected.allergens.length === 0 ){
-            isOK = false
-        }
-
-        return isOK;
     }
 
     const validationForm = async e => {
-        if (!isOKForm()) {
-            openSnack.msg = "Le formulaires n'est pas completé correctement";
-            openSnack.severity = "error";
-            dispatch(open(openSnack))
+
+        if (ingredientSelected.id === null) {
+            axios.post(`/ingredients`, ingredientSelected)
+                .then(res => {
+                    let temp = ingredientSelected;
+                    temp.id = res.data.id;
+                    setIngredientSelected(temp);
+
+                    let tempLg = ingredientEn;
+                    tempLg.ingredientId = ingredientSelected.id;
+                    setIngredientEn(tempLg);
+                    return axios.post(`/ingredients/translations`, ingredientEn);
+                })
+
+                .then(res => {
+                    let tempLg = ingredientFr;
+                    tempLg.ingredientId = ingredientSelected.id;
+                    setIngredientFr(tempLg);
+
+                    let tradTemp = ingredientEn;
+                    tradTemp.id = res.data.id;
+                    setIngredientEn(tradTemp)
+                    return axios.post(`/ingredients/translations`, ingredientFr);
+                })
+                .then(res => {
+                    let tradTemp = ingredientFr;
+                    tradTemp.id = res.data.id;
+                    setIngredientFr(tradTemp)
+                    const stocInitial = { id: null, ingredientId: ingredientSelected.id, amount: 0 }
+                    return axios.post(`/stocks`, stocInitial);
+
+                })
+                .then(res => {
+                    setReloadList(true)
+                    openSnack.msg = "l'ingrédient est ajouté";
+                    openSnack.severity = "info";
+                    dispatch(open(openSnack))
+                })
+
+                .catch(error => {
+                    openSnack.msg = "L'ajout a échoué";
+                    openSnack.severity = "warning";
+                    dispatch(open(openSnack))
+                    console.log(error)
+                });
+
         }
         else {
-            if (ingredientSelected.id === null) {
-                axios.post(`/ingredients`, ingredientSelected)
-                    .then(res => {
-                        let temp = ingredientSelected;
-                        temp.id = res.data.id;
-                        setIngredientSelected(temp);
-
-                        let tempLg = ingredientEn;
-                        tempLg.ingredientId = ingredientSelected.id;
-                        setIngredientEn(tempLg);
-                        return axios.post(`/ingredients/translations`, ingredientEn);
-                    })
-
-                    .then(res => {
-                        let tempLg = ingredientFr;
-                        tempLg.ingredientId = ingredientSelected.id;
-                        setIngredientFr(tempLg);
-
-                        let tradTemp = ingredientEn;
-                        tradTemp.id = res.data.id;
-                        setIngredientEn(tradTemp)
-                        return axios.post(`/ingredients/translations`, ingredientFr);
-                    })
-                    .then(res =>{
-                        let tradTemp = ingredientFr;
-                        tradTemp.id = res.data.id;
-                        setIngredientFr(tradTemp) 
-                        const stocInitial = {id:null, ingredientId:ingredientSelected.id,amount:0}
-                        return axios.post(`/stocks`, stocInitial);
-
-                    })
-                    .then(res => {
-                        setReloadList(true)
-                        openSnack.msg = "l'ingrédient est ajouté";
-                        openSnack.severity = "info";
-                        dispatch(open(openSnack))
-                    })
-
-                    .catch(error => {
-                        openSnack.msg = "L'ajout a échoué";
-                        openSnack.severity = "warning";
-                        dispatch(open(openSnack))
-                        console.log(error)
-                    });
-
-            }
-            else {
-                axios.put(`/ingredients`, ingredientSelected)
+            axios.put(`/ingredients`, ingredientSelected)
                 .then(res => {
                     return axios.put(`/ingredients/translations`, ingredientEn);
                 })
@@ -207,15 +188,16 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
                     dispatch(open(openSnack))
                     console.log(error)
                 });
-            }
-
         }
+
+
         e.preventDefault()
     }
-    
+
     return (
         <Box
             component='form'
+            onSubmit={validationForm}
             sx={{
                 '& > :not(style)': { m: "auto", width: "100%" },
             }}
@@ -226,7 +208,7 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
                     className="inputName"
                     variant="outlined"
                     value={ingredientEn.name}
-                    onChange={e => changeName("en", e)}
+                    onChange={e => firstToCapitalLetter("en", e)}
                     inputProps={{ maxLength: 60 }}
                     InputProps={{
                         endAdornment: (
@@ -241,7 +223,7 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
                     className="inputName"
                     variant="outlined"
                     value={ingredientFr.name}
-                    onChange={e => changeName("fr", e)}
+                    onChange={e => firstToCapitalLetter("fr", e)}
                     inputProps={{ maxLength: 60 }}
                     InputProps={{
                         endAdornment: (
@@ -259,16 +241,15 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
                 {(!isLoading) && (
                     <FormControl
                         required
-                        // error={errorCheckBox.onError}
                         component="fieldset"
                     >
                         <FormGroup row className="checkBoxGroupFam">
                             {allergens.data.map((allergen) => {
                                 return <FormControlLabel key={allergen.id} label={allergen.name} labelPlacement="start"
-                                    control={<Checkbox key={allergen.id} 
-                                        checked={isCheckedAllergen(allergen.allergenId)} 
-                                        onChange={e => handleChangeCheck(e, allergen.allergenId)} 
-                                        />} />
+                                    control={<Checkbox key={allergen.id}
+                                        checked={isCheckedAllergen(allergen.allergenId)}
+                                        onChange={e => handleChangeCheck(e, allergen.allergenId)}
+                                    />} />
                             })}
 
 
@@ -280,9 +261,9 @@ const FormIngredient = ({IS, setIS, setReloadList}) => {
                 )} */}
             </div>
 
-            <div className="buttonFormProduct">
-                <Button variant="contained" type="" onClick={validationForm}>
-                    {ingredientSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
+            <div className="bottomForm">
+                <Button variant="contained" type="submit">
+                    {ingredientSelected.id === null ? t('admin.ajouter') : t('admin.modifier')}
                 </Button>
                 <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')} </Button>
             </div>

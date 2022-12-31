@@ -1,24 +1,13 @@
-
-
-.checkBoxGroupFam{
-    padding-top: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-   
-}
-
-
-.IngredientAdmin{
+.allergenAdmin{
     margin: 0;
     padding-bottom:10px
 }
 
-.ingredientList{
+.allergentList{
     width: calc(45vw - 5px);
 }
 
-.ingredientContent{
+.allergenContent{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -26,26 +15,27 @@
     padding:10px
 }
 
-.ingredientForm{
+.allergentForm{
     width: calc(50vw - 5px);
 }
 
 
 @media screen and (max-width: 780px){
-    .ingredientList{
+
+    .allergentList{
         width: 90%;
         margin-right: auto;
         margin-left: auto;
     }
 
-    .ingredientForm{
+    .allergentForm{
         width: 90%;
         margin-right: auto;
         margin-left: auto;
     }
     
     
-    .ingredientContent{
+    .allergenContent{
         display: flex;
         flex-direction: column;
     }

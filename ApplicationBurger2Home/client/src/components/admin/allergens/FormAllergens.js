@@ -4,10 +4,11 @@ import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import InputAdornment from '@mui/material/InputAdornment';
-import {useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import { useTranslation } from 'react-i18next';
 
+import "./Allergens.css"
 const FormAllergens = ({ AS, setAS, setReloadList }) => {
 
     const initialState = { id: null };
@@ -54,96 +55,84 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
         const capitalizedString = firstLetter + restOfString;
 
         if (lg === "fr") {
-            
             setAllergenFr({ ...allergenFr, name: capitalizedString })
         }
         else {
-            setAllergenEn({ ...allergenEn, name:capitalizedString })
+            setAllergenEn({ ...allergenEn, name: capitalizedString })
         }
     }
 
     const validationForm = async e => {
 
-        if (allergenEn.name.replace(/\s+/g, '') === "" || allergenFr.name.replace(/\s+/g, '') === "") {
-            openSnack.msg = "Les deux champs doivent être completé";
-            openSnack.severity = "error";
-            dispatch(open(openSnack))
+
+        if (allergenSelected.id === null) {
+            axios.post(`/allergens`, allergenSelected)
+                .then(res => {
+                    let temp = allergenSelected;
+                    temp.id = res.data.id;
+                    setAllergenSelected(temp);
+
+                    let tempLg = allergenEn;
+                    tempLg.allergenId = allergenSelected.id;
+                    setAllergenEn(tempLg);
+                    return axios.post(`/allergens/translations`, allergenEn);
+                })
+
+                .then(res => {
+                    let tempLg = allergenFr;
+                    tempLg.allergenId = allergenSelected.id;
+                    setAllergenFr(tempLg);
+
+                    let tradTemp = allergenEn;
+                    tradTemp.id = res.data.id;
+                    setAllergenEn(tradTemp)
+
+                    return axios.post(`/allergens/translations`, allergenFr);
+                })
+                .then(res => {
+                    let tradTemp = allergenFr;
+                    tradTemp.id = res.data.id;
+                    setAllergenFr(tradTemp)
+
+                    setReloadList(true)
+                    openSnack.msg = "l'allergene est ajouté";
+                    openSnack.severity = "info";
+                    dispatch(open(openSnack))
+                })
+
+                .catch(error => {
+                    openSnack.msg = "L'ajout a échoué";
+                    openSnack.severity = "warning";
+                    dispatch(open(openSnack))
+                });
+
         }
         else {
-            if (allergenSelected.id === null) {
-                axios.post(`/allergens`, allergenSelected)
-                    .then(res => {
-                        let temp = allergenSelected;
-                        temp.id = res.data.id;
-                        setAllergenSelected(temp);
+            axios.put(`/allergens/translations`, allergenEn)
+                .then(res => {
+                    return axios.put(`/allergens/translations`, allergenFr)
+                })
 
-                        let tempLg = allergenEn;
-                        tempLg.allergenId = allergenSelected.id;
-                        setAllergenEn(tempLg);
-                        return axios.post(`/allergens/translations`, allergenEn);
-                    })
+                .then(res => {
+                    setReloadList(true)
+                    openSnack.msg = "l'allergene est modifié";
+                    openSnack.severity = "info";
+                    dispatch(open(openSnack))
+                })
 
-                    .then(res => {
-                        let tempLg = allergenFr;
-                        tempLg.allergenId = allergenSelected.id;
-                        setAllergenFr(tempLg);
-
-                        let tradTemp = allergenEn;
-                        tradTemp.id = res.data.id;
-                        setAllergenEn(tradTemp)
-
-                        return axios.post(`/allergens/translations`, allergenFr);
-                    })
-                    .then(res => {
-                        let tradTemp = allergenFr;
-                        tradTemp.id = res.data.id;
-                        setAllergenFr(tradTemp)
-
-                        setReloadList(true)
-                        openSnack.msg = "l'allergene est ajouté";
-                        openSnack.severity = "info";
-                        dispatch(open(openSnack))
-                    })
-
-                    .catch(error => {
-                        openSnack.msg = "L'ajout a échoué";
-                        openSnack.severity = "warning";
-                        dispatch(open(openSnack))
-                        console.log(error)
-                    });
-
-            }
-            else {
-                axios.put(`/allergens/translations`, allergenEn)
-                    .then(res => {
-                        return axios.put(`/allergens/translations`, allergenFr)
-                    })
-
-                    .then(res => {
-                        setReloadList(true)
-                        openSnack.msg = "l'allergene est modifié";
-                        openSnack.severity = "info";
-                        dispatch(open(openSnack))
-                    })
-
-                    .catch(error => {
-                        openSnack.msg = "La modification a échoué";
-                        openSnack.severity = "warning";
-                        dispatch(open(openSnack))
-                        console.log(error)
-                    });
-            }
-
+                .catch(error => {
+                    openSnack.msg = "La modification a échoué";
+                    openSnack.severity = "warning";
+                    dispatch(open(openSnack))
+                });
         }
-
-
-
         e.preventDefault()
     }
 
     return (
         <Box
             component='form'
+            onSubmit={validationForm}
             sx={{
                 '& > :not(style)': { m: "auto", width: "100%" },
             }}
@@ -151,6 +140,7 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
             <div className="Name">
                 <TextField label="Name"
                     required
+                    fullWidth
                     className="inputName"
                     variant="outlined"
                     value={allergenEn.name}
@@ -165,6 +155,7 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
                     }} />
 
                 <TextField label="Nom"
+                    fullWidth
                     required
                     className="inputName"
                     variant="outlined"
@@ -180,9 +171,9 @@ const FormAllergens = ({ AS, setAS, setReloadList }) => {
                     }} />
             </div>
 
-            <div className="buttonFormProduct">
-                <Button variant="contained" type="" onClick={validationForm}>
-                    {allergenSelected.id === null ? t('admin.ajouter') : t('admin.modifier') }
+            <div className="bottomForm">
+                <Button variant="contained" type="" >
+                    {allergenSelected.id === null ? t('admin.ajouter') : t('admin.modifier')}
                 </Button>
                 <Button variant="contained" onClick={cancel}> {t('admin.nettoyer')} </Button>
             </div>

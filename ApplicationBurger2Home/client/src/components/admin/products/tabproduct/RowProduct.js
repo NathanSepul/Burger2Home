@@ -19,13 +19,12 @@ const RowProduct = ({ product, setProductSelected }) => {
         const imageBuffer = Buffer.from(res.data, 'binary');
         const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
         setLocalImg(imageString)
+        console.log("imgg")
       })
       .catch(e => {
         console.error(e);
-      })
-      
-
-  },[])
+      })   
+  },[product.imageName])
   
   return (
     <>
@@ -42,9 +41,9 @@ const RowProduct = ({ product, setProductSelected }) => {
           <span> {product.name}</span>
         </TableCell>
 
-        <TableCell align='left'>
+        {/* <TableCell align='left'>
           <span> {product.description}</span>
-        </TableCell>
+        </TableCell> */}
 
         <TableCell align='left'>
           <span> {product.currentPrice}</span>
