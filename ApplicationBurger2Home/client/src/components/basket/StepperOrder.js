@@ -7,20 +7,22 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
-
+import { useSelector } from 'react-redux';
+import Tooltip from '@mui/material/Tooltip'
 import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
 import Address from "./address/Address.js";
 
 const steps = ['Résumé', 'Livraison', 'Vérification', 'Payement'];
 
-const StepperOrder = ({ basket, isConnected }) => {
+const StepperOrder = ({ basket }) => {
 
-  const initialStateAddress = { id: null, city: "", zipcode:"", street: "", number:"", extension:null, note: "", userId: null, active: "true" };
-  const initialStateOrder = {id:null, userId:null, creditCardId:null, addressId:null, orderDate:"",orderLines:[], status:"", paymentIntent:""}
+  const isConnected = useSelector(state => state.user.isConnected)
+  const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true" };
+  const initialStateOrder = { id: null, userId: null, creditCardId: null, addressId: null, orderDate: "", orderLines: [], status: "", paymentIntent: "" }
   const [activeStep, setActiveStep] = useState(0);
   const [address, setAddress] = useState(initialStateAddress)
-  const [order, setOrder]=useState(initialStateOrder)
+  const [order, setOrder] = useState(initialStateOrder)
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -70,12 +72,17 @@ const StepperOrder = ({ basket, isConnected }) => {
           )}
 
           <Box sx={{ flex: '1 1 auto' }} />
-
           {(activeStep === 0) && (
-            <Button onClick={handleNext} disabled={!isConnected}>
-              Suivant<ArrowForwardIosRoundedIcon />
-            </Button>
+            <Tooltip title="Conncetez vous pour continuer" enterDelay={700} leaveDelay={200} disableHoverListener={isConnected}>
+              <span>
+                <Button onClick={handleNext} disabled={!isConnected}>
+                  Suivant<ArrowForwardIosRoundedIcon />
+                </Button>
+              </span>
+            </Tooltip>
+
           )}
+
 
           {/* {activeStep === 1 && (
             <Button onClick={handleNext} disabled={nextAddrDisable}>
@@ -102,7 +109,7 @@ const StepperOrder = ({ basket, isConnected }) => {
 
           {activeStep === steps.length - 3 && (
             <div className="adresse">
-              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder}/>
+              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} />
             </div>
 
           )}

@@ -1,12 +1,17 @@
 .itemProduct{
     display: flex;
     flex-direction: row;
+    gap: 10px;
 }
 .imgBasket{
     width: 70px;
     height: 70px;
 }
 
+.infBas{
+    padding-left: 10px;
+    text-align: center;
+}
 .itemProduct span{
     margin-top:auto;
     margin-bottom:auto;

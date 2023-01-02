@@ -26,6 +26,7 @@ const TabBasket = ({ basket }) => {
             .then((res) => {
                 let tempCopy = [];
                 let tempBil = 0;
+                
                 for (let i = 0; i < res.data.length; i++) {
                     for (let j = 0; j < basket.basketLines.length; j++) {
                         if (basket.basketLines[j].productId === res.data[i].id) {

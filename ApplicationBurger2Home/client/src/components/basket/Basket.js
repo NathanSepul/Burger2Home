@@ -9,7 +9,6 @@ const Basket = () => {
    
     
     const user = useSelector(state => state.user)
-    const dispatch = useDispatch();
   
     const { t } = useTranslation();
 

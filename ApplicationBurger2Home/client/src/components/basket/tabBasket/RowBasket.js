@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Buffer } from "buffer";
 
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { updateQuantity, removeFromBasket } from '../../../redux/basketSlice.js';
 import { updateQt, removeBasketLine } from '../../../redux/userSlice.js';
@@ -16,7 +16,7 @@ import { updateQt, removeBasketLine } from '../../../redux/userSlice.js';
 import "./RowBasket.css";
 import axios from 'axios';
 
-const RowBasket = ({value,  setList, list, setBill, bill}) => {
+const RowBasket = ({ value, setList, list, setBill, bill }) => {
 
   let basket = useSelector(state => state.user.basket);
   let isConnected = useSelector(state => state.user.isConnected)
@@ -46,18 +46,18 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
   useEffect(() => {
 
     if (!isLoading) {
-      
+
       const updatedItems = list.map(item => {
         if (item.basketLine.id === value.basketLine.id) {
 
-          return {...item, basketLine:{...value.basketLine, amount:newValue.newQuantity} };
+          return { ...item, basketLine: { ...value.basketLine, amount: newValue.newQuantity } };
         }
         return item;
       });
 
       let newBill = 0
-      updatedItems.forEach(e =>{
-        newBill = newBill +(e.basketLine.amount * Math.round(e.product.actualPrice * 100) / 100)
+      updatedItems.forEach(e => {
+        newBill = newBill + (e.basketLine.amount * Math.round(e.product.actualPrice * 100) / 100)
       })
 
 
@@ -110,10 +110,10 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
             <div>
               <div> {value.product.name}</div>
               {value.product.currentDiscount !== null && (
-                <>
+                <div className='infBas'>
                   <div>Prix hors promo</div>
                   <div>{value.product.currentPrice}</div>
-                </>
+                </div>
               )}
 
             </div>
