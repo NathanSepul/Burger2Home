@@ -11,11 +11,11 @@ const MenuAdmin = ({closeMenu}) => {
 
     return (
         <li>
-            <PopupState variant="popover" popupId="demo-popup-menu">
+            <PopupState variant="popover" popupId="demo-popup-menu" >
                 {(popupState) => (
-                    <React.Fragment>
+                    <React.Fragment >
                         <a role="button" {...bindTrigger(popupState)} className="linkMenu"> Administration</a>
-                        <Menu {...bindMenu(popupState)}>
+                        <Menu {...bindMenu(popupState)} className="menuPopup">
                             <MenuItem onClick={popupState.close} className="linkAdmin"><Link to="/admin/role" onClick={closeMenu} > {t('navigation.droit')} </Link> </MenuItem>
                             <MenuItem onClick={popupState.close} className="linkAdmin"><Link to="/admin/products" onClick={closeMenu} > {t('navigation.produits')} </Link></MenuItem>
                             <MenuItem onClick={popupState.close} className="linkAdmin"><Link to="/admin/ingredients" onClick={closeMenu} > {t('navigation.ingredients')} </Link></MenuItem>

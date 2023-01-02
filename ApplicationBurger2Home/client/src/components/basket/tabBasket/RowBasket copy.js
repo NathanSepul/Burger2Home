@@ -8,7 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Buffer } from "buffer";
 
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { updateQuantity, removeFromBasket } from '../../../redux/basketSlice.js';
 import { updateQt, removeBasketLine } from '../../../redux/userSlice.js';
@@ -16,22 +16,39 @@ import { updateQt, removeBasketLine } from '../../../redux/userSlice.js';
 import "./RowBasket.css";
 import axios from 'axios';
 
-const RowBasket = ({value,  setList, list, setBill, bill}) => {
+const RowBasket = ({ basketLine, indexBl, isConnected, listAmount, setListAmount }) => {
 
-  let basket = useSelector(state => state.user.basket);
-  let isConnected = useSelector(state => state.user.isConnected)
-  const indexBl = basket.basketLines.findIndex(obj => obj.id === value.basketLine.id);
 
   const dispatch = useDispatch();
 
   let min = 1;
   let max = 50;
-  const [newValue, setNewValue] = useState({ index: indexBl, newQuantity: value.basketLine.amount })
+
+  const [newValue, setNewValue] = useState({ index: indexBl, newQuantity: basketLine.amount })
+  const [product, setProduct] = useState(null)
   const [localImg, setLocalImg] = useState(null);
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(`/products/${value.product.id}/image`, { responseType: 'arraybuffer' })
+
+    axios.get(`products/summaries/${basketLine.productId}?language=EN`)
+      .then(res => {
+        setProduct(res.data)
+
+        let tempList = listAmount;
+        let index = tempList.tabVa.findIndex((el) => el.idBL === basketLine.id)
+        
+        if(index === -1){
+          tempList.tabVa.push({price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id })
+        }
+        else{
+          tempList.tabVa[index] = {price: res.data.actualPrice, qt: basketLine.amount, idBL: basketLine.id }
+        }
+        tempList.use = tempList.use + 1
+        setListAmount(tempList)
+
+        return axios.get(`/products/${basketLine.productId}/image`, { responseType: 'arraybuffer' })
+      })
       .then(res => {
         const imageBuffer = Buffer.from(res.data, 'binary');
         const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
@@ -40,29 +57,26 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
       })
       .catch(e => console.log(e));
 
-  }, [value.product.id])
-
+  }, [basketLine.productId])
 
   useEffect(() => {
 
     if (!isLoading) {
+      isConnected ? dispatch(updateQt(newValue)) : dispatch(updateQuantity(newValue))
       
-      const updatedItems = list.map(item => {
-        if (item.basketLine.id === value.basketLine.id) {
-
-          return {...item, basketLine:{...value.basketLine, amount:newValue.newQuantity} };
-        }
-        return item;
-      });
-
-      let newBill = 0
-      updatedItems.forEach(e =>{
-        newBill = newBill +(e.basketLine.amount * Math.round(e.product.actualPrice * 100) / 100)
-      })
-
-
-      setBill(newBill);
-      setList(updatedItems)
+      let tempList = listAmount;
+      
+      let index = tempList.tabVa.findIndex((el) => el.idBL === basketLine.id)
+     
+      if(index === -1){
+        tempList.tabVa.push({ price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id })
+      }
+      else{
+        tempList.tabVa[index] = {price: product.actualPrice, qt: newValue.newQuantity, idBL: basketLine.id }
+      }
+      tempList.use = tempList.use + 1
+    
+      setListAmount(tempList)
     }
 
   }, [newValue.newQuantity])
@@ -81,10 +95,6 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
 
   const remove = () => {
     isConnected ? dispatch(removeBasketLine(indexBl)) : dispatch(removeFromBasket(indexBl))
-    let i = list.findIndex(obj => obj.basketLine.id === value.basketLine.id);
-    let tempL = list
-    tempL = tempL.splice(i, 1)
-    setList(tempL)
   }
 
 
@@ -106,13 +116,13 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
 
         <TableCell>
           <div className="itemProduct">
-            <img className="imgBasket" src={localImg} alt={value.product.name} />
+            <img className="imgBasket" src={localImg} alt={product.name} />
             <div>
-              <div> {value.product.name}</div>
-              {value.product.currentDiscount !== null && (
+              <div> {product.name}</div>
+              {product.currentDiscount !== null && (
                 <>
                   <div>Prix hors promo</div>
-                  <div>{value.product.currentPrice}</div>
+                  <div>{product.currentPrice}</div>
                 </>
               )}
 
@@ -125,7 +135,7 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
             <OutlinedInput
               className="addButtonBasket"
               sx={{ p: "1px", m: "0", width: "150px" }}
-              value={value.basketLine.amount}
+              value={basketLine.amount}
               onKeyPress={onlyNumber}
               onChange={handleSetQunatity}
               startAdornment={
@@ -147,7 +157,7 @@ const RowBasket = ({value,  setList, list, setBill, bill}) => {
 
         </TableCell>
 
-        <TableCell align="center"> {Math.round(value.product.actualPrice * 100) / 100}€</TableCell>
+        <TableCell align="center"> {Math.round(product.actualPrice * 100) / 100}€</TableCell>
 
       </TableRow>
 

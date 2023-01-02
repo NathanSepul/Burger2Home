@@ -12,7 +12,7 @@ import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
 import Address from "./address/Address.js";
 
-const steps = ['Résumé', 'Votre adresse', 'Vérification', 'Payement'];
+const steps = ['Résumé', 'Livraison', 'Vérification', 'Payement'];
 
 const StepperOrder = ({ basket, isConnected }) => {
 

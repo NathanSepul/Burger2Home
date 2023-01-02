@@ -25,7 +25,7 @@ const Basket = () => {
             <div className="titleBasket"><h1>{t("panier.titre")}</h1></div>
 
             <section >
-                <StepperOrder basket={basket} isConnected={user.isConnected}/>
+                <StepperOrder basket={basket}/>
             </section>
         </main>
     );

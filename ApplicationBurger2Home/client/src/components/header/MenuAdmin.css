@@ -5,9 +5,14 @@
 .linkAdmin a{
     text-decoration: none;
     color: black;
+
 }
 
 .linkMenu:hover, .linkAdmin a:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+
+.menuPopup ul{
+    background-color: #dedede;
 }

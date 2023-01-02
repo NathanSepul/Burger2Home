@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react"
+import React, { useEffect, useState } from "react"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,26 +11,37 @@ import { Link } from "react-router-dom";
 
 import RowBasket from "./RowBasket.js";
 import "./TabBasket.css"
+import axios from "axios";
+import { useSelector } from 'react-redux';
 
-const TabBasket = ({ basket, isConnected }) => {
-    const [listAmount, setListAmount] = useState({tabVa:[],use:0, totalAmount:0});
-
-    const [totalAmount, setTotalAmount] = useState(0);
+const TabBasket = ({ basket }) => {
+    const language = useSelector(state => state.language)
     const { t } = useTranslation();
 
+    const [bill, setBill] = useState(0);
+    const [listBlUti, setBlUtil] = useState([])
 
     useEffect(() => {
-        const temp = listAmount.tabVa.map((el) =>
-            el.qt * Math.round(el.price*100)/100
-        );
+        axios.get(`/products/summaries?language=${language.value}&availableProductsOnly=true&mustBeOnMenu=true`)
+            .then((res) => {
+                let tempCopy = [];
+                let tempBil = 0;
+                for (let i = 0; i < res.data.length; i++) {
+                    for (let j = 0; j < basket.basketLines.length; j++) {
+                        if (basket.basketLines[j].productId === res.data[i].id) {
+                            tempCopy.push({ product: res.data[i], basketLine: basket.basketLines[j] })
+                            tempBil = tempBil +(basket.basketLines[j].amount * Math.round(res.data[i].actualPrice * 100) / 100)
+                            break;
+                        }
+                    }
+                }
 
-        //somme de tout les elements un genre de boucle
-        setTotalAmount(temp.reduce(
-            (accumulator, currentValue) => Math.round(( accumulator + currentValue)*100)/100, 0
-        ));
-
-console.log(listAmount);
-    }, [listAmount.use])
+                setBlUtil(tempCopy);
+                setBill(tempBil)
+   
+            })
+            .catch(e => console.log(e))
+    }, [listBlUti.length, language.value])
 
     return (
         <div className="contentBasket">
@@ -44,18 +55,18 @@ console.log(listAmount);
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {basket.basketLines.length !== 0 ? (
-                            basket.basketLines.map((basketLine) => (
-                                <RowBasket key={basket.basketLines.indexOf(basketLine)} basketLine={basketLine} indexBl={basket.basketLines.indexOf(basketLine)} isConnected={isConnected} setListAmount={setListAmount} listAmount={listAmount}/>
+                       {listBlUti.length !== 0 ? (
+                            listBlUti.map((el) => (
+                                <RowBasket key={el.basketLine.id} value={el} setList={setBlUtil} list={listBlUti} setBill={setBill} bill={bill}/>
                             ))
                         ) : (
-                            <TableRow className="emptyBasket">
-                                <TableCell align="center" colSpan="3" >
-                                    Votre panier est vide consulter notre&nbsp;
-                                    <Link to="/carte">carte</Link>
-                                    &nbsp;pour manger beaucoups
-                                </TableCell>
-                            </TableRow>
+                        <TableRow className="emptyBasket">
+                            <TableCell align="center" colSpan="3" >
+                                Votre panier est vide consulter notre&nbsp;
+                                <Link to="/carte">carte</Link>
+                                &nbsp;pour manger beaucoups
+                            </TableCell>
+                        </TableRow>
                         )}
 
                     </TableBody>
@@ -70,7 +81,7 @@ console.log(listAmount);
                     </div>
 
                     <div>
-                        {totalAmount}&nbsp;€
+                        {bill}&nbsp;€
                     </div>
                 </div>
             </div>
