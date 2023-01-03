@@ -260,11 +260,16 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
                     })
 
                     .then(res => {
-                        console.log("hhhhhh")
+                        openSnack.msg = "Le produit a été ajouté"
+                        openSnack.severity = "info";
+                        dispatch(open(openSnack))
                         setReloadList(true)
                     })
 
                     .catch(error => {
+                        openSnack.msg = "Le produit n'a pas pus être ajouté"
+                        openSnack.severity = "warning";
+                        dispatch(open(openSnack))
                         console.log(error)
                     });
 
@@ -307,11 +312,16 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
                     })
 
                     .then(res => {
-                        console.log("up")
+                        openSnack.msg = "Le produit a été modifié"
+                        openSnack.severity = "info";
+                        dispatch(open(openSnack))
                         setReloadList(true)
                     })
 
                     .catch(error => {
+                        openSnack.msg = "Le produit n'a pas pus être modifié"
+                        openSnack.severity = "warning";
+                        dispatch(open(openSnack))
                         console.log(error)
                     });
             }

@@ -97,7 +97,10 @@ const FormIngredient = ({ IS, setIS, setReloadList }) => {
             temp.push({ id: allergeneId });
         }
         else {
-            const index = temp.indexOf(allergeneId);
+            const index = temp.findIndex(e => e.id === allergeneId);
+            console.log(index);
+            console.log(allergeneId)
+            console.log(temp)
             temp.splice(index, 1);
         }
 
@@ -271,9 +274,6 @@ const FormIngredient = ({ IS, setIS, setReloadList }) => {
                         </FormGroup>
                     </FormControl>
                 )}
-                {/* {errorCheckBox.onError && (
-                    <FormHelperText sx={{ color: "rgb(210,48,47)", textAlign: "center" }}>{errorCheckBox.msg}</FormHelperText>
-                )} */}
             </div>
 
             <div className="bottomForm">
