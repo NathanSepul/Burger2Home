@@ -12,7 +12,7 @@
     flex-direction: row;
 }
 .filtre{
-    width: 200px;
+    width: 250px;
     height: max-content;
     background-color: #FFF;
     position: sticky;
@@ -27,7 +27,7 @@
 }
 
 .produits{
-    width: calc(100vw - 210px);
+    width: calc(100vw - 260px);
     min-height: calc(100vh - 300px);
     padding: 10px;
     margin: 20 auto;

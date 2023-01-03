@@ -26,6 +26,8 @@ const ModalProduct = ({ product, updateBasketLine, isConnected }) => {
     const [buttonDisable, setDisable] = useState(false);
     const [localImg, setLocalImg] = useState(null);
 
+    const ingredients = product.ingredients.sort((a, b) => (a> b ? 1 : -1))
+
     useEffect(() => {
         axios.get(`/products/${product.id}/image`, { responseType: 'arraybuffer' })
             .then(res => {
@@ -136,7 +138,15 @@ const ModalProduct = ({ product, updateBasketLine, isConnected }) => {
 
 
                     <div className="contentModal">
-                        <img className="imageModal" src={localImg} alt={product.name} />
+                        <div className="imageAndIngredients">
+                            <img className="imageModal" src={localImg} alt={product.name} />
+                            <div className="ingredients">
+                                <p>Composé de :</p>
+                                <ul>
+                                    {ingredients.map(e => <li key={e}>{e}</li>)}
+                                </ul>
+                            </div>
+                        </div>
                         <p className="descriptionModal">{product.description}</p>
 
                         <div className="add">

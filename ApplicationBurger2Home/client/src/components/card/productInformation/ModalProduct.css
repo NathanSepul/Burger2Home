@@ -37,9 +37,18 @@
 
     align-items: center;
     justify-content: center;
-
-
 }
+
+.imageAndIngredients{
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredients li{
+    list-style-type:none;
+    padding-left: 10px;
+}
+
 .priceModal{
     font-size:x-large;
     font-weight: 500;
@@ -65,15 +74,16 @@
 }
 
 .imageModal{
-    width: 32vw;
-    height: 32vw;
+    width: 26vw;
+    height: 26vw;
     max-height: 400px;
     max-width: 400px;
     min-width: 224px;
     min-height: 224px;
     border-radius: 10px;
     object-fit: cover;
-    margin : 5px auto;
+    margin : 0 auto;
+    padding: 5px 0;
     
 }
 
@@ -165,3 +175,9 @@
    
 }
 
+
+@media screen and (max-width: 767px){
+    .ingredients {
+        font-size: small;
+    }
+}
