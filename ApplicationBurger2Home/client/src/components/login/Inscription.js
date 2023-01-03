@@ -11,7 +11,6 @@ import Button from "@mui/material/Button";
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/userSlice.js';
 
-import LoginWithFacebook from './service/LoginWithFacebook.js';
 import LoginWithGoogle from './service/LoginWithGoogle.js';
 import PasswordField from '../password/PasswordField.js';
 import "./Inscription.css";
@@ -90,10 +89,9 @@ const Inscription = () => {
                 
                 <br />
                 <Divider />
-                <p>Inscrivez-vous via un de ces réseaux</p>
+                <p>Inscrivez-vous via un réseau</p>
                 <div id="inscriptionNetwork">
                     <LoginWithGoogle/>
-                    <LoginWithFacebook/>
                 </div>
             </div>
             <br />

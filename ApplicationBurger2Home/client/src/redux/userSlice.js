@@ -7,10 +7,6 @@ export const userSlice = createSlice({
     isConnected: false,
     id:null,
     provider: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    birthday: "",
     role: "",
     basket: [],
     basketSize: 0
@@ -21,10 +17,6 @@ export const userSlice = createSlice({
         isConnected: true,
         id:action.payload.id,
         provider: action.payload.provider,
-        email: action.payload.email,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        birthday: action.payload.birthday,
         role: action.payload.role
 
       }
@@ -35,9 +27,6 @@ export const userSlice = createSlice({
         id:null,
         provider: "",
         email: "",
-        firstName: "",
-        lastName: "",
-        birthday: "",
         role: "",
         basket: null,
         basketSize: 0

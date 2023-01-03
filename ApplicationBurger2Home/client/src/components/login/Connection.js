@@ -14,7 +14,6 @@ import { login, loginBasket } from '../../redux/userSlice.js';
 import { open } from '../../redux/snackBarSlice.js';
 
 
-import LoginWithFacebook from './service/LoginWithFacebook.js';
 import LoginWithGoogle from './service/LoginWithGoogle.js';
 
 import axios from 'axios';
@@ -24,7 +23,7 @@ const Connection = () => {
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
 
-    const user = { provider: "local", email: "", lastName: "", firstName: "", role: "", id:null }
+    const user = { provider: "local", role: null, id:null }
     const basketInformation = { basket:null,size:0}
     const openSnack = { msg: "", severity: "" }
     const dispatch = useDispatch()
@@ -51,12 +50,8 @@ const id = 1
                 .then((res) => {
                     console.log(res);
                     user.id= res.data.id;
-                    user.email = res.data.email;
-                    user.lastName = res.data.lastname;
-                    user.firstName = res.data.firstname
                     user.role = res.data.role.name;
                     user.birthday = "01/07/1998";
-                    console.log(user);
 
                     dispatch(login(user));
 
@@ -115,7 +110,6 @@ const id = 1
                 <p>{t('connexion.autreConnexion')}</p>
                 <div id="connectionNetwork">
                     <LoginWithGoogle />
-                    <LoginWithFacebook />
                 </div>
             </div>
             <br />

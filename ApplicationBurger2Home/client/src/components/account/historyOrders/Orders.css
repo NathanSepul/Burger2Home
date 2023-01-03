@@ -11,3 +11,14 @@
    height: 10px;
 }
 
+/* ecran inf à 767px*/
+@media screen and (max-width: 767px){
+    #historique {
+        width: 95%;
+        margin-top: 20px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-bottom: 30px;
+       
+    }
+}
