@@ -136,7 +136,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder }) => {
             placeholder='ex: 2'
             className="box"
             // error={errorExt.onError}
-            // value={address.extension || ''}
+            value={address.extension || ''}
             onChange={e => setAddress({ ...address, extension: e.target.value })}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
           />
