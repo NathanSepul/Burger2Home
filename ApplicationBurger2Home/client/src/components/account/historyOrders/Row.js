@@ -69,7 +69,7 @@ const Row = ({ order }) => {
       <TableRow sx={{ '& > *': { backgroundColor: "#DEDEDE" } }}>
 
         {/* tableau primaire */}
-        <TableCell sx={{maxWidth:"20px"}}>
+        <TableCell>
           <IconButton
             aria-label="expand row"
             size="small"
