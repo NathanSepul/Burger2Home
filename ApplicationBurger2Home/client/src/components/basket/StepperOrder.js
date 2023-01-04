@@ -13,12 +13,13 @@ import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
 import Summary from './summary/Summary.js'
 import Address from "./address/Address.js";
+import axios from 'axios';
 
 const steps = ['Résumé', 'Livraison', 'Vérification', 'Payement'];
 
 const StepperOrder = ({ basket }) => {
 
-  const isConnected = useSelector(state => state.user.isConnected)
+  const userR = useSelector(state => state.user)
   const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true" };
   const initialStateOrder = { id: null, userId: null, creditCardId: null, addressId: null, orderDate: "", orderLines: [], status: "", paymentIntent: "" }
   
@@ -26,7 +27,15 @@ const StepperOrder = ({ basket }) => {
   const [address, setAddress] = useState(initialStateAddress)
   const [order, setOrder] = useState(initialStateOrder)
   const [bill, setBill] = useState(0);
+  const [user,setUser] = useState(null)
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    axios.get(`/users/${userR.id}`)
+    .then(res => setUser(res.data)
+    .catch(e =>console.log(e))
+    )
+  },[])
 
   const handleNext = () => {
 
@@ -76,9 +85,9 @@ const StepperOrder = ({ basket }) => {
 
           <Box sx={{ flex: '1 1 auto' }} />
           {(activeStep === 0) && (
-            <Tooltip title="Conncetez vous pour continuer" enterDelay={700} leaveDelay={200} disableHoverListener={isConnected}>
+            <Tooltip title="Conncetez vous pour continuer" enterDelay={700} leaveDelay={200} disableHoverListener={userR.isConnected}>
               <span>
-                <Button onClick={handleNext} disabled={!isConnected}>
+                <Button onClick={handleNext} disabled={!userR.isConnected}>
                   Suivant<ArrowForwardIosRoundedIcon />
                 </Button>
               </span>
@@ -93,11 +102,11 @@ const StepperOrder = ({ basket }) => {
             </Button>
           )} */}
 
-          {activeStep === steps.length - 2 && (
+          {/* {activeStep === steps.length - 2 && (
             <Button onClick={handleNext}>
               Confirmer
             </Button>
-          )}
+          )} */}
 
 
 
@@ -112,7 +121,7 @@ const StepperOrder = ({ basket }) => {
 
           {activeStep === steps.length - 3 && (
             <div className="adresse">
-              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} />
+              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} user={user} />
             </div>
 
           )}
@@ -121,14 +130,14 @@ const StepperOrder = ({ basket }) => {
 
           {activeStep === steps.length - 2 && (
             <div className="resume">
-              <Summary address={address} total={bill} />
+              <Summary address={address} setAddress={setAddress} total={bill} handleNext={handleNext} order={order} setOrder={setOrder} user={user} />
             </div>
           )}
 
           {activeStep === steps.length - 1 && (
 
             <div className="payment">
-              {/* <Payement order={order}/> */}
+              <Payement order={order}/>
             </div>
           )}
 
