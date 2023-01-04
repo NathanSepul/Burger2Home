@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip'
 import TabBasket from "./tabBasket/TabBasket.js";
 import Payement from './payment/Payment.js';
+import Summary from './summary/Summary.js'
 import Address from "./address/Address.js";
 
 const steps = ['Résumé', 'Livraison', 'Vérification', 'Payement'];
@@ -20,9 +21,11 @@ const StepperOrder = ({ basket }) => {
   const isConnected = useSelector(state => state.user.isConnected)
   const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true" };
   const initialStateOrder = { id: null, userId: null, creditCardId: null, addressId: null, orderDate: "", orderLines: [], status: "", paymentIntent: "" }
+  
   const [activeStep, setActiveStep] = useState(0);
   const [address, setAddress] = useState(initialStateAddress)
   const [order, setOrder] = useState(initialStateOrder)
+  const [bill, setBill] = useState(0);
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -103,7 +106,7 @@ const StepperOrder = ({ basket }) => {
         <div className="stepper" >
           {activeStep === 0 && (
             <div className="basket">
-              <TabBasket basket={basket} isConnected={isConnected} />
+              <TabBasket basket={basket} bill={bill} setBill={setBill}/>
             </div>
           )}
 
@@ -118,8 +121,7 @@ const StepperOrder = ({ basket }) => {
 
           {activeStep === steps.length - 2 && (
             <div className="resume">
-              on verifie le résumé
-
+              <Summary address={address} total={bill} />
             </div>
           )}
 

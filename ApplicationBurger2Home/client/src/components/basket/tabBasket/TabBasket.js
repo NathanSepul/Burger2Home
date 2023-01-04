@@ -14,11 +14,10 @@ import "./TabBasket.css"
 import axios from "axios";
 import { useSelector } from 'react-redux';
 
-const TabBasket = ({ basket }) => {
+const TabBasket = ({ basket, bill, setBill }) => {
     const language = useSelector(state => state.language)
     const { t } = useTranslation();
 
-    const [bill, setBill] = useState(0);
     const [listBlUti, setBlUtil] = useState([])
 
     useEffect(() => {

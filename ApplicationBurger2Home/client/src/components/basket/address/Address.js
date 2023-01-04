@@ -60,44 +60,6 @@ const Address = ({ address, setAddress, handleNext, order, setOrder }) => {
 
   const validationForm = () => {
 
-    if (address.id === null) {
-      axios.post(`/addresses`, address)
-        .then(res => {
-          setAddress(res.data);
-
-          let orderT = order;
-          orderT.addressId = res.data.id
-          setOrder(orderT)
-
-          if (order.id === null) {
-            return axios.get(`/orders/create-order?basketIdentifier=${user.basket.id}&addressIdentifier=${res.data.id}`)
-          }
-          else {
-            return axios.put(`/orders`, order)
-          }
-        })
-
-        .then(res => setOrder(res.data))
-        .catch(e => console.log(e))
-    }
-    else {
-      axios.put(`/addresses`, address)
-        .then(res => {
-          let orderT = order;
-          orderT.addressId = res.data.id
-          setOrder(orderT)
-
-          if (order.id === null) {
-            return axios.get(`/orders/create-order?basketIdentifier=${user.basket.id}&addressIdentifier=${res.data.id}`)
-          }
-          else {
-            return axios.put(`/orders`, order)
-          }
-        })
-        .then(res => setOrder(res.data))
-        .catch(e => console.log(e))
-    }
-
     handleNext()
   }
 
@@ -107,7 +69,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder }) => {
       <Box
         className="formAddress"
         component='form'
-        onSubmit={validationForm}
+        onSubmit={handleNext}
         sx={{
           '& > :not(style)': { m: "auto", width: "100%" },
         }}
@@ -129,7 +91,6 @@ const Address = ({ address, setAddress, handleNext, order, setOrder }) => {
 
 
         </div>
-
 
         <div className="lineAddresse">
           <TextField label="Boite"
@@ -225,7 +186,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder }) => {
 
         <div className="buttonAddressForm">
           <Button variant="contained" type="submit">
-            {address.id === null ? "continuer" : "continuer"}
+            continuer
           </Button>
         </div>
       </Box>
