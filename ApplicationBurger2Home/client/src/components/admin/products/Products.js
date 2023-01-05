@@ -10,7 +10,7 @@ import ProductForm from "./form/ProductForm.js"
 import "./Products.css"
 
 const Products = () => {
-    const initialState = { id: null, currentPrice: "", imageName: null, ingredients: [], productFamilies: [], onMenu: false };
+    const initialState = { id: null, currentPrice: "", imageName: null, ingredients: [], productFamilies: [], type:null,onMenu: false };
     const [products, setProducts] = useState([]);
     const [productSelected, setProductSelected] = useState(initialState);
     const [reloadList, setReloadList] = useState(false);
@@ -18,13 +18,13 @@ const Products = () => {
     // eslint-disable-next-line
     const [isLoading, setIsLoading] = useState(true);
 
-    const [famillyId, setFamillyId] = useState("");
+    const [typeId, setTypeId] = useState("");
     const { t } = useTranslation();
     const languageRedux = useSelector(state => state.language);
 
     useEffect(() => {
         // setIsLoading(true);
-        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&productFamily=${famillyId}`)
+        axios.get(`/products/summaries?language=${languageRedux.value}&availableProductsOnly=false&type=${typeId}`)
             .then((res) => {
                 setIsLoading(false);
                 let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -36,7 +36,7 @@ const Products = () => {
                 setReloadList(false)
 
             })
-    }, [languageRedux.value, reloadList, famillyId])
+    }, [languageRedux.value, reloadList, typeId])
 
   
 
@@ -47,7 +47,7 @@ const Products = () => {
             <div className="title"><h1>{t('gestionProduit.titre')}</h1></div>
 
             <div className="productFiltre">
-                <SelectFamilly setFamillyId={setFamillyId} />
+                <SelectFamilly setTypeId={setTypeId} />
             </div>
 
             <div className="productContent">

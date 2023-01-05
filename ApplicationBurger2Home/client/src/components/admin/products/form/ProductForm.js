@@ -22,7 +22,7 @@ import "./ProductForm.css"
 
 
 const ProductForm = ({ ps, setPS, setReloadList }) => {
-    const initialStatePS = { id: null, imageName: null, ingredients: [], productFamilies: [], onMenu: false };
+    const initialStatePS = { id: null, imageName: null, ingredients: [], productFamilies: [], onMenu: false, type:null};
     const initialStateFr = { id: null, description: "", name: "", language: { id: 2 }, productId: "" };
     const initialStateEn = { id: null, description: "", name: "", language: { id: 1 }, productId: "" };
     const initialStatePrice = { amount: "" }
@@ -33,8 +33,9 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
     const [productFr, setProductFr] = useState(initialStateFr);
     const [productPrice, setProductPrice] = useState(initialStatePrice);
     const [productImg, setProductImg] = useState(initialStateImg);
-    const [famillyList, setFamillyList] = useState();
+    const [typeList, setTypeList] = useState();
     const [ingredientList, setIngredientList] = useState([]);
+    const [allTypeTranslation, setAllTypeTranslation] = useState({ en: [], fr: [] })
 
     const fileInput = useRef(null);
 
@@ -46,55 +47,63 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
 
     const { t } = useTranslation();
 
-    useEffect(() => {
-        axios.get(`/products/families/translations?language=${languageRedux.value}`)
-            .then(res => {
-                setFamillyList(res)
-                setIsLoading(false)
-            })
-            .catch(e => {
-                console.error(e);
+    useEffect(()=>{
+        axios.get(`/types/translations`)
+        .then(res =>{
+            let tempEnType = [];
+            let tempFrType = [];
+
+            res.data.forEach(e => {
+                e.language.abbreviation === "EN" ? tempEnType.push(e) : tempFrType.push(e)
             });
 
-    }, [languageRedux])
+            tempEnType = tempEnType.sort((a, b) => a.name > b.name ? 1 : -1)
+            tempFrType = tempFrType.sort((a, b) => a.name > b.name ? 1 : -1)
 
+            setAllTypeTranslation({ en: tempEnType, fr: tempFrType });
+
+            languageRedux.value === "EN" ? setTypeList(tempEnType) : setTypeList(tempFrType)
+
+            setIsLoading(false)
+        })
+        .catch(e => console.log(e))
+
+    },[])
 
 
     useEffect(() => {
         cancel()
         if (ps.id !== null) {
-            const requestOne = axios.get(`/products/${ps.id}`);
-            const requestThree = axios.get(`/products/${ps.id}/translations`);
-            const requestFour = axios.get(`/products/${ps.id}/prices/current`);
-            const requestFive = axios.get(`/products/${ps.id}/image`, { responseType: 'arraybuffer' });
-
-            axios.all([requestOne, requestThree, requestFour, requestFive])
+            const request0 = axios.get(`/products/${ps.id}`);
+            const request1 = axios.get(`/products/${ps.id}/translations`);
+            const request2 = axios.get(`/products/${ps.id}/prices/current`);
+            const request3 = axios.get(`/products/${ps.id}/image`, { responseType: 'arraybuffer' });
+            
+            axios.all([request0, request1, request2, request3])
                 .then(
-                    axios.spread((...responses) => {
-                        setProductSelected(responses[0].data);
+                    axios.spread((...res) => {
+                        setProductSelected(res[0].data);
+                        let tempEnProd = productEn;
+                        tempEnProd.id = res[1].data[0].id;
+                        tempEnProd.productId = res[1].data[0].productId;
+                        tempEnProd.name = res[1].data[0].name;
+                        tempEnProd.description = res[1].data[0].description;
+                        setProductEn(tempEnProd)
 
-                        let tempEn = productEn;
-                        tempEn.id = responses[1].data[0].id;
-                        tempEn.productId = responses[1].data[0].productId;
-                        tempEn.name = responses[1].data[0].name;
-                        tempEn.description = responses[1].data[0].description;
+                        let tempFrProd = productFr;
+                        tempFrProd.id = res[1].data[1].id;
+                        tempFrProd.productId = res[1].data[1].productId;
+                        tempFrProd.name = res[1].data[1].name;
+                        tempFrProd.description = res[1].data[1].description;
+                        setProductFr(tempFrProd)
 
-                        let tempFr = productFr;
-                        tempFr.id = responses[1].data[1].id;
-                        tempFr.productId = responses[1].data[1].productId;
-                        tempFr.name = responses[1].data[1].name;
-                        tempFr.description = responses[1].data[1].description;
+                        setProductPrice({ ...productPrice, amount: res[2].data.amount })
 
-                        setProductEn(tempEn)
-                        setProductFr(tempFr)
-
-                        setProductPrice({ ...productPrice, amount: responses[2].data.amount })
-
-                        const imageBuffer = Buffer.from(responses[3].data, 'binary');
+                        const imageBuffer = Buffer.from(res[3].data, 'binary');
                         const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
 
                         setProductImg({ img: imageString, toLoad: false })
-
+                            
                     })
                 )
                 .catch(e => {
@@ -155,22 +164,16 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
         }
     }
 
-    const isCheckedFamilly = (id) => {
+    const isCheckedType = (id) => {
         let isFound = false;
 
-        if (productSelected.productFamilies.length !== 0) {
-            for (let i = 0; i < productSelected.productFamilies.length; i++) {
-                if (productSelected.productFamilies[i].id === id) {
-                    isFound = true;
-                    break;
-                }
-            }
-        }
-        return isFound;
+        productSelected.typeId === id ? isFound = true : isFound = false;
+
+        return isFound ;
     }
 
-    const handleChangeCheck = (event, famillyId) => {
-        setProductSelected({ ...productSelected, productFamilies: [{ id: famillyId }] })
+    const handleChangeCheck = (typeId) => {
+        setProductSelected({ ...productSelected, typeId: typeId })
     }
 
     const handleChangeOnMenu = e => {
@@ -188,20 +191,14 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
             isOK = false
         }
 
-        if (productSelected.productFamilies.length === 0) {
-            msgFam = "Veuillez selectionnr une famille"
-
-            isOK = false
-        }
-
         const temp = productSelected;
         temp.ingredients = ingredientList
         setProductSelected(temp)
 
-        openSnack.msg = <>  
-                            <p>{msgImg}</p> 
-                            <p>{msgFam}</p>
-                        </>
+        openSnack.msg = <>
+            <p>{msgImg}</p>
+            <p>{msgFam}</p>
+        </>
         return isOK;
     }
 
@@ -400,15 +397,13 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
 
             <div className="Img">
                 {productImg.img === null && productImg.toLoad === false ?
-                    <img className="imgForm"  />
+                    <img className="imgForm" />
 
                     :
                     <img className="imgForm" src={productImg.img} alt={productSelected.imageName} />
                 }
                 <input type="file" ref={fileInput} accept="image/jpeg" onChange={changeImg} />
             </div>
-
-
 
             <div className="PriceAndSwitch">
                 <FormControlLabel
@@ -429,10 +424,8 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
                     }} />
             </div>
 
-
-
             <div className="FamillyCheckBox">
-                <FormLabel sx={{ color: "black" }} className="titreCheck">{t('gestionProduit.form.famille')}</FormLabel>
+                <FormLabel sx={{ color: "black" }} className="titreCheck">Type</FormLabel>
 
                 {(!isLoading) && (
                     <FormControl
@@ -440,9 +433,10 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
                         component="fieldset"
                     >
                         <FormGroup row className="checkBoxGroupFam">
-                            {famillyList.data.map((familly) => {
-                                return <FormControlLabel key={familly.id} label={familly.name} labelPlacement="top"
-                                    control={<Checkbox key={familly.id} checked={isCheckedFamilly(familly.productFamilyId)} onChange={e => handleChangeCheck(e, familly.productFamilyId)} />} />
+                            {typeList.map((type) => {
+                                return <FormControlLabel key={type.id} label={type.name} labelPlacement="top"
+                                    control={<Checkbox key={type.typeId} checked={isCheckedType(type.typeId)} onChange={() => handleChangeCheck(type.typeId)} />} 
+                                    />
                             })}
 
 

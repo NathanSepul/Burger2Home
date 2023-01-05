@@ -3,27 +3,46 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-const SelectFamilly = ({setFamillyId}) => {
+const SelectFamilly = ({setTypeId}) => {
 
-    const [listFamilly, setListFamilly] = useState([<option key="0" value="">All</option>]);
+    // const initType = <option key="0" value="">All</option>;
+    const [typeList, setTypeList] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
+    const [allTypeTranslation, setAllTypeTranslation] = useState({en:[], fr:[]})
     const languageRedux = useSelector(state => state.language);
 
     useEffect(()=>{
-        axios.get(`/products/families/translations?language=${languageRedux.value}`)
+        axios.get(`/types/translations`)
             .then((res) => {
                 setIsLoading(false)
-                setListFamilly(res);
+                let tempEn = [];
+                let tempFr = [];
+
+                res.data.forEach(e => {
+                        e.language.abbreviation==="EN" ? tempEn.push(e) : tempFr.push(e)
+                });
+
+                tempEn = tempEn.sort((a,b) => a.name > b.name ? 1 : -1)
+                tempFr = tempFr.sort((a,b) => a.name > b.name ? 1 : -1)
+
+                setAllTypeTranslation({en:tempEn, fr:tempFr});
+
+                languageRedux.value === "EN" ? setTypeList(tempEn) : setTypeList(tempFr)
+
             })
             .catch(() => {
                 setHasError(true);
             })
-    }, [languageRedux])
+    }, [])
+
+    useEffect(()=>{
+        languageRedux.value === "EN" ? setTypeList(allTypeTranslation.en) : setTypeList(allTypeTranslation.fr)
+    },[languageRedux.value])
     
     const changeFammillyHandler = (e) => {
-        setFamillyId(e.target.value);
+        setTypeId(e.target.value);
     }
 
     return (
@@ -32,8 +51,8 @@ const SelectFamilly = ({setFamillyId}) => {
             <select name="language" onChange={changeFammillyHandler}>
                 [<option key="0" value="">All</option>]
 
-                {listFamilly.data.map((familly) => {
-                    return <option key={familly.id} value={familly.productFamilyId}>{familly.name}</option>
+                {typeList.map((type) => {
+                    return <option key={type.id} value={type.typeId}>{type.name}</option>
                 })}
             </select>
         )}</>

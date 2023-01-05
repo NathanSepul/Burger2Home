@@ -28,6 +28,8 @@ const TabProducts = ({ products, setProductSelected }) => {
 
 
 
+
+
     return (
         <>
             <TableContainer component={Paper} className="productsTab">

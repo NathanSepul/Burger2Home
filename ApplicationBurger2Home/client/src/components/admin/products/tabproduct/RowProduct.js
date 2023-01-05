@@ -19,7 +19,6 @@ const RowProduct = ({ product, setProductSelected }) => {
         const imageBuffer = Buffer.from(res.data, 'binary');
         const imageString = 'data:image/jpeg;base64,' + imageBuffer.toString('base64');
         setLocalImg(imageString)
-        console.log("imgg")
       })
       .catch(e => {
         console.error(e);
