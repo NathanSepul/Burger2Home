@@ -1,0 +1,41 @@
+.PromoAdmin{
+    margin: 0;
+    padding-bottom:10px
+}
+
+.promoList{
+    width: calc(40vw - 5px);
+}
+
+.promoContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:10px;
+    padding:10px
+}
+
+.promoForm{
+    width: calc(55vw - 5px);
+}
+
+
+@media screen and (max-width: 780px){
+    .promoList{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .promoForm{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    
+    .promoContent{
+        display: flex;
+        flex-direction: column;
+    }
+}

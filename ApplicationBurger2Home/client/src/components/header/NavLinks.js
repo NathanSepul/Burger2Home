@@ -17,7 +17,7 @@ const NavLinks = ({ closeMenu }) => {
             <li className="linkHeader"> <Link to="/concept" onClick={closeMenu} > {t('navigation.concept')} </Link> </li>
 
             {(user.role === "marketing") && (
-                <li className="linkHeader"> <Link to="/marketing" onClick={closeMenu} > {t('navigation.marketing')} </Link> </li>
+                <li className="linkHeader"> <Link to="/admin/marketing" onClick={closeMenu} > {t('navigation.marketing')} </Link> </li>
             )}
 
             {(user.role === "admin") && (<>
