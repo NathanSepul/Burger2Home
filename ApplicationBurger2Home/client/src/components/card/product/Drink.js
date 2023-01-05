@@ -18,7 +18,7 @@ const Burger = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get(`/products/summaries?language=${languageRedux.value}&mustBeOnMenu=true&availableProductsOnly=false&productFamily=3`)
+        axios.get(`/products/summaries?language=${languageRedux.value}&mustBeOnMenu=true&availableProductsOnly=false&type=2`)
             .then((res) => {
                 setIsLoading(false);
                 let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));

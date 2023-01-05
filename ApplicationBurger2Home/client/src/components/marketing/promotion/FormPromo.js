@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -13,6 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
+
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 const FormPromo = ({ pS, setPS, setReloadList }) => {
 
@@ -23,6 +23,7 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
     const [promoSelected, setPromoSelected] = useState(initialState);
     const [promoFr, setPromoFr] = useState(initialStateFr);
     const [promoEn, setPromoEn] = useState(initialStateEn);
+    const [dates, setDates] = useState({ startDate: null, endDate: null })
     const [products, setProducts] = useState([]);
 
     // eslint-disable-next-line
@@ -41,6 +42,8 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
 
             setPromoFr(pS.tradFr)
             setPromoEn(pS.tradEn)
+
+            setDates({ startDate: pS.general.startDate, endDate: pS.general.endDate })
         }
 
         setIsLoading(true)
@@ -56,15 +59,17 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
 
     }, [pS, languageRedux.value])
 
+    useState(() => {
+        console.log(dates)
+    }, [dates])
 
     const cancel = () => {
         setPS([])
         setPromoFr(initialStateFr)
         setPromoEn(initialStateEn)
         setPromoSelected(initialState)
+        setDates({ startDate: null, endDate: null })
     }
-
-
 
     const firstToCapitalLetter = (lg, e) => {
 
@@ -81,6 +86,18 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
         }
     }
 
+    const handleChangeDate = (newValue, whichMoment) => {
+
+        if (whichMoment === "start") {
+            setDates({ ...dates, start: newValue })
+        }
+        else {
+            setDates({ ...dates, end: newValue })
+        }
+
+        console.log(dates)
+
+    }
     return (
         <Box
             component='form'
@@ -96,14 +113,15 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
                     variant="outlined"
                     value={promoEn.description}
                     onChange={e => firstToCapitalLetter("en", e)}
-                    inputProps={{ maxLength: 60 }}
+                    inputProps={{ maxLength: 255 }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end" >
-                                {`${promoEn.description.length}/${60}`}
+                                {`${promoEn.description.length}/${255}`}
                             </InputAdornment>
                         ),
-                    }} />
+                    }}
+                />
 
                 <TextField label="Nom"
                     required
@@ -115,13 +133,14 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end" >
-                                {`${promoFr.description.length}/${60}`}
+                                {`${promoFr.description.length}/${255}`}
                             </InputAdornment>
                         ),
-                    }} />
+                    }}
+                />
             </div>
             <div className="promoInfo">
-                <TextField label="Prix"
+                <TextField label="Valeur"
                     required
                     placeholder='ex: 30'
                     className="price"
@@ -132,6 +151,36 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
                     InputProps={{
                         endAdornment: (<InputAdornment position="end" > % </InputAdornment>),
                     }} />
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                        ampm={false}
+                        // disablePast
+                        inputFormat="DD/MM/YYYY hh:mm"
+                        label="Date de début"
+                        value={dates.startDate}
+                        onChange={newValue => setDates({ ...dates, startDate: "" })}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </LocalizationProvider>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                        ampm={false}
+                        onError={console.log}
+                        // disablePast
+                        inputFormat="DD/MM/YYYY hh:mm"
+                        // minDate={dayjs('2018-01-01T00:00')}
+                        label="Date de fin"
+                        value={dates.endDate}
+                        onChange={newValue => setDates({ ...dates, endDate: newValue })}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </LocalizationProvider>
+
+            </div>
+            <div>
+
             </div>
 
             <div className="bottomForm">
