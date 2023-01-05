@@ -5,8 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
-import "./Summary.css"
+import moment from 'moment';
 import axios from "axios";
+
+import "./Summary.css"
 
 const Summary = ({ address, setAddress,total, handleNext, order, setOrder, user }) => {
     const userR = useSelector(state=> state.user)
@@ -18,13 +20,20 @@ const Summary = ({ address, setAddress,total, handleNext, order, setOrder, user 
                     setAddress(res.data);
 
                     let orderT = order;
-                    orderT.addressId = res.data.id
-                    setOrder(orderT)
 
+                    orderT.addressId = res.data.id
+
+                    let dateTime = new Date();
+                    dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+                    orderT.orderDate = dateTime
+                    
+                    setOrder(orderT)
+                    
                     if (order.id === null) {
                         return axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${res.data.id}`)
                     }
                     else {
+                        
                         return axios.put(`/orders`, order)
                     }
                 })
@@ -36,7 +45,13 @@ const Summary = ({ address, setAddress,total, handleNext, order, setOrder, user 
             axios.put(`/addresses`, address)
                 .then(res => {
                     let orderT = order;
+
                     orderT.addressId = res.data.id
+
+                    let dateTime = new Date();
+                    dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+                    orderT.orderDate = dateTime
+
                     setOrder(orderT)
 
                     if (order.id === null) {

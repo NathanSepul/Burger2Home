@@ -55,7 +55,7 @@ const SmallNav = ({ toggleDrawer }) => {
 
         {(user.role === "marketing") &&
           (<>
-            <ListItem className="linkSmallHeader"> <Link to="/marketing" > {t('navigation.marketing')} </Link> </ListItem>
+            <ListItem className="linkSmallHeader"> <Link to="/admin/marketing" > {t('navigation.marketing')} </Link> </ListItem>
             <Divider />
           </>
           )}

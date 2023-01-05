@@ -25,7 +25,7 @@ const NavLinks = ({ closeMenu }) => {
             </>)}
 
             {(user.role === "employee") && (
-                <li className="linkHeader"> <Link to="admin/stock" onClick={closeMenu} > {t('navigation.stock')} </Link> </li>
+                <li className="linkHeader"> <Link to="admin/stocks" onClick={closeMenu} > {t('navigation.stock')} </Link> </li>
             )}
 
         </ul>

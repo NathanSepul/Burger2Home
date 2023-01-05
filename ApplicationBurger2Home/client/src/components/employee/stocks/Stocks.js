@@ -4,7 +4,7 @@ import axios from "axios";
 import TabStock from "./tabStock/TabStock.js";
 import "./Stocks.css";
 import { useTranslation } from 'react-i18next';
-import Loading from "../loading/Loading.js"
+import Loading from "../../loading/Loading.js"
 const Stocks = () => {
 
     const initialState = { id: null, ingredientId: null, amount: null, creationDate: "" };
