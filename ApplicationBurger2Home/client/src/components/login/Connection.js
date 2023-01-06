@@ -45,7 +45,7 @@ const Connection = () => {
             openSnack.msg = "Tentative de connexion en cours";
             openSnack.severity = "info";
             dispatch(open(openSnack));
-const id = 1
+const id = 2
             axios.get(`/users/${id}`)
                 .then((res) => {
                     console.log(res);

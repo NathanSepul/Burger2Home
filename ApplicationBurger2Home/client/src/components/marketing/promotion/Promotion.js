@@ -34,8 +34,8 @@ const Promotion = () =>{
                     promoFusion.push({ general: promoGenTemp[i], tradEn: promoTemEn[i], tradFr: promoTemFr[i] })
                 }
 
-                setReloadList(false);
                 setPromos(promoFusion);
+                setReloadList(false);
             })
         )
         .catch(e => {

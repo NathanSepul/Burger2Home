@@ -9,10 +9,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
-
+import 'dayjs/locale/fr';
+import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import ProductsTransfert from "./ProductsTransfert.js";
 
 const FormPromo = ({ pS, setPS, setReloadList }) => {
 
@@ -24,7 +26,7 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
     const [promoFr, setPromoFr] = useState(initialStateFr);
     const [promoEn, setPromoEn] = useState(initialStateEn);
     const [dates, setDates] = useState({ startDate: null, endDate: null })
-    const [products, setProducts] = useState([]);
+    const [productList, setProductList] = useState([]);
 
     // eslint-disable-next-line
     const [isLoading, setIsLoading] = useState(true);
@@ -47,21 +49,7 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
         }
 
         setIsLoading(true)
-        axios.get(`/products/summaries?language=${languageRedux.value}`)
-            .then(res => {
-                let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
-                setProducts(temp)
-                setIsLoading(false);
-            })
-            .catch((e) => {
-                console.log(e)
-            })
-
-    }, [pS, languageRedux.value])
-
-    useState(() => {
-        console.log(dates)
-    }, [dates])
+    }, [pS])
 
     const cancel = () => {
         setPS([])
@@ -86,22 +74,88 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
         }
     }
 
-    const handleChangeDate = (newValue, whichMoment) => {
+    const validationForm = (e) => {
 
-        if (whichMoment === "start") {
-            setDates({ ...dates, start: newValue })
+        if (dates.endDate === null || dates.startDate === null) {
+            openSnack.msg = "il faut completer les deux dates";
+            openSnack.severity = "warning";
+            dispatch(open(openSnack))
+        }
+
+        else if (0>=promoSelected.amount || promoSelected.amount>100) {
+            openSnack.msg = "La valeur doit être comprise en 0.01 et 100";
+            openSnack.severity = "warning";
+            dispatch(open(openSnack))
         }
         else {
-            setDates({ ...dates, end: newValue })
+            let promo = promoSelected;
+            promo.creationDate = moment(new Date(), 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+            promo.startDate = moment(new Date(dates.startDate)).format('YYYY-MM-DD HH:mm:ss');
+            promo.endDate = moment(new Date(dates.endDate)).format('YYYY-MM-DD HH:mm:ss');
+            promo.products = productList;
+
+            setPromoSelected(promo);
+            if (promoSelected.id === null) {
+                axios.post(`/promotions`, promoSelected)
+                    .then(res => {
+                        let temp = promoSelected;
+                        temp.id = res.data.id;
+                        setPromoSelected(temp);
+
+                        let tempEn = promoEn;
+                        tempEn.promotionId = res.data.id;
+                        setPromoEn(tempEn);
+
+                        let tempFr = promoFr;
+                        tempFr.promotionId = res.data.id;
+                        setPromoFr(tempFr);
+
+                        return axios.post(`/promotions/translations`, promoEn)
+                    })
+                    .then(res => {
+                        return axios.post(`/promotions/translations`, promoFr)
+                    })
+                    .then(res => {
+                        setReloadList(true)
+                    })
+                    .catch(e => console.log(e))
+            }
+            else {
+                axios.put(`/promotions`, promoSelected)
+                    .then(res => {
+                        return axios.put(`/promotions/translations`, promoEn)
+                    })
+                    .then(res => {
+                        return axios.put(`/promotions/translations`, promoFr)
+                    })
+                    .then(res => {
+                        setReloadList(true)
+                    })
+                    .catch(e => console.log(e))
+            }
+
         }
 
-        console.log(dates)
-
+        e.preventDefault()
     }
+
+    const checkSecondDate = (newValue) =>{
+
+        const date1 = new Date(dates.startDate);
+        const date2 = new Date(newValue)
+
+        if(date2<date1){
+            setDates({...dates, endDate:null})
+        }
+        else{
+            setDates({...dates, endDate:newValue})
+        }
+    }
+
     return (
         <Box
             component='form'
-            onSubmit={e => e.preventDefault()}
+            onSubmit={e => validationForm(e)}
             sx={{
                 '& > :not(style)': { m: "auto", width: "100%" },
             }}
@@ -152,35 +206,46 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
                         endAdornment: (<InputAdornment position="end" > % </InputAdornment>),
                     }} />
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"fr"}>
                     <DateTimePicker
+                        required
                         ampm={false}
-                        // disablePast
-                        inputFormat="DD/MM/YYYY hh:mm"
+                        showToolbar
+                        // minDate={dayjs('2018-01-01T00:00')}
                         label="Date de début"
                         value={dates.startDate}
-                        onChange={newValue => setDates({ ...dates, startDate: "" })}
+                        onChange={newValue => setDates({ ...dates, startDate: newValue })}
                         renderInput={(params) => <TextField {...params} />}
+                        componentsProps={{
+                            actionBar: {
+                              actions: ['cancel'],
+                            },
+                          }}
                     />
                 </LocalizationProvider>
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"fr"}>
                     <DateTimePicker
+                        required
                         ampm={false}
-                        onError={console.log}
-                        // disablePast
-                        inputFormat="DD/MM/YYYY hh:mm"
+                        showToolbar
+                        onError={false}
                         // minDate={dayjs('2018-01-01T00:00')}
                         label="Date de fin"
                         value={dates.endDate}
-                        onChange={newValue => setDates({ ...dates, endDate: newValue })}
+                        onChange={newValue => checkSecondDate(newValue )}
                         renderInput={(params) => <TextField {...params} />}
+                        componentsProps={{
+                            actionBar: {
+                              actions: ['cancel'],
+                            },
+                          }}
                     />
                 </LocalizationProvider>
 
             </div>
-            <div>
-
+            <div className="ingredientTransfertList">
+                <ProductsTransfert ps={promoSelected} setProductList={setProductList} />
             </div>
 
             <div className="bottomForm">
