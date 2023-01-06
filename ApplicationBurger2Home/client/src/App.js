@@ -11,6 +11,7 @@ import Inscription from "./components/login/Inscription.js";
 import Basket from "./components/basket/Basket.js";
 import Products from "./components/admin/products/Products.js";
 import Ingredients from "./components/admin/ingredients/Ingredients.js";
+import Roles from "./components/admin/roles/Roles.js";
 import Allergens from "./components/admin/allergens/Allergens";
 import Stocks from "./components/employee/stocks/Stocks.js";
 import Promotion from "./components/marketing/promotion/Promotion.js"
@@ -79,7 +80,7 @@ useEffect(()=>{
           </Route>
 
           <Route element={<PrivateRouteAdmin />}>
-            <Route path="admin/role" element={<NoPage />} />
+            <Route path="admin/role" element={<Roles />} />
             <Route path="admin/products" element={<Products />} />
             <Route path="admin/ingredients" element={<Ingredients />} />
             <Route path="admin/allergens" element={<Allergens />} />

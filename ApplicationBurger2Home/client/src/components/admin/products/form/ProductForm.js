@@ -22,7 +22,7 @@ import "./ProductForm.css"
 
 
 const ProductForm = ({ ps, setPS, setReloadList }) => {
-    const initialStatePS = { id: null, imageName: null, ingredients: [], productFamilies: [], onMenu: false, type:null};
+    const initialStatePS = { id: null, imageName: null, ingredients: [], productFamilies: [], onMenu: false, typeId:null};
     const initialStateFr = { id: null, description: "", name: "", language: { id: 2 }, productId: "" };
     const initialStateEn = { id: null, description: "", name: "", language: { id: 1 }, productId: "" };
     const initialStatePrice = { amount: "" }

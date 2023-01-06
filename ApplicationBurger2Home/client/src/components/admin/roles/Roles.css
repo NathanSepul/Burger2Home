@@ -1,0 +1,41 @@
+.RolesAdmin{
+    margin: 0;
+    padding-bottom:10px
+}
+
+.RolesList{
+    width: calc(45vw - 5px);
+}
+
+.RolesContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:10px;
+    padding:10px
+}
+
+.RolesForm{
+    width: calc(50vw - 5px);
+}
+
+
+@media screen and (max-width: 780px){
+    .ingredientList{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .ingredientForm{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    
+    .ingredientContent{
+        display: flex;
+        flex-direction: column;
+    }
+}
