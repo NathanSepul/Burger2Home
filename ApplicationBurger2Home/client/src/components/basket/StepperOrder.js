@@ -15,7 +15,7 @@ import Summary from './summary/Summary.js'
 import Address from "./address/Address.js";
 import axios from 'axios';
 
-const steps = ['Panier', 'Livraison', 'Payement', 'temps'];
+const steps = ['Panier', 'Livraison', 'Payement'];
 
 const StepperOrder = ({ basket }) => {
 
@@ -42,9 +42,7 @@ const StepperOrder = ({ basket }) => {
       setActiveStep(activeStep + 1);
     }
     else {
-      console.log("on est à la fin")
-
-      navigate("/carte");
+      navigate("/");
     }
   };
 
@@ -82,28 +80,13 @@ const StepperOrder = ({ basket }) => {
           {(activeStep === 0) && (
             <Tooltip title="Conncetez vous pour continuer" enterDelay={700} leaveDelay={200} disableHoverListener={userR.isConnected}>
               <span>
-                <Button onClick={handleNext} disabled={!userR.isConnected}>
+                <Button onClick={handleNext} disabled={!userR.isConnected || basket.basketLines.length === 0}>
                   Suivant<ArrowForwardIosRoundedIcon />
                 </Button>
               </span>
             </Tooltip>
 
           )}
-
-
-          {/* {activeStep === 1 && (
-            <Button onClick={handleNext} disabled={nextAddrDisable}>
-              Suivannnnt<ArrowForwardIosRoundedIcon />
-            </Button>
-          )} */}
-
-          {/* {activeStep === steps.length - 2 && (
-            <Button onClick={handleNext}>
-              Confirmer
-            </Button>
-          )} */}
-
-
 
         </Box>
 
@@ -114,7 +97,7 @@ const StepperOrder = ({ basket }) => {
             </div>
           )}
 
-          {activeStep === steps.length - 3 && (
+          {activeStep === steps.length - 2 && (
             <div className="adresse">
               <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} user={user} basket={basket}/>
             </div>
@@ -123,18 +106,13 @@ const StepperOrder = ({ basket }) => {
 
 
 
-          {activeStep === steps.length - 2 && (
+          {activeStep === steps.length - 1 && (
             <div className="resume">
               <Summary address={address} setAddress={setAddress} total={bill} handleNext={handleNext} order={order} setOrder={setOrder} user={user} />
             </div>
           )}
 
-          {activeStep === steps.length - 1 && (
-
-            <div className="payment">
-              {/* <Payement order={order}/> */}
-            </div>
-          )}
+     
 
 
         </div>

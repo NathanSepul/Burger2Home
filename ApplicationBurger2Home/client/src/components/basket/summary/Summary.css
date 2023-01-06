@@ -6,7 +6,7 @@
 .SummaryContent{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-around ;
     margin-bottom: 20px;
 }
 
@@ -16,11 +16,12 @@
 
 .cardAddressBasket{
     height: fit-content;
+
     width: fit-content;
+    min-width: 250px;
 }
 .cardAddressBasketContent{
-    max-width: 300px !important;
-        background-color: #d2d2d2 !important;
+    background-color: #d2d2d2 !important;
 
 }
 
@@ -34,16 +35,46 @@
     overflow-wrap: break-word;
 }
 
+.paymentResum{
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #d2d2d2;
+    display: flex;
+    flex-direction: column;
+    gap:15px
+}
 
+.addition{
+    display: flex;
+    flex-direction: column;
+    gap:15px
+}
+.additionPayment{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.additionPayment div{
+    margin-top:auto;
+    margin-bottom:auto; 
+
+}
+.txt1Pay{
+    font-size: 1rem;
+}
+.txt2Pay{
+    font-size: 0.5rem;
+}
+
+.amountBill{
+    font-size: 1rem;
+}
 
 .buttonSumForm{
     display: flex;
     flex-direction: reverse;
     justify-content: right;
-}
-
-.AmountOrder{
-    background-color: greenyellow;
-    width: 30%;
-    text-align: right;
 }

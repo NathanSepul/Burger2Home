@@ -71,10 +71,10 @@ const SmallNav = ({ toggleDrawer }) => {
           <Divider />
         </>)}
 
-        {(user.role === "employee")} && (<>
+        {(user.role === "employee") && (<>
           <ListItem className="linkSmallHeader"> <Link to="/admin/stocks" > {t('navigation.stock')} </Link> </ListItem>
           <Divider />
-        </>)
+        </>)}
 
       </List>
     </Box>

@@ -34,6 +34,9 @@ export const userSlice = createSlice({
     },
     loginBasket: (state, action) => {
       state.basket = action.payload.basket;
+      if(state.basket.basketLines === null){
+        state.basket.basketLines = []
+      }
       state.basketSize = action.payload.size;
 
       return state

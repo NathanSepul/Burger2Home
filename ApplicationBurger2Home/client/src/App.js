@@ -38,7 +38,7 @@ const App = () => {
 
 useEffect(()=>{
   if (user.isConnected) {
-    axios.get(`/users/${user.id}/basket`)
+    axios.get(`/baskets/${user.basket.id}`)
       .then((res) => {
         const basketInformation = { basket:null,size:0}
         basketInformation.basket = res.data;

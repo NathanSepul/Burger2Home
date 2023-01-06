@@ -33,8 +33,6 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
 
         //1) il n'y a pas encore de commande pour ce panier
         //2) la commande la plus récente n'a pas le même nombre de ligne
-        console.log(tempOrd[0])
-        console.log( basket)
         if (tempOrd.length === 0 || tempOrd[0].orderLines.length !== basket.basketLines.length) {
           setOrder({ ...order, userId: userR.id })
         }
@@ -154,7 +152,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
             variant="outlined"
             value={address.label}
             onChange={e => setAddress({ ...address, label: e.target.value })}
-            inputProps={{ maxLength: 100 }}
+            inputProps={{ maxLength: 100}}
             InputProps={{
               readOnly: readOnlyAddress(),
               endAdornment: (
@@ -172,8 +170,9 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
             className="box"
             value={address.extension || ''}
             onChange={e => setAddress({ ...address, extension: e.target.value })}
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' , maxLength: 4}}
             InputProps={{ readOnly: readOnlyAddress() }}
+            
           />
         </div>
 
@@ -185,7 +184,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
             placeholder='ex: 25'
             value={address.number}
             onChange={e => setAddress({ ...address, number: e.target.value })}
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', maxLength: 4}}
             InputProps={{ readOnly: readOnlyAddress() }}
           />
 
@@ -217,7 +216,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
             required
             value={address.zipcode}
             onChange={e => setAddress({ ...address, zipcode: e.target.value })}
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', maxLength: 4}}
             InputProps={{ readOnly: readOnlyAddress() }}
           />
 
