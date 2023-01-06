@@ -211,6 +211,7 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
                         required
                         ampm={false}
                         showToolbar
+                        maxDate={ dates.endDate !== null ? new Date(dates.endDate) : undefined}
                         // minDate={dayjs('2018-01-01T00:00')}
                         label="Date de début"
                         value={dates.startDate}
@@ -229,11 +230,11 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
                         required
                         ampm={false}
                         showToolbar
-                        onError={false}
-                        // minDate={dayjs('2018-01-01T00:00')}
+                        minDate={ new Date(dates.startDate)}
                         label="Date de fin"
-                        value={dates.endDate}
-                        onChange={newValue => checkSecondDate(newValue )}
+                        value={dates.endDate }
+                        // onChange={newValue => checkSecondDate(newValue )}
+                        onChange={newValue => setDates({ ...dates, endDate: newValue })}
                         renderInput={(params) => <TextField {...params} />}
                         componentsProps={{
                             actionBar: {
