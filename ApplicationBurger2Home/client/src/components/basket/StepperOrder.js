@@ -10,17 +10,17 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip'
 import TabBasket from "./tabBasket/TabBasket.js";
-import Payement from './payment/Payment.js';
+// import Payement from './payment/Payment.js';
 import Summary from './summary/Summary.js'
 import Address from "./address/Address.js";
 import axios from 'axios';
 
-const steps = ['Résumé', 'Livraison', 'Vérification', 'Payement'];
+const steps = ['Panier', 'Livraison', 'Payement', 'temps'];
 
 const StepperOrder = ({ basket }) => {
 
   const userR = useSelector(state => state.user)
-  const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true" };
+  const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true", label:"" };
   const initialStateOrder = { id: null, userId: null, creditCardId: null, addressId: null, orderDate: "", orderLines: [], status: "", paymentIntent: "" }
   
   const [activeStep, setActiveStep] = useState(0);
@@ -32,9 +32,8 @@ const StepperOrder = ({ basket }) => {
 
   useEffect(()=>{
     axios.get(`/users/${userR.id}`)
-    .then(res => setUser(res.data)
+    .then(res => setUser(res.data))
     .catch(e =>console.log(e))
-    )
   },[])
 
   const handleNext = () => {
@@ -52,10 +51,6 @@ const StepperOrder = ({ basket }) => {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
-
-
-
 
 
   return (
@@ -121,7 +116,7 @@ const StepperOrder = ({ basket }) => {
 
           {activeStep === steps.length - 3 && (
             <div className="adresse">
-              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} user={user} />
+              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} user={user} basket={basket}/>
             </div>
 
           )}
@@ -137,7 +132,7 @@ const StepperOrder = ({ basket }) => {
           {activeStep === steps.length - 1 && (
 
             <div className="payment">
-              <Payement order={order}/>
+              {/* <Payement order={order}/> */}
             </div>
           )}
 

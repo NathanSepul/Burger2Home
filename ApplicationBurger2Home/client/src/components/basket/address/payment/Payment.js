@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, ElementsConsumer, CardElement } from "@stripe/react-stripe-js"
 import PaymentForm from "./PaymentForm.js"
-import Loading from "../../loading/Loading.js"
+import Loading from "../../../loading/Loading.js"
 import axios from "axios";
 
 
-const Payment = ({ order, address, setOrder, setAddress}) => {
+const Payment = ({ order }) => {
 
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState(null);
@@ -33,7 +33,7 @@ const Payment = ({ order, address, setOrder, setAddress}) => {
     <>
        {stripePromise ? (
        <Elements stripe={stripePromise} options={options}>
-        <PaymentForm order={order} address={address} setAddress={setAddress} setOrder={setOrder}/>
+        <PaymentForm order={order} />
       </Elements>
        ) : (<Loading />)} 
     </>

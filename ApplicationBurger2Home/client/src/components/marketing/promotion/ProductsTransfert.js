@@ -36,7 +36,7 @@ const ProductsTransfert = ({ ps, setProductList }) => {
     useEffect(() => {
         axios.get(`/products/summaries?language=${languageRedux.value}`)
             .then(res => {
-                isSelected(res.data)
+                isSelected(res.data.sort((a,b)=>(a.name > b.name ? 1 : -1)))
                 setIsLoading(false)
             })
             .catch(e => {

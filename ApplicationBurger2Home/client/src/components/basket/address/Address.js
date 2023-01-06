@@ -10,23 +10,55 @@ import Typography from '@mui/material/Typography';
 
 import "./Address.css";
 
-const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => {
+const Address = ({ address, setAddress, handleNext, order, setOrder, user, basket }) => {
 
   const userR = useSelector(state => state.user)
   const [addressList, setAddressList] = useState([])
   const [isLoading, setIsloading] = useState(true)
 
-  const initialState = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: userR.id, active: "true" };
+  const initialState = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: userR.id, active: "true", label: "" };
 
   const { t } = useTranslation();
 
   useEffect(() => {
 
+    // récuperation des commandes de l'utilisateur avec un status waiting_for_payment
+    // cas 1 => il n'y en a pas => nouvelle commande (just id user)
+    // cas 2 => il y en a une ou plusieurrd => on prend la plus récente et on compare les bl avec les order line pour voir si il y a eu des modification si oui => nouvelle commande
+
     axios.get(`/users/${userR.id}/orders`)
       .then(res => {
         let tempOrd = res.data.filter(ord => { return ord.status === "waiting_for_payment" })
-        tempOrd.length === 0 ? setOrder({ ...order, userId: userR.id }) : setOrder(tempOrd[0]);
+        tempOrd = tempOrd.sort((a, b) => a.id < b.id ? 1 : -1) //du plus vieux (petit id ) au plus jeune
 
+        //1) il n'y a pas encore de commande pour ce panier
+        //2) la commande la plus récente n'a pas le même nombre de ligne
+        console.log(tempOrd[0])
+        console.log( basket)
+        if (tempOrd.length === 0 || tempOrd[0].orderLines.length !== basket.basketLines.length) {
+          setOrder({ ...order, userId: userR.id })
+        }
+        else {
+          let tempBls = basket.basketLines;
+          let tempOls = tempOrd[0].orderLines;
+
+          tempBls = tempBls.sort((a, b) => (a.productId < b.productId ? 1 : -1))
+          tempOls = tempOls.sort((a, b) => (a.productId < b.productId ? 1 : -1))
+
+          let isSame = true;
+
+          for (let i = 0; i < tempBls.length; i++) {
+            if (tempBls[i].productId !== tempOls[i].productId || tempBls[i].amount !== tempOls[i].amount) {
+              isSame = false
+              break;
+            }
+          }
+
+          isSame ? setOrder(tempOrd[0]) : setOrder({ ...order, userId: userR.id })
+
+        }
+
+        // récuperation des addresse actives
         return axios.get(`/users/${userR.id}/addresses?mustBeActive=true`)
       })
       .then(res => {
@@ -43,29 +75,36 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
 
   useEffect(() => {
 
-    if(!addrCompleted()){
-      if (order.addressId != null && addressList.length !== 0 && addrCompleted) {
-      let tempAd = addressList.filter(addr => { return addr.id === order.addressId })
-      setAddress(tempAd[0]);
+    if (!addrCompleted()) {
+      if (order.addressId != null && addressList.length !== 0) {
+        let tempAd = addressList.filter(addr => { return addr.id === order.addressId })
+        setAddress(tempAd[0]);
+      }
     }
-    }
-    
+
   }, [addressList])
 
-  const addrCompleted = () =>{
+  const addrCompleted = () => {
 
-    if(address.zipcode === ""){
-      return false}
-    
-    if(address.street === ""){
+    if (address.label === "") {
       return false
     }
 
-    if(address.city === ""){
-      return false}
-    
-    if(address.number === ""){
-      return false}
+    if (address.zipcode === "") {
+      return false
+    }
+
+    if (address.street === "") {
+      return false
+    }
+
+    if (address.city === "") {
+      return false
+    }
+
+    if (address.number === "") {
+      return false
+    }
 
     return true
   }
@@ -75,8 +114,8 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
     addr.length === 0 ? setAddress(initialState) : setAddress(addr[0])
   }
 
-  const readOnlyAddress = () =>{
-    return address.id !== null 
+  const readOnlyAddress = () => {
+    return address.id !== null
   }
 
   if (!isLoading) {
@@ -93,7 +132,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
         <Box>
           <select onChange={changeAddrHandler} defaultValue={address.id || ''}>
             <option value=''>Nouvelle adresse </option>
-            {addressList.map(addr => <option key={addr.id} value={addr.id}>{addr.street}</option>)}
+            {addressList.map(addr => <option key={addr.id} value={addr.id}>{addr.label}</option>)}
           </select>
         </Box>
         <div className="lineAddresse">
@@ -108,17 +147,34 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
         </div>
 
         <div className="lineAddresse">
+          <TextField label="Label"
+            required
+            placeholder='ex: Maison'
+            className="label"
+            variant="outlined"
+            value={address.label}
+            onChange={e => setAddress({ ...address, label: e.target.value })}
+            inputProps={{ maxLength: 100 }}
+            InputProps={{
+              readOnly: readOnlyAddress(),
+              endAdornment: (
+                <InputAdornment position="end" >
+                  {`${address.street.length}/100`}
+                </InputAdornment>
+              ),
+            }} />
+        </div>
+
+        <div className="lineAddresse">
           <TextField label="Boite"
-            disabled={ readOnlyAddress() && address.extension === null }
+            disabled={readOnlyAddress() && address.extension === null}
             placeholder='ex: 2'
             className="box"
-            // error={errorExt.onError}
             value={address.extension || ''}
             onChange={e => setAddress({ ...address, extension: e.target.value })}
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
             InputProps={{ readOnly: readOnlyAddress() }}
           />
-
         </div>
 
         <div className="lineAddresse">
@@ -177,7 +233,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
               readOnly: readOnlyAddress(),
               endAdornment: (
                 <InputAdornment position="end" >
-                  {`${address.street.length}/45`}
+                  {`${address.city.length}/45`}
                 </InputAdornment>
               ),
             }} />
@@ -189,7 +245,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
             placeholder='ex: Sonnez à la porte bleu'
             className="note"
             variant="outlined"
-            InputLabelProps={{ shrink: true,}}
+            InputLabelProps={{ shrink: true, }}
             multiline
             value={address.note}
             onChange={e => setAddress({ ...address, note: e.target.value })}
@@ -210,7 +266,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user }) => 
           </Button>
         </div>
       </Box>
-    ); 
+    );
   }
 
 

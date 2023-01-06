@@ -5,84 +5,31 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
-import moment from 'moment';
 import axios from "axios";
-
+import Payement from "../payment/Payment.js"
 import "./Summary.css"
 
-const Summary = ({ address, setAddress,total, handleNext, order, setOrder, user }) => {
-    const userR = useSelector(state=> state.user)
+const Summary = ({ address, setAddress, total, handleNext, order, setOrder, user }) => {
 
-    const confimation = () =>{
-        if (address.id === null) {
-            axios.post(`/addresses`, address)
-                .then(res => {
-                    setAddress(res.data);
-
-                    let orderT = order;
-
-                    orderT.addressId = res.data.id
-
-                    let dateTime = new Date();
-                    dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-                    orderT.orderDate = dateTime
-                    
-                    setOrder(orderT)
-                    
-                    if (order.id === null) {
-                        return axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${res.data.id}`)
-                    }
-                    else {
-                        
-                        return axios.put(`/orders`, order)
-                    }
-                })
-
-                .then(res => setOrder(res.data))
-                .catch(e => console.log(e))
-        }
-        else {
-            axios.put(`/addresses`, address)
-                .then(res => {
-                    let orderT = order;
-
-                    orderT.addressId = res.data.id
-
-                    let dateTime = new Date();
-                    dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-                    orderT.orderDate = dateTime
-
-                    setOrder(orderT)
-
-                    if (order.id === null) {
-                        return axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${res.data.id}`)
-                    }
-                    else {
-                        return axios.put(`/orders`, order)
-                    }
-                })
-                .then(res => setOrder(res.data))
-                .catch(e => console.log(e))
-        }
-
+    const confimation = () => {
         handleNext();
     }
 
     return (
         <div className="Summary">
-          
+
             <div className="SummaryContent">
                 <Card className="cardAddressBasket">
-                    <CardContent className="cardAddressContent">
+                    <CardContent className="cardAddressBasketContent" >
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            nom de l'addresse
+                            {address.label}
                         </Typography>
 
                         <Typography variant="body2">
                             <span>{user.firstname} {user.lastname}</span>
                             <br />
                             <br />
-                            {address.extension !== null &&(
+                            {address.extension !== null && (
                                 <>
                                     <span>Boite {address.extension}</span>
                                     <br />
@@ -96,27 +43,22 @@ const Summary = ({ address, setAddress,total, handleNext, order, setOrder, user 
                             <span>Belgique</span>
                             <br />
                             <br />
-                            {address.note.length !== 0 &&(
+                            {address.note.length !== 0 && (
                                 <>
+                                    <span>Note</span>
                                     <div className="noteOrder">{address.note}</div>
-                                    <br />
                                 </>
                             )}
-                        
+
                         </Typography>
                     </CardContent>
                 </Card>
 
                 <div className="AmountOrder">
                     {total}
+                    <div>info de payement</div>
+                    <Payement order={order} address={address} setAddress={setAddress} setOrder={setOrder}/>
                 </div>
-            </div>
-            
-
-            <div className="buttonSumForm">
-                <Button variant="contained" onClick={confimation}>
-                    confirmer
-                </Button>
             </div>
         </div>
     );

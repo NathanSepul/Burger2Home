@@ -1,6 +1,13 @@
 .Summary{
-    width:60%;
+    width:90%;
     margin:10px auto;
+}
+
+.SummaryContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }
 
 .nextFromSummaryButton{
@@ -8,25 +15,26 @@
 }
 
 .cardAddressBasket{
-    background-color: #d2d2d2 !important;
-    max-width: 170px;
-    height: 220px;
+    height: fit-content;
+    width: fit-content;
+}
+.cardAddressBasketContent{
+    max-width: 300px !important;
+        background-color: #d2d2d2 !important;
+
 }
 
 .noteOrder{
-    width: 139px;
-    height: 50px;
-    margin: 0 auto;
-    background-color: green;
+    height: 70px;
+    width: 100% !important;
+    padding-left: 10px;
+    background-color: #f4f4f4;
+    /* margin: 0 auto; */
     overflow-y: scroll !important;
+    overflow-wrap: break-word;
 }
 
-.SummaryContent{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
+
 
 .buttonSumForm{
     display: flex;
@@ -35,7 +43,7 @@
 }
 
 .AmountOrder{
-    background-color: yellow;
+    background-color: greenyellow;
     width: 30%;
     text-align: right;
 }

@@ -19,24 +19,19 @@ const CardAddress = ({ address, user, setReload }) => {
         <Card className="cardAddress">
             <CardContent  className="cardAddressContent">
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    nom de l'addresse
+                    {address.label}
                 </Typography>
 
                 <Typography variant="body2">
                     <span>{user.firstname} {user.lastname}</span>
                     <br />
-                    <br />
-                    {address.extension !== null ? 
+                    {address.extension !== null &(
                         <>
                             <span>Boite {address.extension}</span>
                             <br />
                         </>
-                        :
-                        <>
-                            <span>Boite {address.extension}</span>
-                            <br />
-                        </>
-                    }
+
+                    )}
 
                     <span>{address.number}, {address.street}</span>
                     <br />

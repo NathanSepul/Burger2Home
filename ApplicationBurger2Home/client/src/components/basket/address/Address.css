@@ -14,12 +14,13 @@
     width: 100%;
 }
 
+
 .city, .street{
     width: calc(80% - 30px);
     min-width: 300px !important;
 }
 
-.number, .zip, .box{
+.number, .zip, .box, .label{
     width: 20%;
     min-width: 100px !important;
     font-size: small !important;

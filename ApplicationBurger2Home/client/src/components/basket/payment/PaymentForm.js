@@ -1,168 +1,156 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, ElementsConsumer, CardElement, useStripe, useElements, PaymentElement, injectStripe} from "@stripe/react-stripe-js"
-import Loading from "../../loading/Loading.js"
+import { Elements, ElementsConsumer, CardElement, useStripe, useElements, PaymentElement, injectStripe } from "@stripe/react-stripe-js"
 import axios from "axios";
 import Button from '@mui/material/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeAll } from '../../../redux/basketSlice.js';
-import "./PaymentForm.css";
+import {loginBasket} from '../../../redux/userSlice.js'
+import Loading from "../../loading/Loading.js";
+import moment from 'moment';
+
+// import "./PaymentForm.css";
 
 
-const PaymentForm = ({ order }) => {  
+const PaymentForm = ({ order, address, setAddress, setOrder }) => {
+  const userR = useSelector(state => state.user)
+  const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
+  const [paymentMethodeId, setPaymentMethodeId] = useState(null);
 
-  const handleSubmit = async (ev) => {
-    ev.preventDefault();
-    let payload = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement)
-    })
+  useEffect(() => {
+    if(paymentMethodeId !== null){
+      axios.get(`/orders/confirm-order?orderIdentifier=${order.id}&paymentMethodIdentifier=${paymentMethodeId}`)
+        .then(res =>{
+          //si le payment est confimer on vide le panier et on creer un nouveau (temporaire en fonction du back il devrait gerer ca par la suite)
+          let dateTime = new Date();
+          dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+          const basket = {id:null, lastUpdate:dateTime, userId :userR.id, basketLines : []}
 
-    console.log(payload)
-  //   .then(({paymentMethod}) => {
-  //     console.log('Received Stripe PaymentMethod:', paymentMethod);
-  //   });
+          return axios.post(`baskets`,basket)
+        })
+        .then(res =>{
+          console.log(res)
+          const basketInformation = { basket:null,size:0}
+          basketInformation.basket = res.data;
+          dispatch(loginBasket(basketInformation))
+        })
+        .catch(e => console.log(e))
+    }
+  }, [paymentMethodeId])
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    //liaison de l'address avec la commande
+    if (address.id === null) {
+      axios.post(`/addresses`, address)
+        .then(res => {
+          setAddress(res.data);
+
+          let orderT = order;
+
+          orderT.addressId = res.data.id
+
+          let dateTime = new Date();
+          dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+          orderT.orderDate = dateTime
+
+          setOrder(orderT)
+
+          //si nouvelle commande on creer sur base basket id et address id ce qui est fait au dessus ne sers que dans le cas d'un update
+          if (order.id === null) {
+            return axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${res.data.id}`)
+          }
+          else {
+            return axios.put(`/orders`, order)
+          }
+        })
+
+        .then(res => setOrder(res.data))
+        .then(()=> createPM() )
+        .catch(e => console.log(e))
+    }
+    else {
+      let orderT = order;
+
+      orderT.addressId = address.id
+
+      let dateTime = new Date();
+      dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
+      orderT.orderDate = dateTime
+
+      setOrder(orderT)
+
+      //si nouvelle commande on creer sur base basket id et address id ce qui est fait au dessus ne sers que dans le cas d'un update
+      if (order.id === null) {
+        axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${address.id}`)
+          .then(res => setOrder(res.data))
+          .then(()=> createPM() )
+          .catch(e => console.log(e))
+      }
+      else {
+        axios.put(`/orders`, order)
+          .then(res => setOrder(res.data))
+          .then(()=> createPM() )
+          .catch(e => console.log(e))
+      }
+
+    }
+
+   
+
   }
 
+const createPM = async () =>{
+  console.log("hhhhh")
+  const { error, paymentMethod } = await stripe.createPaymentMethod({
+    type: 'card',
+    card: elements.getElement(CardElement),
+  });
+
+
+  if (error) {
+    console.log(error)
+  }
+  else {
+    console.log(paymentMethod)
+    setPaymentMethodeId(paymentMethod.id)
+  }
+} 
+
+
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit">Pay</button>
+    <form id="payment-form">
+      <div className="form-row">
+        <label>
+          Card details
+          <CardElement
+            style={{
+              base: {
+                fontSize: '50px',
+                color: '#424770',
+                '::placeholder': {
+                  color: '#aab7c4',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
+              },
+            }} />
+        </label>
+        <div id="card-element"></div>
+        <div id="card-errors" role="alert"></div>
+      </div>
+
+      <div className="buttonSumForm">
+        <Button variant="contained" onClick={handleSubmit}>
+          Payer
+        </Button>
+      </div>
     </form>
   );
-
 }
 
-export default  PaymentForm;
-
-
-
-
-
-
-
-
-
-//   const stripe = useStripe();
-//   const elements = useElements();
-//   const dispatch = useDispatch();
-//   const [isProcessing, setIsProcessing] = useState(false);
-//   const [message, setMessage] = useState(null);
-
-//   const handleSubmit = async (e) => {
-
-//     // e.preventDefault();
-
-//     if (!stripe || !elements) {
-//       // Stripe.js has not yet loaded.
-//       // Make sure to disable form submission until Stripe.js has loaded.
-//       return;
-//     }
-
-//     setIsProcessing(true);
-
-  
-//     const {error} = await stripe.confirmPayment({
-//       elements,
-//       confirmParams: {
-//         return_url: `${window.location.origin}/`,
-//       },
-//     });
-  
-//     if (error.code === "invalid_owner_name"){
-//       setMessage("Veillez à entrer le Prénom et le Nom");
-//     }
-
-//     console.log(error)
-//     // if (result.error) {
-//     //   console.log(result.error)
-//     // }
-//     // else {
-//     //   console.log("it work")
-//     //   dispatch(removeAll)
-//     // }
-
-//     setIsProcessing(false);
-
-//   };
-
-//   return (
-//      <form className="paymentForm" action="/create-checkout-session" method="POST">
-//       <PaymentElement id="payment-element" />
-//        <Button onClick={handleSubmit} >
-//          Payer
-//        </Button>
-//      </form>
-
-//     <div className="paymentForm">
-//       <PaymentElement />
-//       <br/>
-//       <Button onClick={handleSubmit} className="paymentButton" disabled={isProcessing}>
-//         {isProcessing ? "Action en cours ... " : "Payer"}
-//       </Button>
-
-//       {message && <div className="payment-message">{message}</div>}
-//     </div>
-//   );
-
-
-
-// -------------------------------------------------
-//  version sans client secret =>
-// -------------------------------------------------
-
-
-//   const stripe = useStripe();
-//   const elements = useElements();
-
-//   const handleSubmit = async (event) =>{
-//     event.preventDefault();
-
-//     const { error, paymentMethod } = await stripe.createPaymentMethod({
-//       type: 'card',
-//       card: elements.getElement(CardElement),
-//     });
-  
-//     if (error) {
-//       console.log('Error creating payment method:', error);
-//     } else {
-//       // send the payment method to your server to create a charge
-//       console.log('Successful payment method:', paymentMethod);
-//       axios.get(`/orders/confirm-order?orderIdentifier=${order.id}&paymentMethodIdentifier=${paymentMethod.id}`)
-//       .then(res => console.log(res))
-//       .catch(e => console.log(e))
-//     }
-//   }
-
-
-
-
-//   return (
-//     <form id="payment-form">
-//       <div className="form-row">
-//         <label>
-//           Card details
-//           <CardElement 
-//             style={{
-//               base: {
-//                 fontSize: '50px',
-//                 color: '#424770',
-//                 '::placeholder': {
-//                   color: '#aab7c4',
-//                 },
-//               },
-//               invalid: {
-//                 color: '#9e2146',
-//               },
-//             }}/>
-//         </label>
-//         <div id="card-element"></div>
-//         <div id="card-errors" role="alert"></div>
-//       </div>
-
-//       <button onClick={handleSubmit}>Submit Payment</button>
-//     </form>
-//   );
-// }
+export default PaymentForm;
