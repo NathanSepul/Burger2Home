@@ -18,10 +18,9 @@ const Filtre = ({ ValueList, SetValueList}) => {
     return (
 
         <FormGroup className="filtreCheckBox">
-
             {ValueList.values.map((value) => {
-                return <FormControlLabel key={value.id} label={value.name} labelPlacement="end"
-                    control={<Checkbox key={value.id} checked={value.checked} onChange={e => handleChangeCheck(e, value)} />} />
+                return <FormControlLabel key={value.id} label={value.name} labelPlacement="end" 
+                    control={<Checkbox size="small" key={value.id} checked={value.checked} onChange={e => handleChangeCheck(e, value)} />} />
             })}
         </FormGroup>
 

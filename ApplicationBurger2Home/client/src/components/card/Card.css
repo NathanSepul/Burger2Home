@@ -2,15 +2,25 @@
     background-color: #DEDEDE;
     min-height: calc(100vh - 100px - 100px) !important;
 }
-.categories{
-    text-align: left;
-}
 
 .globalCarte{
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.trisProducts{
+    width: fit-content;
+    float: right;
+    align-self:flex-end;
+    margin: 10px;
+}
+
+.carteContent{
+    /* margin-top: 20px; */
     display: flex;
     flex-direction: row;
 }
+
 .filtre{
     width: 250px;
     height: max-content;
@@ -22,8 +32,25 @@
     padding: 8px
 }
 
-.filtre ul {
+/* .filtre ul {
     list-style-type: none;
+} */
+
+.titleFiltre{
+    color: black !important;
+    text-decoration:underline;
+    margin-bottom: 10px;
+}
+
+.filtreCheckBox{
+    padding-left: 15px;
+}
+
+.NoResult{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+   
 }
 
 .produits{

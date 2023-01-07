@@ -8,15 +8,15 @@ import Loading from "../../loading/Loading.js"
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Filtre from "./Filtre.js"
-import "./Product.css";
+import TrisProduct from "./TrisProduct.js";
 
 const Burger = () => {
 
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [burgers, setBurgers] = useState([]);
-    const [burgersFiltred, setBurgersFiltred] = useState([]);
 
+    const [productFiltred, setProductFiltred] = useState([]);
     const [allergens, setAllergens] = useState({ values: [] })
     const [available, setAvailable] = useState({ values: [{ id: 0, name: "Disponible", checked: false }] })
     const [inPromotion, setInPromotion] = useState({ values: [{ id: 0, name: "En Promotion", checked: false }] })
@@ -32,7 +32,7 @@ const Burger = () => {
             .then((res) => {
                 let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
                 setBurgers(temp);
-                setBurgersFiltred(temp)
+                setProductFiltred(temp)
 
                 return axios.get(`/allergens/translations?language=${languageRedux.value}`)
             })
@@ -56,27 +56,28 @@ const Burger = () => {
             })
     }, [languageRedux.value])
 
+    //filtrage à proprement dis
     useEffect(() => {
-        let burgersFiltredTemp = burgers
+        let productFiltredTemp = burgers
 
         allergens.values.forEach(e => {
             if (e.checked) {
-                burgersFiltredTemp = burgersFiltredTemp.filter(bu => !bu.allergens.some(a => a === e.name))
-                setBurgersFiltred(burgersFiltredTemp)
+                productFiltredTemp = productFiltredTemp.filter(bu => !bu.allergens.some(a => a === e.name))
+                setProductFiltred(productFiltredTemp)
             }
         })
 
         if (available.values[0].checked) {
-            burgersFiltredTemp = burgersFiltredTemp.filter(bu => bu.available)
-            setBurgersFiltred(burgersFiltredTemp)
+            productFiltredTemp = productFiltredTemp.filter(bu => bu.available)
+            setProductFiltred(productFiltredTemp)
         }
 
         if (inPromotion.values[0].checked) {
-            burgersFiltredTemp = burgersFiltredTemp.filter(bu => bu.currentDiscount !== null)
-            setBurgersFiltred(burgersFiltredTemp)
+            productFiltredTemp = productFiltredTemp.filter(bu => bu.currentDiscount !== null)
+            setProductFiltred(productFiltredTemp)
         }
 
-        setBurgersFiltred(burgersFiltredTemp)
+        setProductFiltred(productFiltredTemp)
 
     }, [allergens, available, inPromotion, languageRedux.value])
 
@@ -93,26 +94,30 @@ const Burger = () => {
     else {
         return (
             <div className="globalCarte">
-                <div className="filtre">
-                    <h4>Burgers</h4>
-                    <FormControl component="fieldset" variant="outlined" className="filtreBurger">
-                        <FormLabel className="titleFiltre" component="legend">Ne contenant pas :</FormLabel>
-                        <Filtre ValueList={allergens} SetValueList={setAllergens} />
+                    <TrisProduct productFiltred={productFiltred} setProductFiltred={setProductFiltred}/>
 
-                        <FormLabel className="titleFiltre" component="legend">Disponibilité</FormLabel>
-                        <Filtre ValueList={available} SetValueList={setAvailable} />
+                <div className="carteContent">
 
-                        <FormLabel className="titleFiltre" component="legend">Promotion</FormLabel>
-                        <Filtre ValueList={inPromotion} SetValueList={setInPromotion} />
-                    </FormControl>
+                    <div className="filtre">
+                        <h4>Burgers</h4>
+                        <FormControl component="fieldset" variant="outlined" className="filtreBurger">
+                            <FormLabel className="titleFiltre" component="legend">Ne contenant pas :</FormLabel>
+                            <Filtre ValueList={allergens} SetValueList={setAllergens} />
+
+                            <FormLabel className="titleFiltre" component="legend">Disponibilité</FormLabel>
+                            <Filtre ValueList={available} SetValueList={setAvailable} />
+
+                            <FormLabel className="titleFiltre" component="legend">Promotion</FormLabel>
+                            <Filtre ValueList={inPromotion} SetValueList={setInPromotion} />
+                        </FormControl>
+                    </div>
+
+                    <section className='produits'>
+                        {productFiltred.length !== 0 ? <ProductList products={productFiltred} />
+                            : <p className="NoResult"> Aucun produit ne correspond à la selection</p>
+                        }
+                    </section>
                 </div>
-
-                <section className='produits'>
-                    {burgersFiltred.length !== 0 ? <ProductList products={burgersFiltred} />
-                        : <p className="NoResult"> Aucun produit ne correspond à la selection</p>
-                    }
-
-                </section>
             </div>
         );
     }

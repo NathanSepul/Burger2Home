@@ -43,7 +43,8 @@ const Orders = () => {
 
         axios(`/users/${userRedux.id}/orders`)
             .then(res => {
-                let temp = res.data.sort((a, b) => (a.id < b.id ? 1 : -1));
+                let temp = res.data.filter(a => a.status !== "waiting_for_payment")
+                temp = temp.sort((a, b) => (a.id < b.id ? 1 : -1));
                 temp.forEach(order => {
                     order.orderLines = order.orderLines.sort((a,b)=>(a.amount < b.amount ? 1 : -1))
                 });
