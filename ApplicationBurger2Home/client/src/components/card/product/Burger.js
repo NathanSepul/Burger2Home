@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useLayoutEffect } from "react"
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import { useDispatch } from 'react-redux';
@@ -11,16 +11,17 @@ import Filtre from "./Filtre.js"
 import TrisProduct from "./TrisProduct.js";
 
 const Burger = () => {
+    const tris = [{id:1,name:"Alphabétique"}, {id:2,name:"Prix croissant"}, {id:3,name:"Prix décroissant"}]
 
     const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [burgers, setBurgers] = useState([]);
 
-    const [productFiltred, setProductFiltred] = useState([]);
+    const [productFiltred, setProductFiltred] = useState({tab:[]});
     const [allergens, setAllergens] = useState({ values: [] })
     const [available, setAvailable] = useState({ values: [{ id: 0, name: "Disponible", checked: false }] })
     const [inPromotion, setInPromotion] = useState({ values: [{ id: 0, name: "En Promotion", checked: false }] })
-
+    const [filtre, setFiltre] = useState(1)
 
     const languageRedux = useSelector(state => state.language);
     const openSnack = { msg: "", severity: "" };
@@ -32,7 +33,7 @@ const Burger = () => {
             .then((res) => {
                 let temp = res.data.sort((a, b) => (a.name > b.name ? 1 : -1));
                 setBurgers(temp);
-                setProductFiltred(temp)
+                setProductFiltred({...productFiltred, tab:temp})
 
                 return axios.get(`/allergens/translations?language=${languageRedux.value}`)
             })
@@ -63,23 +64,45 @@ const Burger = () => {
         allergens.values.forEach(e => {
             if (e.checked) {
                 productFiltredTemp = productFiltredTemp.filter(bu => !bu.allergens.some(a => a === e.name))
-                setProductFiltred(productFiltredTemp)
+                // setProductFiltred({...productFiltred, tab:productFiltredTemp})
             }
         })
 
         if (available.values[0].checked) {
             productFiltredTemp = productFiltredTemp.filter(bu => bu.available)
-            setProductFiltred(productFiltredTemp)
+            // setProductFiltred({...productFiltred, tab:productFiltredTemp})
         }
 
         if (inPromotion.values[0].checked) {
             productFiltredTemp = productFiltredTemp.filter(bu => bu.currentDiscount !== null)
-            setProductFiltred(productFiltredTemp)
+            // setProductFiltred({...productFiltred, tab:productFiltredTemp})
+
         }
 
-        setProductFiltred(productFiltredTemp)
+        setProductFiltred({...productFiltred, tab:productFiltredTemp})
+
 
     }, [allergens, available, inPromotion, languageRedux.value])
+
+    //tris
+    useEffect(() => {
+        
+        let temp = productFiltred
+
+        let toCompare = parseInt(filtre, 10)
+
+        if(toCompare === 1) {
+            temp = temp.tab.sort((a, b) => (a.name > b.name ? 1 : -1)); // alpha
+        }
+        else if(toCompare === 2) {
+            temp = temp.tab.sort((a, b) => (a.actualPrice > b.actualPrice ? 1 : -1)); // croissant
+        }
+        else{
+            temp = temp.tab.sort((a, b) => (a.actualPrice < b.actualPrice ? 1 : -1)); //décroissantt
+        }
+        setProductFiltred({...productFiltred, tab:temp})
+
+    }, [filtre])
 
     if (hasError) {
         openSnack.msg = "Les données n'ont pas pu être chargée";
@@ -94,7 +117,7 @@ const Burger = () => {
     else {
         return (
             <div className="globalCarte">
-                    <TrisProduct productFiltred={productFiltred} setProductFiltred={setProductFiltred}/>
+                <TrisProduct tris={tris} setFiltre={setFiltre} />
 
                 <div className="carteContent">
 
@@ -113,7 +136,7 @@ const Burger = () => {
                     </div>
 
                     <section className='produits'>
-                        {productFiltred.length !== 0 ? <ProductList products={productFiltred} />
+                        {productFiltred.tab.length !== 0 ? <ProductList products={productFiltred.tab} />
                             : <p className="NoResult"> Aucun produit ne correspond à la selection</p>
                         }
                     </section>
