@@ -1,49 +1,77 @@
+
+
 import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements, ElementsConsumer, CardElement, useStripe, useElements, PaymentElement, injectStripe } from "@stripe/react-stripe-js"
+import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeAll } from '../../../redux/basketSlice.js';
-import {loginBasket} from '../../../redux/userSlice.js'
-import Loading from "../../loading/Loading.js";
+import { loginBasket } from '../../../redux/userSlice.js'
 import moment from 'moment';
-
-// import "./PaymentForm.css";
-
+import { open } from '../../../redux/snackBarSlice.js';
+import { useNavigate } from 'react-router-dom'
 
 const PaymentForm = ({ order, address, setAddress, setOrder }) => {
+  const [paymentMethodeId, setPaymentMethodeId] = useState(null);
+  const [isProcessing, setProcessingTo] = useState(false);
   const userR = useSelector(state => state.user)
-  const dispatch = useDispatch()
   const stripe = useStripe();
   const elements = useElements();
-  const [paymentMethodeId, setPaymentMethodeId] = useState(null);
+  const openSnack = { msg: "", severity: "" }
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
+  const options = ({
+    style: {
+      base: {
+        color: "#000",
+        letterSpacing: "0.03rem",
+        "::placeholder": {
+          color: "#424770"
+        }
+      },
+      invalid: {
+        color: "#d00606"
+      },
+
+    }
+  })
 
   useEffect(() => {
-    if(paymentMethodeId !== null){
+    if (paymentMethodeId !== null) {
       axios.get(`/orders/confirm-order?orderIdentifier=${order.id}&paymentMethodIdentifier=${paymentMethodeId}`)
-        .then(res =>{
+        .then(res => {
           //si le payment est confimer on vide le panier et on creer un nouveau (temporaire en fonction du back il devrait gerer ca par la suite)
           let dateTime = new Date();
           dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-          const basket = {id:null, lastUpdate:dateTime, userId :userR.id, basketLines : []}
+          const basket = { id: null, lastUpdate: dateTime, userId: userR.id, basketLines: [] }
 
-          return axios.post(`baskets`,basket)
+          return axios.post(`baskets`, basket)
         })
-        .then(res =>{
+        .then(res => {
           console.log(res)
-          const basketInformation = { basket:null,size:0}
+          const basketInformation = { basket: null, size: 0 }
           basketInformation.basket = res.data;
           dispatch(loginBasket(basketInformation))
+
+          openSnack.msg = "Le payment est accepeté"
+          openSnack.severity = "success"
+
+          dispatch(open(openSnack))
+          setProcessingTo(false);
+          navigate(`/`)
         })
-        .catch(e => console.log(e))
+        .catch(e =>{
+          console.log(e)
+          setProcessingTo(false)
+        })
     }
   }, [paymentMethodeId])
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async (e) => {
+    setProcessingTo(true)
+    e.preventDefault();
     //liaison de l'address avec la commande
+    // creation addres si inexistante
     if (address.id === null) {
       axios.post(`/addresses`, address)
         .then(res => {
@@ -69,88 +97,89 @@ const PaymentForm = ({ order, address, setAddress, setOrder }) => {
         })
 
         .then(res => setOrder(res.data))
-        .then(()=> createPM() )
-        .catch(e => console.log(e))
+        .then(() => createPM())
+        .catch(e => {
+          setProcessingTo(false);
+          console.log(e)
+        })
     }
     else {
-      let orderT = order;
+      //l'address peut avoir été modifié sur la note a livreur
+      axios.put(`/addresses`, address)
+        .then(res => {
+          let orderT = order;
 
-      orderT.addressId = address.id
+          orderT.addressId = res.data.id
 
-      let dateTime = new Date();
-      dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
-      orderT.orderDate = dateTime
+          let dateTime = new Date();
+          dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
 
-      setOrder(orderT)
+          orderT.orderDate = dateTime
 
-      //si nouvelle commande on creer sur base basket id et address id ce qui est fait au dessus ne sers que dans le cas d'un update
-      if (order.id === null) {
-        axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${address.id}`)
-          .then(res => setOrder(res.data))
-          .then(()=> createPM() )
-          .catch(e => console.log(e))
-      }
-      else {
-        axios.put(`/orders`, order)
-          .then(res => setOrder(res.data))
-          .then(()=> createPM() )
-          .catch(e => console.log(e))
-      }
+          setOrder(orderT)
 
+          if (order.id === null) {
+            return axios.get(`/orders/create-order?basketIdentifier=${userR.basket.id}&addressIdentifier=${res.data.id}`)
+          }
+          else {
+            return axios.put(`/orders`, order)
+          }
+        })
+        .then(res => setOrder(res.data))
+        .then(() => createPM())
+        .catch(e => {
+          setProcessingTo(false);
+          console.log(e)
+        })
     }
 
-   
-
   }
 
-const createPM = async () =>{
-  console.log("hhhhh")
-  const { error, paymentMethod } = await stripe.createPaymentMethod({
-    type: 'card',
-    card: elements.getElement(CardElement),
-  });
+  const createPM = async () => {
 
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardNumberElement),
+    });
 
-  if (error) {
-    console.log(error)
+    if (error) {
+      setProcessingTo(false)
+      openSnack.msg = error.message
+      openSnack.severity = "error"
+      dispatch(open(openSnack))
+    }
+    else {
+      console.log(paymentMethod)
+      setPaymentMethodeId(paymentMethod.id)
+    }
   }
-  else {
-    console.log(paymentMethod)
-    setPaymentMethodeId(paymentMethod.id)
-  }
-} 
-
-
   return (
-    <form id="payment-form">
-      <div className="form-row">
-        <label>
-          Card details
-          <CardElement
-            style={{
-              base: {
-                fontSize: '50px',
-                color: '#424770',
-                '::placeholder': {
-                  color: '#aab7c4',
-                },
-              },
-              invalid: {
-                color: '#9e2146',
-              },
-            }} />
-        </label>
-        <div id="card-element"></div>
-        <div id="card-errors" role="alert"></div>
+    <form onSubmit={handleSubmit} >
+      <label>Informations bancaire</label>
+      <br/>
+      <br/>
+      <div className="fieldPay">
+        <span>Card number</span>
+        <CardNumberElement options={options} className="inputPay"/>
+      </div>
+      <div className="fieldPay">
+        <span>Expiration date</span>
+        <CardExpiryElement options={options} className="inputPay"/>
+      </div>
+
+      <div className="fieldPay">
+        <span>CVC</span>
+        <CardCvcElement options={options} className="inputPay"/>
       </div>
 
       <div className="buttonSumForm">
-        <Button variant="contained" onClick={handleSubmit}>
-          Payer
+        <Button variant="contained" type="submit" disabled={isProcessing || !stripe}>
+          {isProcessing ? "Tentatives de payement" : "Payer"}
         </Button>
       </div>
     </form>
   );
+
 }
 
 export default PaymentForm;

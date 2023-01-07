@@ -17,46 +17,49 @@ const Summary = ({ address, setAddress, total, handleNext, order, setOrder, user
         <div className="Summary">
 
             <div className="SummaryContent">
-                <Card className="cardAddressBasket">
-                    <CardContent className="cardAddressBasketContent" >
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            {address.label}
-                        </Typography>
+                <div className="summaryAddress">
+                    <Card className="cardAddressBasket">
+                        <CardContent className="cardAddressBasketContent" >
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                {address.label}
+                            </Typography>
 
-                        <Typography variant="body2">
-                            <span>{user.firstname} {user.lastname}</span>
-                            <br />
-                            {address.extension !== null && address.extension !== "" && (
-                                <>
-                                    <span>Boite {address.extension}</span>
-                                    <br />
-                                </>
-                            )}
+                            <Typography variant="body2">
+                                <span>{user.firstname} {user.lastname}</span>
+                                <br />
+                                {address.extension !== null && address.extension !== "" && (
+                                    <>
+                                        <span>Boite {address.extension}</span>
+                                        <br />
+                                    </>
+                                )}
 
-                            <span>{address.number}, {address.street}</span>
-                            <br />
-                            <span>{address.zipcode}, {address.city}</span>
-                            <br />
-                            <span>Belgique</span>
-                            <br />
-                            <br />
-                            {address.note.length !== 0 && (
-                                <div>
-                                    <span>Note</span>
-                                    <br />
-                                    <div className="noteOrder">{address.note}</div>
-                                </div>
-                            )}
+                                <span>{address.number}, {address.street}</span>
+                                <br />
+                                <span>{address.zipcode}, {address.city}</span>
+                                <br />
+                                <span>Belgique</span>
+                                <br />
+                                <br />
+                                {address.note.length !== 0 && (
+                                    <div>
+                                        <span>Note</span>
+                                        <br />
+                                        <div className="noteOrder">{address.note}</div>
+                                    </div>
+                                )}
 
-                        </Typography>
-                    </CardContent>
-                </Card>
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </div>
+               
                 <div className="paymentResum">
 
                     <div className="addition">
                         <div className="additionPayment">
                             <div>
-                                <p className="txt1Pay">Total</p>
+                                <p className="txt1Pay">Prix</p>
                                 <p className="txt2Pay" >(htva 21%)</p>
                             </div>
 
@@ -71,7 +74,7 @@ const Summary = ({ address, setAddress, total, handleNext, order, setOrder, user
                             </div>
 
                             <div className="amountBill">
-                                {total * 0.21}&nbsp;€
+                            {total * 0.21}&nbsp;€
                             </div>
                         </div>
 
@@ -84,8 +87,20 @@ const Summary = ({ address, setAddress, total, handleNext, order, setOrder, user
                                 offerte
                             </div>
                         </div>
+                    <Divider/>
+                        <div className="additionPayment">
+                           <div>
+                                <p className="txt1Pay">Total</p>
+                            </div>
+                            <div className="amountBill">
+                            {total}&nbsp;€
+                            </div>
+                        </div>
+
                     </div>
-                    <Divider />
+                    <Divider  sx={{width:"100px",mx:"auto"}}/>
+                    <Divider  sx={{width:"100px",mx:"auto"}}/>
+                    
                     <Payement order={order} address={address} setAddress={setAddress} setOrder={setOrder} />
                 </div>
             </div>

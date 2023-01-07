@@ -13,7 +13,7 @@ const Payment = ({ order, address, setOrder, setAddress}) => {
 
   const appearance = {
     theme: 'stripe',
-    labels: 'floating'
+    labels: 'floating',
   }
 
   let options = {  appearance}
@@ -22,9 +22,7 @@ const Payment = ({ order, address, setOrder, setAddress}) => {
     axios.get(`/keys/stripe`)
       .then(res => {
         setStripePromise(loadStripe(res.data));
-        // return axios.get(`/orders/${order.id}/secret`)
       })
-      // .then(res => setClientSecret(res.data))
       .catch(e => console.log(e));
   }, []);
 

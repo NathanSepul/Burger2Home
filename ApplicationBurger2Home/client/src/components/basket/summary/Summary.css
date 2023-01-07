@@ -10,6 +10,10 @@
     margin-bottom: 20px;
 }
 
+.summaryAddress{
+    display: flex;
+    align-items: center;
+}
 .nextFromSummaryButton{
     float: right;
 }
@@ -72,9 +76,21 @@
 .amountBill{
     font-size: 1rem;
 }
-
+#card-element{
+    display: flex !important;
+    flex-direction: column !important
+}
 .buttonSumForm{
     display: flex;
     flex-direction: reverse;
     justify-content: right;
 }
+
+.fieldPay{
+    margin-bottom: 10px !important;
+}
+
+.inputPay{
+    padding-left: 10px;
+}
+
