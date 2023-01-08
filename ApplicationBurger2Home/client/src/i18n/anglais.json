@@ -1,4 +1,3 @@
-
 {
     "langue":{
         "value":"en"
@@ -52,7 +51,6 @@
         }
     },
 
-
     "concept":{
         "titre":"Our Concept",
         "gauche":{
@@ -76,7 +74,19 @@
             "nom":"Last Name",
             "prenom":"First Name",
             "anniversaire":"Date of birth",
-            "enregistrer":"Save"
+            "enregistrer":"Save",
+            "majSuccess":"The account has been updated",
+            "majError":"The update failed",
+            "erroLoad":"The data couldn't be load",
+            "boite":"Box"
+        },
+        "historique":{
+            "product":"Products",
+            "amount":"Quantity",
+            "price":"Prices",
+            "statusPaymentConfirme":"Payment recieved",
+            "StatusLivraisonCours": "In shippement",
+            "statusLivre'":"Livré"
         }
     },
 

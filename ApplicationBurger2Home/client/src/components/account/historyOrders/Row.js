@@ -8,7 +8,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import DetailTab from "./DetailTab.js";
 import axios from 'axios';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+
 const Row = ({ order }) => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(0)
 
@@ -54,12 +57,12 @@ const Row = ({ order }) => {
     else if (order.status === "payment_confirmed") {
       return (
         <>
-          <p>Payement confirmé</p>
-          <p>Livraison en cours</p>
+          <p>{t('compte.historique.statusPaymentConfirme')}</p>
+          <p>{t('compte.historique.statusLivraisonCours')}</p>
         </>)
     }
     else {
-      return "Livré"
+      return t('compte.historique.statusLivre')
     }
   }
 

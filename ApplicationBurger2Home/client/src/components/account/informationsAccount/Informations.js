@@ -71,13 +71,13 @@ const Informations = () => {
         else {
             axios.put(`/users`, user)
                 .then(res => {
-                    openSnack.msg = "Le compte a été mis à jours"
+                    openSnack.msg = t('compte.details.majSuccess')
                     openSnack.severity = "success"
                     dispatch(open(openSnack))
                 })
                 .catch(e => {
                     console.log(e)
-                    openSnack.msg = "La modification a échouée";
+                    openSnack.msg =  t('compte.details.majError')
                     openSnack.severity = "error";
                     dispatch(open(openSnack))
 
@@ -88,7 +88,7 @@ const Informations = () => {
     }
 
     if (hasError) {
-        openSnack.msg = "Les données n'ont pas pu être chargée";
+        openSnack.msg = t('compte.details.erroLoad')
         openSnack.severity = "error";
         dispatch(open(openSnack))
     }

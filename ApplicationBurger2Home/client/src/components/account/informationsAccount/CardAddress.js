@@ -5,8 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
 const CardAddress = ({ address, user, setReload }) => {
+    const { t } = useTranslation();
 
     const disableAddress = () => {
         let temp =address;
@@ -28,7 +30,7 @@ const CardAddress = ({ address, user, setReload }) => {
                     <br />
                     {address.extension !== null &(
                         <>
-                            <span>Boite {address.extension}</span>
+                            <span>{t('compte.details.boite')} {address.extension}</span>
                             <br />
                         </>
 

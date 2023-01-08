@@ -74,7 +74,19 @@
             "nom":"Nom",
             "prenom":"Prénom",
             "anniversaire":"Date de naissance",
-            "enregistrer":"Enregistrer"
+            "enregistrer":"Enregistrer",
+            "majSuccess":"Le compte a été mis à jours",
+            "majError":"La modification a échouée",
+            "erroLoad":"Les données n'ont pas pu être chargée",
+            "boite":"Boite"
+        },
+        "historique":{
+            "product":"Produit",
+            "amount":"Quantitée",
+            "price":"Prix",
+            "statusPaymentConfirme":"Payement confirmé",
+            "StatusLivraisonCours": "Livraison en cours",
+            "statusLivre'":"Livré"
         }
     },
 

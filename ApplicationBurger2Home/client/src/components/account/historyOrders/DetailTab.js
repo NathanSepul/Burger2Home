@@ -8,8 +8,11 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import RowDetail from './RowDetail.js';
+import { useTranslation } from 'react-i18next';
+
 
 const DetailTab = ({ orderLines, open }) => {
+    const { t } = useTranslation();
     return (
         <TableRow>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
@@ -19,9 +22,9 @@ const DetailTab = ({ orderLines, open }) => {
                         <Table size="small" aria-label="purchases">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell component="th" scope="row">Produit</TableCell>
-                                    <TableCell component="th" scope="row">Quantitée</TableCell>
-                                    <TableCell component="th" scope="row">Prix</TableCell>
+                                    <TableCell component="th" scope="row">{t('compte.historique.product')}</TableCell>
+                                    <TableCell component="th" scope="row">{t('compte.historique.amount')}</TableCell>
+                                    <TableCell component="th" scope="row">{t('compte.historique.price')}</TableCell>
                                 </TableRow>
                             </TableHead>
 
