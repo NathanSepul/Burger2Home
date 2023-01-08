@@ -12,8 +12,8 @@ const Basket = () => {
     const { t } = useTranslation();
     const [basket, setBasket] = useState(basketR)
     const [isLoading, setIsloading] = useState(true)
-
     useEffect(() => {
+        console.log("d")
         if (user.isConnected) {
             axios.get(`/baskets/${user.basket.id}`)
                 .then(res => {
@@ -22,8 +22,8 @@ const Basket = () => {
                 })
                 .catch(e => console.log(e))
         }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+
+    }, [user])
 
     return (
         <main className='basketMain'>

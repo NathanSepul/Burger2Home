@@ -43,7 +43,7 @@ const ProductMiniature = ({ product }) => {
         }
     
         if (!alreadyInside) {
-            let bl = {
+            let bl = { 
               id: null,
               basketId: basket.id,
               productId: basketLine.productId,

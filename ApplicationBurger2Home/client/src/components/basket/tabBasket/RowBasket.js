@@ -8,10 +8,10 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { Buffer } from "buffer";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector  } from 'react-redux';
 
 import {removeFromBasket } from '../../../redux/basketSlice.js';
-import { removeBasketLine } from '../../../redux/userSlice.js';
+import { removeBasketLine, updateQt} from '../../../redux/userSlice.js';
 
 import axios from 'axios';
 import "./RowBasket.css";
@@ -46,6 +46,7 @@ const RowBasket = ({ value, setList, list, setBill, bill }) => {
   useEffect(() => {
 
     if (!isLoading) {
+      console.log(newValue)
 
       const updatedItems = list.map(item => {
         if (item.basketLine.id === value.basketLine.id) {
@@ -74,6 +75,12 @@ const RowBasket = ({ value, setList, list, setBill, bill }) => {
     }
   }
 
+  const add = () => {
+    if (parseInt(newValue.newQuantity) + 1 <= max) {
+      setNewValue({ ...newValue, newQuantity: parseInt(newValue.newQuantity) + 1 })
+    }
+  }
+
   const onlyNumber = event => {
     if (!/[0-9]/.test(event.key)) {
       event.preventDefault();
@@ -81,19 +88,20 @@ const RowBasket = ({ value, setList, list, setBill, bill }) => {
   }
 
   const remove = () => {
-    isConnected ? dispatch(removeBasketLine(indexBl)) : dispatch(removeFromBasket(indexBl))
+
+    let newBill = bill
+    newBill = newBill - (value.basketLine.amount * Math.round(value.product.actualPrice * 100) / 100)
+    setBill(newBill)
     let i = list.findIndex(obj => obj.basketLine.id === value.basketLine.id);
     let tempL = list
-    tempL = tempL.splice(i, 1)
+    tempL.splice(i, 1)
     setList(tempL)
+
+    isConnected ? dispatch(removeBasketLine(indexBl)) : dispatch(removeFromBasket(indexBl))
   }
 
 
-  const add = () => {
-    if (parseInt(newValue.newQuantity) + 1 <= max) {
-      setNewValue({ ...newValue, newQuantity: parseInt(newValue.newQuantity) + 1 })
-    }
-  }
+  
 
 
   if (isLoading) {
