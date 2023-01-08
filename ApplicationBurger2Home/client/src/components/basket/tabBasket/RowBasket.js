@@ -10,18 +10,16 @@ import { Buffer } from "buffer";
 
 import { useDispatch, useSelector  } from 'react-redux';
 
-import {removeFromBasket } from '../../../redux/basketSlice.js';
+import {removeFromBasket,updateQuantity } from '../../../redux/basketSlice.js';
 import { removeBasketLine, updateQt} from '../../../redux/userSlice.js';
 
 import axios from 'axios';
 import "./RowBasket.css";
 
-const RowBasket = ({ value, setList, list, setBill, bill }) => {
+const RowBasket = ({ value, setList, list, setBill, bill, basket }) => {
 
-  let basket = useSelector(state => state.user.basket);
   let isConnected = useSelector(state => state.user.isConnected)
-  const indexBl = basket.basketLines.findIndex(obj => obj.id === value.basketLine.id);
-
+  const indexBl = basket.basketLines.findIndex(obj => obj.productId === value.basketLine.productId);
   const dispatch = useDispatch();
 
   let min = 1;
@@ -46,10 +44,10 @@ const RowBasket = ({ value, setList, list, setBill, bill }) => {
   useEffect(() => {
 
     if (!isLoading) {
-      console.log(newValue)
-
+      isConnected ? dispatch(updateQt(newValue)) : dispatch(updateQuantity(newValue))
+      
       const updatedItems = list.map(item => {
-        if (item.basketLine.id === value.basketLine.id) {
+        if (item.basketLine.productId === value.basketLine.productId) {
 
           return { ...item, basketLine: { ...value.basketLine, amount: newValue.newQuantity } };
         }
@@ -92,17 +90,14 @@ const RowBasket = ({ value, setList, list, setBill, bill }) => {
     let newBill = bill
     newBill = newBill - (value.basketLine.amount * Math.round(value.product.actualPrice * 100) / 100)
     setBill(newBill)
-    let i = list.findIndex(obj => obj.basketLine.id === value.basketLine.id);
+  
+    let i = list.findIndex(obj => obj.basketLine.productId === value.basketLine.productId);
     let tempL = list
     tempL.splice(i, 1)
     setList(tempL)
 
-    isConnected ? dispatch(removeBasketLine(indexBl)) : dispatch(removeFromBasket(indexBl))
+    isConnected ? dispatch(removeBasketLine(value.basketLine.productId)) : dispatch(removeFromBasket(value.basketLine.productId))
   }
-
-
-  
-
 
   if (isLoading) {
     return <></>

@@ -7,13 +7,15 @@ import StepperOrder from "./StepperOrder.js"
 import "./Basket.css";
 
 const Basket = () => {
+    
     let basketR = useSelector(state => state.basket);
     const user = useSelector(state => state.user)
+
     const { t } = useTranslation();
     const [basket, setBasket] = useState(basketR)
     const [isLoading, setIsloading] = useState(true)
+
     useEffect(() => {
-        console.log("d")
         if (user.isConnected) {
             axios.get(`/baskets/${user.basket.id}`)
                 .then(res => {
@@ -21,6 +23,9 @@ const Basket = () => {
                     setIsloading(false)
                 })
                 .catch(e => console.log(e))
+        }
+        else{
+            setIsloading(false)
         }
 
     }, [user])

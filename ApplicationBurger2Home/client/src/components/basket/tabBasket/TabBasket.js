@@ -22,11 +22,10 @@ const TabBasket = ({ basket, bill, setBill }) => {
 
     const [listBlUti, setBlUtil] = useState([])
     const [isLoading, setIsLoading] = useState(true)
-    const [reSized, setReSized] = useState({state:false, blId:0})
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get(`/products/summaries?language=${language.value}&availableProductsOnly=true&mustBeOnMenu=true`)
+            axios.get(`/products/summaries?language=${language.value}&availableProductsOnly=true&mustBeOnMenu=true`)
             .then((res) => {
                 let tempCopy = [];
                 let tempBil = 0;
@@ -43,9 +42,9 @@ const TabBasket = ({ basket, bill, setBill }) => {
                 setBlUtil(tempCopy);
                 setBill(tempBil)
                 setIsLoading(false)
-
             })
             .catch(e => console.log(e))
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [language.value])
 
@@ -67,7 +66,13 @@ const TabBasket = ({ basket, bill, setBill }) => {
                         <TableBody>
                             {listBlUti.length !== 0 ? (
                                 listBlUti.map((el) => (
-                                    <RowBasket key={el.basketLine.id} value={el} setList={setBlUtil} list={listBlUti} setBill={setBill} bill={bill} setReSized={setReSized}/>
+                                    <RowBasket  key={el.basketLine.productId}
+                                                value={el} 
+                                                setList={setBlUtil} 
+                                                list={listBlUti} 
+                                                setBill={setBill} 
+                                                bill={bill}
+                                                basket={basket}/>
                                 ))
                             ) : (
                                 <TableRow className="emptyBasket">

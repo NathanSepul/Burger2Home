@@ -9,7 +9,7 @@ const ToBasket = () => {
 
     let userConnected = useSelector(state => state.user.isConnected);
     let basketQuantityConnected = useSelector(state => state.user.basketSize) ;
-    let basketQuantityDisconnected= useSelector(state => state.basket.quantity)
+    let basketQuantityDisconnected= useSelector(state => state.basket.basketSize) ;
 
     
 

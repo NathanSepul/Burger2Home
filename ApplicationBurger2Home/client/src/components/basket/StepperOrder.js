@@ -19,22 +19,25 @@ const steps = ['Panier', 'Livraison', 'Payement'];
 const StepperOrder = ({ basket }) => {
 
   const userR = useSelector(state => state.user)
-  const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true", label:"" };
+  const initialStateAddress = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: null, active: "true", label: "" };
   const initialStateOrder = { id: null, userId: null, creditCardId: null, addressId: null, orderDate: "", orderLines: [], status: "", paymentIntent: "" }
-  
+
   const [activeStep, setActiveStep] = useState(0);
   const [address, setAddress] = useState(initialStateAddress)
   const [order, setOrder] = useState(initialStateOrder)
   const [bill, setBill] = useState(0);
-  const [user,setUser] = useState(null)
+  const [user, setUser] = useState(null)
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    axios.get(`/users/${userR.id}`)
-    .then(res => setUser(res.data))
-    .catch(e =>console.log(e))
-// eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  useEffect(() => {
+    if (userR.isConnected) {
+      axios.get(`/users/${userR.id}`)
+        .then(res => setUser(res.data))
+        .catch(e => console.log(e))
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleNext = () => {
 
@@ -80,7 +83,7 @@ const StepperOrder = ({ basket }) => {
           {(activeStep === 0) && (
             <Tooltip title="Conncetez vous pour continuer" enterDelay={700} leaveDelay={200} disableHoverListener={userR.isConnected}>
               <span>
-                <Button onClick={handleNext} disabled={!userR.isConnected || basket.basketLines.length === 0}>
+                <Button onClick={handleNext} disabled={!userR.isConnected || basket.basketSize === 0}>
                   Suivant<ArrowForwardIosRoundedIcon />
                 </Button>
               </span>
@@ -93,13 +96,13 @@ const StepperOrder = ({ basket }) => {
         <div className="stepper" >
           {activeStep === 0 && (
             <div className="basket">
-              <TabBasket basket={basket} bill={bill} setBill={setBill}/>
+              <TabBasket basket={basket} bill={bill} setBill={setBill} />
             </div>
           )}
 
           {activeStep === steps.length - 2 && (
             <div className="adresse">
-              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} user={user} basket={basket}/>
+              <Address address={address} setAddress={setAddress} handleNext={handleNext} order={order} setOrder={setOrder} user={user} basket={basket} />
             </div>
 
           )}
@@ -112,7 +115,7 @@ const StepperOrder = ({ basket }) => {
             </div>
           )}
 
-     
+
 
 
         </div>

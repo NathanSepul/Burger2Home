@@ -5,7 +5,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     isConnected: false,
-    id:null,
+    id: null,
     provider: "",
     role: "",
     basket: [],
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     login: (state, action) => {
       return state = {
         isConnected: true,
-        id:action.payload.id,
+        id: action.payload.id,
         provider: action.payload.provider,
         role: action.payload.role
 
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
     logout: state => {
       return state = {
         isConnected: false,
-        id:null,
+        id: null,
         provider: "",
         email: "",
         role: "",
@@ -34,7 +34,7 @@ export const userSlice = createSlice({
     },
     loginBasket: (state, action) => {
       state.basket = action.payload.basket;
-      if(state.basket.basketLines === null){
+      if (state.basket.basketLines === null) {
         state.basket.basketLines = []
       }
       state.basketSize = action.payload.size;
@@ -66,11 +66,13 @@ export const userSlice = createSlice({
     },
 
     removeBasketLine: (state, action) => {
-      let idBL = state.basket.basketLines[action.payload].id
-      state.basket.basketLines = [
-        ...state.basket.basketLines.slice(0, action.payload),
-        ...state.basket.basketLines.slice(action.payload + 1)];
+      let indexBl =  state.basket.basketLines.findIndex(a => a.productId === action.payload)
+      let idBL = state.basket.basketLines[indexBl].id
+      let tempL = state.basket.basketLines
+      tempL.splice(indexBl, 1)
+      state.basket.basketLines = tempL
       state.basketSize = state.basketSize - 1;
+      
       axios.delete(`/basketLines/${idBL}`)
         .then(res => console.log(res))
         .catch(e => console.log(e))
