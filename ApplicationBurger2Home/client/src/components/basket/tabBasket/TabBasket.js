@@ -8,14 +8,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import axios from "axios";
 
 import RowBasket from "./RowBasket.js";
 import "./TabBasket.css"
-import axios from "axios";
-import { useSelector } from 'react-redux';
 
 const TabBasket = ({ basket, bill, setBill }) => {
     const language = useSelector(state => state.language)
+    
+// eslint-disable-next-line
     const { t } = useTranslation();
 
     const [listBlUti, setBlUtil] = useState([])
@@ -41,6 +43,7 @@ const TabBasket = ({ basket, bill, setBill }) => {
    
             })
             .catch(e => console.log(e))
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [listBlUti.length, language.value])
 
     return (

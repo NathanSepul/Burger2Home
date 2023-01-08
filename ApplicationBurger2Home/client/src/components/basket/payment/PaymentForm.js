@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from "@stripe/react-stripe-js";
-import axios from "axios";
 import Button from '@mui/material/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginBasket } from '../../../redux/userSlice.js'
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
-import { useNavigate } from 'react-router-dom'
+import { loginBasket } from '../../../redux/userSlice.js'
+
+import axios from "axios";
 
 const PaymentForm = ({ order, address, setAddress, setOrder }) => {
   const [paymentMethodeId, setPaymentMethodeId] = useState(null);
@@ -65,6 +67,7 @@ const PaymentForm = ({ order, address, setAddress, setOrder }) => {
           setProcessingTo(false)
         })
     }
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paymentMethodeId])
 
   const handleSubmit = async (e) => {

@@ -17,6 +17,7 @@ import axios from 'axios';
 import "./Orders.css";
 
 const Orders = () => {
+    
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(4);
     const [hasError, setHasError] = useState(false);
@@ -55,7 +56,7 @@ const Orders = () => {
             .catch(() => {
                 setHasError(true);
             });
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (hasError) {

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
-import { open } from '../../../redux/snackBarSlice.js';
-import ProductList from "../productInformation/ProductList.js";
-import Loading from "../../loading/Loading.js";
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-import Filtre from "./Filtre.js"
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import TrisProduct from "./TrisProduct.js";
+import { useDispatch, useSelector} from 'react-redux';
+import { open } from '../../../redux/snackBarSlice.js';
+import axios from 'axios';
 
+import Filtre from "./Filtre.js"
+import TrisProduct from "./TrisProduct.js";
+import ProductList from "../productInformation/ProductList.js";
+import Loading from "../../loading/Loading.js";
 
 const SideBurger = () => {
     const tris = [{ id: 1, name: "Alphabétique" }, { id: 2, name: "Prix croissant" }, { id: 3, name: "Prix décroissant" }]
@@ -54,6 +53,7 @@ const SideBurger = () => {
             .catch(() => {
                 setHasError(true);
             })
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [languageRedux.value])
 
     // filtre à proprement dit
@@ -79,6 +79,7 @@ const SideBurger = () => {
 
         setProductFiltred({ ...productFiltred, tab: productFiltredTemp })
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allergens, available, inPromotion, languageRedux.value])
 
     //tris
@@ -98,7 +99,7 @@ const SideBurger = () => {
             temp = temp.tab.sort((a, b) => (a.actualPrice < b.actualPrice ? 1 : -1)); //décroissantt
         }
         setProductFiltred({ ...productFiltred, tab: temp })
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filtre])
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import Dialog from '@mui/material/Dialog';
@@ -6,7 +6,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from "@mui/material/Button";
-import axios from 'axios';
 
 import { useTranslation } from "react-i18next";
 
@@ -15,7 +14,7 @@ import "./AllergensDialog.css";
 const AllergensDialog = ({ product }) => {
     const { t } = useTranslation();
     const [openDialog, setOpenDialog] = useState(false);
-    const [allergens, setAllergen] = useState(product.allergens);
+    const allergens = product.allergens;
 
 
     return (

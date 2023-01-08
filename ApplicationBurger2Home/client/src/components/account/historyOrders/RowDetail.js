@@ -11,14 +11,13 @@ const RowDetail = ({ line }) => {
     const [productName, setProductName] = useState("");
     const [price, setPrice] = useState(0);
 
-
     useEffect(() => {
         if (line.promotionId !== null) {
-            const request1 = axios.get(`/products/${line.productId}/translations?language=${language.value}`)
-            const request2 = axios.get(`/prices/${line.priceId}`)
-            const request3 = axios.get(`/promotions/${line.promotionId}`);
+            const req1 = axios.get(`/products/${line.productId}/translations?language=${language.value}`)
+            const req2 = axios.get(`/prices/${line.priceId}`)
+            const req3 = axios.get(`/promotions/${line.promotionId}`);
 
-            axios.all([request1, request2, request3])
+            axios.all([req1, req2, req3])
                 .then(
                     axios.spread((...res) => {
                         setProductName(res[0].data[0].name)
@@ -40,7 +39,7 @@ const RowDetail = ({ line }) => {
                 .catch(e => console.log(e))
         }
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [line.id, language.value])
 
 

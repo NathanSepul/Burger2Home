@@ -54,6 +54,7 @@ const Burger = () => {
             .catch(() => {
                 setHasError(true);
             })
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [languageRedux.value])
 
     // filtre à proprement dit
@@ -79,6 +80,7 @@ const Burger = () => {
 
         setProductFiltred({ ...productFiltred, tab: productFiltredTemp })
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allergens, available, inPromotion, languageRedux.value])
 
     //tris
@@ -98,7 +100,8 @@ const Burger = () => {
             temp = temp.tab.sort((a, b) => (a.actualPrice < b.actualPrice ? 1 : -1)); //décroissantt
         }
         setProductFiltred({ ...productFiltred, tab: temp })
-
+        
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filtre])
 
     if (hasError) {

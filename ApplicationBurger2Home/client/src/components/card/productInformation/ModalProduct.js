@@ -38,6 +38,7 @@ const ModalProduct = ({ product, updateBasketLine, isConnected }) => {
             .catch(e => {
                 console.error(e);
             })
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const dispatch = useDispatch();

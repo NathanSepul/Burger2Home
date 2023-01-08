@@ -1,19 +1,18 @@
-import React, { startTransition, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
-import axios from 'axios';
-import FormControl from '@mui/material/FormControl';
 import InputAdornment from '@mui/material/InputAdornment';
-import { useSelector, useDispatch } from 'react-redux';
-import { open } from '../../../redux/snackBarSlice.js';
-import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 import 'dayjs/locale/fr';
-import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { useSelector, useDispatch } from 'react-redux';
+import { open } from '../../../redux/snackBarSlice.js';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+
 import ProductsTransfert from "./ProductsTransfert.js";
 
 const FormPromo = ({ pS, setPS, setReloadList }) => {
@@ -29,8 +28,9 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
     const [productList, setProductList] = useState([]);
 
     // eslint-disable-next-line
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);   
 
+    // eslint-disable-next-line 
     const languageRedux = useSelector(state => state.language)
     const openSnack = { msg: "", severity: "" }
     const { t } = useTranslation();
@@ -139,6 +139,7 @@ const FormPromo = ({ pS, setPS, setReloadList }) => {
         e.preventDefault()
     }
 
+// eslint-disable-next-line 
     const checkSecondDate = (newValue) =>{
 
         const date1 = new Date(dates.startDate);

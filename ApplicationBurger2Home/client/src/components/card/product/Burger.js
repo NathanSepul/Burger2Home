@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useLayoutEffect } from "react"
+import React, { useState, useEffect } from "react"
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
-import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
-import ProductList from "../productInformation/ProductList.js";
-import Loading from "../../loading/Loading.js"
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+
+import Loading from "../../loading/Loading.js"
+import ProductList from "../productInformation/ProductList.js";
 import Filtre from "./Filtre.js"
 import TrisProduct from "./TrisProduct.js";
 
@@ -55,6 +55,7 @@ const Burger = () => {
             .catch(() => {
                 setHasError(true);
             })
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [languageRedux.value])
 
     //filtrage à proprement dis
@@ -82,6 +83,7 @@ const Burger = () => {
         setProductFiltred({...productFiltred, tab:productFiltredTemp})
 
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allergens, available, inPromotion, languageRedux.value])
 
     //tris
@@ -101,7 +103,8 @@ const Burger = () => {
             temp = temp.tab.sort((a, b) => (a.actualPrice < b.actualPrice ? 1 : -1)); //décroissantt
         }
         setProductFiltred({...productFiltred, tab:temp})
-
+        
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filtre])
 
     if (hasError) {

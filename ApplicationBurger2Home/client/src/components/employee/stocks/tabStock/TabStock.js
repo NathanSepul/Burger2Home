@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,11 +10,11 @@ import TablePagination from '@mui/material/TablePagination';
 import { useTranslation } from 'react-i18next';
 
 import RowStock from "./RowStock.js";
-// import "./TabStock.css";
 
 const TabStock = ({ ingredientsStock, setReloadList }) => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+// eslint-disable-next-line
     const { t } = useTranslation();
 
     const handleChangePage = (event, newPage) => {

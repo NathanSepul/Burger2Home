@@ -2,16 +2,12 @@ import React from "react"
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Payement from "../payment/Payment.js"
 import Divider from '@mui/material/Divider';
 
+import Payement from "../payment/Payment.js"
 import "./Summary.css"
 
 const Summary = ({ address, setAddress, total, handleNext, order, setOrder, user }) => {
-
-    const confimation = () => {
-        handleNext();
-    }
 
     return (
         <div className="Summary">

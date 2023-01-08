@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react"
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,7 +9,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Switch from '@mui/material/Switch';
 import axios from 'axios';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import { useSelector, useDispatch } from 'react-redux';
 import { Buffer } from "buffer";
@@ -35,7 +33,7 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
     const [productImg, setProductImg] = useState(initialStateImg);
     const [typeList, setTypeList] = useState();
     const [ingredientList, setIngredientList] = useState([]);
-    const [allTypeTranslation, setAllTypeTranslation] = useState({ en: [], fr: [] })
+    // const [allTypeTranslation, setAllTypeTranslation] = useState({ en: [], fr: [] })
 
     const fileInput = useRef(null);
 
@@ -60,14 +58,14 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
             tempEnType = tempEnType.sort((a, b) => a.name > b.name ? 1 : -1)
             tempFrType = tempFrType.sort((a, b) => a.name > b.name ? 1 : -1)
 
-            setAllTypeTranslation({ en: tempEnType, fr: tempFrType });
+            // setAllTypeTranslation({ en: tempEnType, fr: tempFrType });
 
             languageRedux.value === "EN" ? setTypeList(tempEnType) : setTypeList(tempFrType)
 
             setIsLoading(false)
         })
         .catch(e => console.log(e))
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 
@@ -327,12 +325,6 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
         e.preventDefault();
     }
 
-    const errorInput = (error) => {
-        let errorReturn;
-        error.onError ? errorReturn = error.msg : errorReturn = ""
-        return errorReturn;
-    }
-
     return (
         <Box
             component='form'
@@ -397,8 +389,7 @@ const ProductForm = ({ ps, setPS, setReloadList }) => {
 
             <div className="Img">
                 {productImg.img === null && productImg.toLoad === false ?
-                    <img className="imgForm" />
-
+                    <img className="imgForm" alt=""/>
                     :
                     <img className="imgForm" src={productImg.img} alt={productSelected.imageName} />
                 }

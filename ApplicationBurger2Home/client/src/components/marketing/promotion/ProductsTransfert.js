@@ -7,10 +7,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+import axios from 'axios';
 
 function not(a, b) {
     return a.filter((value) => b.indexOf(value) === -1);
@@ -31,6 +31,7 @@ const ProductsTransfert = ({ ps, setProductList }) => {
     const [outside, setOutside] = useState([]);
     const [inside, setInside] = useState([initialState]);
 
+    // eslint-disable-next-line
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -129,7 +130,7 @@ const ProductsTransfert = ({ ps, setProductList }) => {
 
         let tempCh = not(checked, outsideChecked)
         tempCh = tempCh.sort((a,b)=>(a.name > b.name ? 1 : -1))
-        setChecked(not(checked, outsideChecked));
+        setChecked(tempCh);
     };
 
     const handleCheckedLeft = () => {

@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import { textTransform } from "@mui/system";
 
 const Filtre = ({ ValueList, SetValueList}) => {
 

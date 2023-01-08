@@ -10,7 +10,6 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import { useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip'
 import TabBasket from "./tabBasket/TabBasket.js";
-// import Payement from './payment/Payment.js';
 import Summary from './summary/Summary.js'
 import Address from "./address/Address.js";
 import axios from 'axios';
@@ -34,6 +33,7 @@ const StepperOrder = ({ basket }) => {
     axios.get(`/users/${userR.id}`)
     .then(res => setUser(res.data))
     .catch(e =>console.log(e))
+// eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleNext = () => {

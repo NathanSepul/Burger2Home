@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react"
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import axios from "axios";
 import TabStock from "./tabStock/TabStock.js";
+import Loading from "../../loading/Loading.js";
 import "./Stocks.css";
-import { useTranslation } from 'react-i18next';
-import Loading from "../../loading/Loading.js"
+
 const Stocks = () => {
 
-    const initialState = { id: null, ingredientId: null, amount: null, creationDate: "" };
     const [ingredientsStock, setIngredientsStock] = useState([]);
-    const [ingSelected, setIngSelected] = useState(initialState);
     const [reloadList, setReloadList] = useState(false)
-    // eslint-disable-next-line
     const [isLoading, setIsLoading] = useState(true);
 
     const languageRedux = useSelector(state => state.language);
+    
+    // eslint-disable-next-line
     const { t } = useTranslation();
 
     useEffect(() => {

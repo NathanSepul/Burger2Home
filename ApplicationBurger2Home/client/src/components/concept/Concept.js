@@ -1,6 +1,6 @@
 import React from 'react';
-import "./Concept.css";
 import { useTranslation } from 'react-i18next';
+import "./Concept.css";
 
 const Concept = () => {
     const { t } = useTranslation();

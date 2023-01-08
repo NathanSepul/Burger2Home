@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, ElementsConsumer, CardElement } from "@stripe/react-stripe-js"
+import {Elements} from "@stripe/react-stripe-js"
 import PaymentForm from "./PaymentForm.js"
 import Loading from "../../loading/Loading.js"
 import axios from "axios";
@@ -9,7 +9,7 @@ import axios from "axios";
 const Payment = ({ order, address, setOrder, setAddress}) => {
 
   const [stripePromise, setStripePromise] = useState(null);
-  const [clientSecret, setClientSecret] = useState(null);
+  // const [clientSecret, setClientSecret] = useState(null);
 
   const appearance = {
     theme: 'stripe',

@@ -23,6 +23,7 @@ const RowProduct = ({ product, setProductSelected }) => {
       .catch(e => {
         console.error(e);
       })   
+// eslint-disable-next-line react-hooks/exhaustive-deps
   },[product.imageName])
   
   return (

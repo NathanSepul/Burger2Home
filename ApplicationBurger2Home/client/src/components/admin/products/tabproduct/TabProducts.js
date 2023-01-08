@@ -14,7 +14,7 @@ import "./TabProducts.css"
 
 const TabProducts = ({ products, setProductSelected }) => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const [rowsPerPage, setRowsPerPage] = useState(7);
     const { t } = useTranslation();
 
     const handleChangePage = (event, newPage) => {
@@ -25,10 +25,6 @@ const TabProducts = ({ products, setProductSelected }) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
-
-
-
 
     return (
         <>

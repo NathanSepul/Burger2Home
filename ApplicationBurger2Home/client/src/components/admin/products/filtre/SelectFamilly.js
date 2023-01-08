@@ -1,5 +1,5 @@
 import React,{ useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
@@ -8,7 +8,6 @@ const SelectFamilly = ({setTypeId}) => {
     // const initType = <option key="0" value="">All</option>;
     const [typeList, setTypeList] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [hasError, setHasError] = useState(false);
 
     const [allTypeTranslation, setAllTypeTranslation] = useState({en:[], fr:[]})
     const languageRedux = useSelector(state => state.language);
@@ -32,13 +31,15 @@ const SelectFamilly = ({setTypeId}) => {
                 languageRedux.value === "EN" ? setTypeList(tempEn) : setTypeList(tempFr)
 
             })
-            .catch(() => {
-                setHasError(true);
+            .catch((e) => {
+                console.log(e)
             })
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(()=>{
         languageRedux.value === "EN" ? setTypeList(allTypeTranslation.en) : setTypeList(allTypeTranslation.fr)
+// eslint-disable-next-line react-hooks/exhaustive-deps
     },[languageRedux.value])
     
     const changeFammillyHandler = (e) => {

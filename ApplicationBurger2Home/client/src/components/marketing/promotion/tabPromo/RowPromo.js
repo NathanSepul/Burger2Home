@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-import axios from 'axios';
-import SaveIcon from '@mui/icons-material/Save';
-import IconButton from '@mui/material/IconButton';
-import moment, { relativeTimeRounding } from 'moment';
+import TableRow from '@mui/material/TableRow';;
 
 const RowPromo = ({ promo, setPromoSelected }) => {
 
@@ -20,6 +15,7 @@ const RowPromo = ({ promo, setPromoSelected }) => {
         else {
             setDescription(promo.tradEn)
         }
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [languageRedux.value])
 
     const set = () => {

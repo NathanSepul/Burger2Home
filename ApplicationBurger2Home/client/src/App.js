@@ -48,6 +48,7 @@ useEffect(()=>{
       })
       .catch(e => console.log(e))
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[]) 
 
   return (

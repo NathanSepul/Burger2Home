@@ -8,11 +8,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import axios from 'axios';
 import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { open } from '../../../redux/snackBarSlice.js';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 
 const FormRoles = ({ uS, setUS, roles, setReloadList }) => {
 
@@ -20,7 +18,6 @@ const FormRoles = ({ uS, setUS, roles, setReloadList }) => {
     // eslint-disable-next-line
     const [isLoading, setIsLoading] = useState(true);
 
-    const languageRedux = useSelector(state => state.language)
     const openSnack = { msg: "", severity: "" }
     const { t } = useTranslation();
 
@@ -30,6 +27,7 @@ const FormRoles = ({ uS, setUS, roles, setReloadList }) => {
 
     useEffect(() => {
         setUserSelecteted(uS)
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uS.id])
 
 
@@ -113,7 +111,6 @@ const FormRoles = ({ uS, setUS, roles, setReloadList }) => {
                                     control={<Checkbox key={role.id} checked={isCheckedRole(role.id)} onChange={() => handleChangeCheck(role)}
                                     />}
                                 />
-                                console.log(role)
                             })}
                         </FormGroup>
                     </FormControl>

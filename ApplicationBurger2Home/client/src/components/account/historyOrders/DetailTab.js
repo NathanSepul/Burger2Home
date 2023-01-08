@@ -8,7 +8,6 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import RowDetail from './RowDetail.js';
-import { listItemIconClasses } from '@mui/material';
 
 const DetailTab = ({ orderLines, open }) => {
     return (

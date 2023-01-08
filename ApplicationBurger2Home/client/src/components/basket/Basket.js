@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
-
-import { useSelector, useDispatch } from 'react-redux';
-import StepperOrder from "./StepperOrder.js"
-import "./Basket.css";
 import axios from "axios";
+import { useSelector} from 'react-redux';
+import StepperOrder from "./StepperOrder.js"
+
+import "./Basket.css";
 
 const Basket = () => {
     let basketR = useSelector(state => state.basket);
@@ -22,7 +22,7 @@ const Basket = () => {
                 })
                 .catch(e => console.log(e))
         }
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

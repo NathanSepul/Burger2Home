@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
@@ -29,7 +29,7 @@ const RowStock = ({ ingredient, setReloadList }) => {
             let dateTime = new Date();
             dateTime = moment(dateTime, 'YYYY-MM-DD HH:mm:ss').format('YYYY-MM-DD HH:mm:ss');
             setStock({ ...stock, creationDate: dateTime })
-console.log(stock)
+
             axios.put(`/stocks`, stock)
                 .then(() => {
 

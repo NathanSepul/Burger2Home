@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -14,7 +14,8 @@ import "./TabRoles.css";
 
 const TabRoles = ({ users, setUserSelected }) => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const [rowsPerPage, setRowsPerPage] = useState(7);
+// eslint-disable-next-line 
     const { t } = useTranslation();
 
     const handleChangePage = (event, newPage) => {

@@ -8,7 +8,6 @@ import Informations from './informationsAccount/Informations.js';
 import Commandes from './historyOrders/Orders.js';
 import "./Account.css";
 
-
 function Account() {
     const { t } = useTranslation();
 

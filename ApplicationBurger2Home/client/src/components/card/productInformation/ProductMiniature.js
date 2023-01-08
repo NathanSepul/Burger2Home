@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -17,7 +17,6 @@ const ProductMiniature = ({ product }) => {
 
     let userConnected = useSelector(state => state.user.isConnected);
     let basket = useSelector(state => state.user.basket);
-    let basketSize = useSelector(state => state.user.basketSize);
 
     const dispatch = useDispatch();
 

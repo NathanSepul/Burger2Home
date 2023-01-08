@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
@@ -13,8 +13,6 @@ import ModalChangePassword from '../../password/ModalChangePassword.js';
 import LogoutWithGoogle from "../../login/service/LogoutWithGoogle.js"
 import CardAddress from './CardAddress.js';
 import axios from 'axios';
-
-
 
 import "./Informations.css";
 
@@ -60,6 +58,7 @@ const Informations = () => {
             .catch(e => {
                 console.log(e)
             })
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [relaod])
 
     const validationFormulaire = (event) => {

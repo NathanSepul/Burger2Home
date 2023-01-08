@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import "./Promotion.css"
 
 const Promotion = () =>{
+// eslint-disable-next-line 
     const { t } = useTranslation();
     const [promos, setPromos] = useState([]);
     const [promoSelected, setPromoSelected] = useState([]);

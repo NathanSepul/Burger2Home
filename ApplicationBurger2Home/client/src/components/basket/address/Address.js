@@ -18,6 +18,7 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
 
   const initialState = { id: null, city: "", zipcode: "", street: "", number: "", extension: null, note: "", userId: userR.id, active: "true", label: "" };
 
+// eslint-disable-next-line
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -69,6 +70,8 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
         setIsloading(false)
       })
       .catch(e => console.log(e))
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userR.id])
 
 
@@ -83,7 +86,8 @@ const Address = ({ address, setAddress, handleNext, order, setOrder, user, baske
         setAddress(tempAd[0]);
       }
     }
-
+    
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addressList])
 
   const addrCompleted = () => {

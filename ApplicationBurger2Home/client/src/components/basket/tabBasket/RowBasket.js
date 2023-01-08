@@ -10,11 +10,11 @@ import { Buffer } from "buffer";
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateQuantity, removeFromBasket } from '../../../redux/basketSlice.js';
-import { updateQt, removeBasketLine } from '../../../redux/userSlice.js';
+import {removeFromBasket } from '../../../redux/basketSlice.js';
+import { removeBasketLine } from '../../../redux/userSlice.js';
 
-import "./RowBasket.css";
 import axios from 'axios';
+import "./RowBasket.css";
 
 const RowBasket = ({ value, setList, list, setBill, bill }) => {
 
@@ -64,7 +64,8 @@ const RowBasket = ({ value, setList, list, setBill, bill }) => {
       setBill(newBill);
       setList(updatedItems)
     }
-
+    
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newValue.newQuantity])
 
   const handleSetQunatity = event => {

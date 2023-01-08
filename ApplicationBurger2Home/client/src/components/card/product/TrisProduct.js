@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
-import { isFulfilled } from "@reduxjs/toolkit";
+import React from "react";
+
 
 const TrisProduct = ({tris, setFiltre}) => {
 

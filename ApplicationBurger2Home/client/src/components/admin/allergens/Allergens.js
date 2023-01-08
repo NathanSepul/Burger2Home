@@ -13,7 +13,6 @@ const Allergens = () =>{
     const [allergenSelected, setAllergenSelected] = useState(initialState);
     const [reloadList,setReloadList] = useState(false)
     // eslint-disable-next-line
-    const [hasError, setHasError] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     const languageRedux = useSelector(state => state.language);
@@ -28,8 +27,8 @@ const Allergens = () =>{
                 setAllergens(temp);
                 setReloadList(false)
             })
-            .catch(() => {
-                setHasError(true);
+            .catch((e) => {
+                console.log(e)
             })
     }, [languageRedux.value,reloadList])
 
@@ -46,8 +45,6 @@ const Allergens = () =>{
                     <FormAllergens AS={allergenSelected} setAS={setAllergenSelected} setReloadList={setReloadList}/>
                 </div>
             </div>
-
-
 
         </main>
     );

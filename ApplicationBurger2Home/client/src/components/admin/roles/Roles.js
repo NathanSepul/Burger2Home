@@ -1,5 +1,4 @@
 import React, {useState, useEffect}from "react"
-import { useSelector } from "react-redux";
 import axios from "axios";
 import TabRoles from "./tabRoles/TabRoles.js";
 import FormRoles from "./FormRoles.js";
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import "./Roles.css"
 
 const Roles = () =>{
+// eslint-disable-next-line
     const { t } = useTranslation();
     const [users, setUsers] = useState([]);
     const [userSelected, setUserSelected] = useState({ id: null });
@@ -16,8 +16,6 @@ const Roles = () =>{
     
     // eslint-disable-next-line
     const [isLoading, setIsLoading] = useState(true);
-
-    const languageRedux = useSelector(state => state.language);
 
     useEffect(() => {
         setIsLoading(true);
